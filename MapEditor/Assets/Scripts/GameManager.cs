@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private string blockType;
-
+    public GameObject orgBlock;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +16,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (blockType == "org")
-            Debug.Log("org");
-        else if (blockType == "arw")
-            Debug.Log("arw");
+        int layerMask = 1 << LayerMask.NameToLayer("MouseTarget");
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+
+        if(Physics.Raycast(ray, out hitInfo, 100f, layerMask))
+        {
+            Destroy(GameObject.Find("Cube(Clone)"));
+            Instantiate(orgBlock, new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z)), Quaternion.identity);
+        }
     }
 
     public void setBlockType(string blockType)

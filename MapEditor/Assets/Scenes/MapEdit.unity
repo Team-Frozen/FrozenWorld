@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44617975, g: 0.49595773, b: 0.5745679, a: 1}
+  m_IndirectSpecularColor: {r: 0.44617975, g: 0.4959578, b: 0.57456803, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1052,7 +1052,7 @@ GameObject:
   - component: {fileID: 1251959456}
   - component: {fileID: 1251959455}
   - component: {fileID: 1251959454}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1754,8 +1754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5deed4b5f17db8543a926e0b7ff7354f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStage: 0
-  moves: 0
+  orgBlock: {fileID: 7691964977813003158, guid: 43adf2a100168dd4f9bea3358121cf42,
+    type: 3}
 --- !u!4 &2020835973
 Transform:
   m_ObjectHideFlags: 0
