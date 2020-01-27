@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private string blockType;
-    public GameObject orgBlock;
+    private GameObject ghostBlock;  //
+    public GameObject orgGhost;     //Prefab
+    public GameObject orgBlock;     //Prefab
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,15 +19,27 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0) && ghostBlock != null)
+        {
+            Instantiate(orgBlock, ghostBlock.transform.position, Quaternion.identity);
+            Destroy(ghostBlock);
+        }
+
         int layerMask = 1 << LayerMask.NameToLayer("MouseTarget");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
-        if(Physics.Raycast(ray, out hitInfo, 100f, layerMask))
+        if (Physics.Raycast(ray, out hitInfo, 100f, layerMask))
         {
-            Destroy(GameObject.Find("Cube(Clone)"));
-            Instantiate(orgBlock, new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z)), Quaternion.identity);
+            if (ghostBlock == null)
+                ghostBlock = Instantiate(orgGhost, new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z)), Quaternion.identity);
+            else
+                ghostBlock.transform.position = new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z));
         }
+        else
+            Destroy(ghostBlock);
+
+
     }
 
     public void setBlockType(string blockType)

@@ -1754,6 +1754,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5deed4b5f17db8543a926e0b7ff7354f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  orgGhost: {fileID: 7479072608303636672, guid: 7d03032810e0ef44e85f79c2c4d4b410,
+    type: 3}
   orgBlock: {fileID: 7691964977813003158, guid: 43adf2a100168dd4f9bea3358121cf42,
     type: 3}
 --- !u!4 &2020835973
