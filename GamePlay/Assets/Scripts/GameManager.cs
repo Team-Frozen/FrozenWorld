@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         movesText.text = playerMoves.ToString();
     }
 
-    public void ChangeScene_Stage()
+    public void ChangeScene()
     {
         SceneManager.LoadScene(currentStage + 1);
     }

@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public GameManager manager;
+    public Vector3 direction;
     Rigidbody rigid;
-    Vector3 direction, view;
+    Vector3 view;
     float maxVelocity = 20f;
     float h, v;
 
@@ -28,10 +29,11 @@ public class Player : MonoBehaviour
             if (h == 0 || v == 0)
             {
                 direction = new Vector3(h, 0, v);       //player의 실제 이동 방향 설정
-                view = new Vector3(-v, 0, h);           //player가 바라보는 방향 설정
+                view = new Vector3(-v, 0, h);           //(수정필요)player가 바라보는 방향 설정
                 rigid.AddForce(direction, ForceMode.Impulse);
             }
         }
+        //player, maxVelocity까지 가속
         else if (rigid.velocity.sqrMagnitude < maxVelocity)
         {
             //player 회전
@@ -47,13 +49,5 @@ public class Player : MonoBehaviour
     {
         rigid.velocity = Vector3.zero;
         manager.playerMoves++;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Finish"))
-        {
-            SceneManager.LoadScene(manager.currentStage + 1);
-        }
     }
 }

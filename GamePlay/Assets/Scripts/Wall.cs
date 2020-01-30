@@ -15,15 +15,15 @@ public class Wall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
+    //Player와 충돌 시 속도 0
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             player.SetVelocityZero();
-            Debug.Log("collision with player");
         }
     }
 }
