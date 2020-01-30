@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody rigid;
-    Vector3 vec_dir;
-    float maxVelocity = 20f;
     public GameManager manager;
-    float h = 0;
-    float v = 0;
+    Rigidbody rigid;
+    Vector3 direction, view;
+    float maxVelocity = 20f;
+    float h, v;
 
     void Start()
     {
@@ -19,25 +18,35 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (rigid.velocity == Vector3.zero)     //속도가 0일 때만 이동
+        //속도가 0일 때만 이동
+        if (rigid.velocity == Vector3.zero)
         {
             h = Input.GetAxisRaw("Horizontal");
             v = Input.GetAxisRaw("Vertical");
 
-            if (h == 0 || v == 0)       //수직, 수평 동시에 눌린 경우 제외
+            //수직, 수평 동시에 눌린 경우 제외
+            if (h == 0 || v == 0)
             {
-                vec_dir = new Vector3(h, 0, v);
-                rigid.AddForce(vec_dir, ForceMode.Impulse);
-                manager.moves++;
+                direction = new Vector3(h, 0, v);       //player의 실제 이동 방향 설정
+                view = new Vector3(-v, 0, h);           //player가 바라보는 방향 설정
+                rigid.AddForce(direction, ForceMode.Impulse);
             }
         }
         else if (rigid.velocity.sqrMagnitude < maxVelocity)
-            rigid.AddForce(vec_dir, ForceMode.Impulse);
+        {
+            //player 회전
+            Quaternion q = Quaternion.LookRotation(view);
+            transform.rotation = q;
+
+            //player 가속
+            rigid.AddForce(direction, ForceMode.Impulse);
+        }
     }
 
     public void SetVelocityZero()
     {
         rigid.velocity = Vector3.zero;
+        manager.playerMoves++;
     }
 
     void OnTriggerEnter(Collider other)

@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public int currentStage;
-    public int moves;
-
-    // Start is called before the first frame update
-    void Start()
+    public int playerMoves;
+    public int minMoves;
+    public Text movesText;
+    
+    void Awake()
     {
-        
+        movesText.text = "0";
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        movesText.text = playerMoves.ToString();
     }
 
     public void ChangeScene_Stage()
