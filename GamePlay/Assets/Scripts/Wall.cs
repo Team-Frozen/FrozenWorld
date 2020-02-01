@@ -4,19 +4,7 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    public Player player;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] Player player;
 
     //Player와 충돌 시 속도 0
     void OnCollisionEnter(Collision other)

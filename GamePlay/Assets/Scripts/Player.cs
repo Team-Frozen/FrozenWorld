@@ -5,49 +5,58 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public GameManager manager;
-    public Vector3 direction;
+    public static bool canMove = true;
     Rigidbody rigid;
-    Vector3 view;
-    float maxVelocity = 20f;
-    float h, v;
+    RaycastHit hit;
+    [HideInInspector] public Vector3 direction;
+    [SerializeField] float moveSpeed;
+    int layerMask;
 
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
+        layerMask = (1 << LayerMask.NameToLayer("Block")) | (1 << LayerMask.NameToLayer("Wall"));
     }
-
-    void Update()
+    
+    void FixedUpdate()
     {
         //속도가 0일 때만 이동
-        if (rigid.velocity == Vector3.zero)
+        if (canMove && (rigid.velocity == Vector3.zero))
         {
-            h = Input.GetAxisRaw("Horizontal");
-            v = Input.GetAxisRaw("Vertical");
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+            
+            SetDirection(new Vector3(h, 0, v));
 
-            //수직, 수평 동시에 눌린 경우 제외
-            if (h == 0 || v == 0)
+            //수직 또는 수평 키를 누른 경우 & 이동하는 방향에 물체가 없는 경우 이동
+            if ((h * v == 0) && !(h == 0 && v == 0) && !Physics.Raycast(transform.position, direction, out hit, 0.5f, layerMask))
             {
-                direction = new Vector3(h, 0, v);       //player의 실제 이동 방향 설정
-                view = new Vector3(-v, 0, h);           //(수정필요)player가 바라보는 방향 설정
-                rigid.AddForce(direction, ForceMode.Impulse);
+                TryMove(h, v);   
             }
         }
-        //player, maxVelocity까지 가속
-        else if (rigid.velocity.sqrMagnitude < maxVelocity)
-        {
-            //player 회전
-            Quaternion q = Quaternion.LookRotation(view);
-            transform.rotation = q;
+    }
 
-            //player 가속
-            rigid.AddForce(direction, ForceMode.Impulse);
-        }
+    void TryMove(float h, float v)
+    {
+        //움직인 횟수 + 1
+        StageManager.playerMoves++;
+
+        //player 이동 방향으로 회전
+        Quaternion q = Quaternion.LookRotation(new Vector3(-v, 0, h));
+        transform.rotation = q;
+
+        //player 가속
+        rigid.AddForce(direction * moveSpeed, ForceMode.Impulse);
     }
 
     public void SetVelocityZero()
     {
+        //SetDirection(Vector3.zero);
         rigid.velocity = Vector3.zero;
-        manager.playerMoves++;
+    }
+
+    void SetDirection(Vector3 dir)
+    {
+        direction = dir;
     }
 }

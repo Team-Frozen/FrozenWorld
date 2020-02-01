@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int currentStage;
-    public int playerMoves;
-    public int minMoves;
-    public Text movesText;
+    int currentScene;
     
-    void Awake()
+    void Start()
     {
-        movesText.text = "0";
-    }
-    
-    void Update()
-    {
-        movesText.text = playerMoves.ToString();
+        currentScene = SceneManager.GetActiveScene().buildIndex;
+        //DontDestroyOnLoad(gameObject);
     }
 
-    public void ChangeScene()
+    public void ChangeScene(int buildIndex)
     {
-        SceneManager.LoadScene(currentStage + 1);
+        SceneManager.LoadScene(buildIndex);
+        currentScene = buildIndex;
+    }
+
+    public void SelectStage(int selectedBtn)
+    {
+        SceneManager.LoadScene("Stage");
+        StageManager.currentStage = selectedBtn;
     }
 }
