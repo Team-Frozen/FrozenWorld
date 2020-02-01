@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class ToggleHandler : MonoBehaviour
 {
-    public string blockType;
-    public GameManager control;
-
+    public int blockType;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +16,11 @@ public class ToggleHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<Toggle>().isOn == true)
-        {
-            control.setBlockType(blockType);
-        }
+
+    }
+
+    public int getBlockType()
+    {
+        return this.blockType;
     }
 }
