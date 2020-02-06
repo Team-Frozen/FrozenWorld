@@ -16,9 +16,9 @@ public class GhostBlock : MonoBehaviour
         
     }
 
-    public void move(RaycastHit hitInfo)
+    public void move(Vector3 position)
     {
-       this.transform.position = new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z));
+       this.transform.position = position;
     }
     
 

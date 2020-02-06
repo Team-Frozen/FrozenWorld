@@ -12,26 +12,44 @@ public class GameManager : MonoBehaviour
         NULL,
         ORG,
         ARW,
-        PORT
+        SLP,
+        STP,
+        PRT
     }
     private BlockType blockType;
-    private List<GameObject> elements = new List<GameObject>(); //수정 <GameObject>말고 <Element>로 만들 수 있는지 생각해보기
+    private static List<GameObject> stages = new List<GameObject>();
+    private List<GameObject> btn_Stages = new List<GameObject>();
     private GameObject ghostBlock;  //Block before click
     private GameObject focusBlock;  //Clicked block
+    private static int focusStage;
 
 //----------- Prefabs-------------//
+    public GameObject btn_Load;   //
+    public GameObject stage;      //
     public GameObject orgGhost;   //
     public GameObject orgBlock;   //
     public GameObject arwGhost;   //
     public GameObject arwBlock;   //
+    public GameObject slpGhost;   //
+    public GameObject slpBlock;   //
+    public GameObject stpGhost;   //
+    public GameObject stpBlock;   //
 //--------------------------------//
 
     public ToggleGroup ToggleGroup;
+    public Button btn_size;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        btn_size.onClick.AddListener(resize);
+        focusStage = 1; //수정
+        stages.Add(Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
+    }
+
     void Start()
     {
-       
+        
     }
 
     // Update is called once per frame
@@ -48,54 +66,66 @@ public class GameManager : MonoBehaviour
         RaycastHit hitInfo;
         Physics.Raycast(ray, out hitInfo, 100f, layerMask);
 
-//--------마우스 클릭 (맵 안에서)----------//
-        if (m_Event.type == EventType.MouseDown && inStage(hitInfo)) 
+        //--------마우스 클릭 (맵 안에서)----------//
+        if (m_Event.type == EventType.MouseDown)
         {
             //블럭을 클릭한 경우와 그렇지 않은 경우
             if (onBlock(hitInfo))
             {
                 focusBlock = hitInfo.transform.gameObject;
             }
-            else
+            else if(ghostBlock)
             {
                 switch (blockType)
                 {
                     case BlockType.ORG:
-                        elements.Add(Instantiate(orgBlock, ghostBlock.transform.position, Quaternion.identity));
+                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(orgBlock, ghostBlock.transform.position, Quaternion.identity));
                         break;
                     case BlockType.ARW:
-                        elements.Add(Instantiate(arwBlock, ghostBlock.transform.position, Quaternion.identity));
+                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(arwBlock, ghostBlock.transform.position, Quaternion.identity));
+                        break;
+                    case BlockType.SLP:
+                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(slpBlock, ghostBlock.transform.position, Quaternion.identity));
+                        break;
+                    case BlockType.STP:
+                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(stpBlock, ghostBlock.transform.position, Quaternion.identity));
                         break;
                 }
+                stages[focusStage - 1].GetComponent<Stage>().setParent();
                 Destroy(ghostBlock);
                 focusBlock = null;
             }
         }
-//-----------------------------------------//
+        //-----------------------------------------//
 
-//-------------마우스 드래그---------------//
+        //-------------마우스 드래그---------------//
         if (m_Event.type == EventType.MouseDrag)
         {
-           if(focusBlock != null)
+            if (focusBlock != null)
             {
-                focusBlock.transform.position = new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z));
+               focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), 0.5f + (focusBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z));
 
-                if (inStage(hitInfo)) //수정 Element.cs 만들고 안에 function으로 inValidArea 만들고 넣기
-                    focusBlock.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                if (focusBlock.GetComponent<Element>().inValidArea(stages[focusStage - 1].GetComponent<Stage>()))
+                    focusBlock.GetComponent<Element>().setVisible();
                 else
-                    focusBlock.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0f);
+                    focusBlock.GetComponent<Element>().setInvisible();
             }
         }
-//-----------------------------------------//
+        //-----------------------------------------//
 
-//--------------마우스 놓음----------------//
+        //--------------마우스 놓음----------------//
         if (m_Event.type == EventType.MouseUp)
         {
+            if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(stages[focusStage - 1].GetComponent<Stage>()))
+            {
+                stages[focusStage - 1].GetComponent<Stage>().getElements().Remove(focusBlock);
+                Destroy(focusBlock);
+            }
             focusBlock = null;
         }
-//-----------------------------------------//
+        //-----------------------------------------//
 
-//--------------마우스 이동----------------//
+        //--------------마우스 이동----------------//
         if (inValidArea(hitInfo))
         {
             if (ghostBlock == null)
@@ -103,21 +133,31 @@ public class GameManager : MonoBehaviour
                 switch (blockType)
                 {
                     case BlockType.ORG:
-                        ghostBlock = Instantiate(orgGhost, new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(orgGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (orgGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                     case BlockType.ARW:
-                        ghostBlock = Instantiate(arwGhost, new Vector3(Mathf.Round(hitInfo.point.x), 1, Mathf.Round(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(arwGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (arwGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        break;
+                    case BlockType.SLP:
+                        ghostBlock = Instantiate(slpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (slpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        break;
+                    case BlockType.STP:
+                        ghostBlock = Instantiate(stpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (stpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                 }
             }
             else
-                ghostBlock.GetComponent<GhostBlock>().move(hitInfo);
+                ghostBlock.GetComponent<GhostBlock>().move(new Vector3(calcCrd(hitInfo.point.x), 0.5f + (ghostBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)));
         }
         else
             Destroy(ghostBlock);
-//-----------------------------------------//
+        //-----------------------------------------//
+        
     }
 
+    public float calcCrd(float point){
+        return Mathf.Floor(point - (stages[focusStage - 1].GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f + 0.5f) + (stages[focusStage - 1].GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f;
+    }
     public void getSelectedBlockType()
     {
         Toggle selectedToggle = ToggleGroup.ActiveToggles().FirstOrDefault();
@@ -126,6 +166,8 @@ public class GameManager : MonoBehaviour
         else
             blockType = 0;
     }
+
+    
 
     public bool inValidArea(RaycastHit hitInfo)
     {
@@ -136,7 +178,12 @@ public class GameManager : MonoBehaviour
 
     public bool onBlock(RaycastHit hitInfo)
     {
-       foreach (GameObject element in elements)
+        if (!stages[focusStage - 1].GetComponent<Stage>().getElements().Any())
+        {
+            return false;
+        }
+
+        foreach (GameObject element in stages[focusStage - 1].GetComponent<Stage>().getElements())
         {
             if (hitInfo.transform.position.x == element.transform.position.x &&
                 hitInfo.transform.position.z == element.transform.position.z &&
@@ -150,20 +197,26 @@ public class GameManager : MonoBehaviour
 
     public bool inStage(RaycastHit hitInfo)
     {
-        if (hitInfo.point.x <  4.5 &&
-            hitInfo.point.x > -4.5 &&
-            hitInfo.point.z <  4.5 &&
-            hitInfo.point.z > -4.5)
+        if (hitInfo.point.x < 0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize() &&
+            hitInfo.point.x > -0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize() &&
+            hitInfo.point.z < 0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize() &&
+            hitInfo.point.z > -0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize())
             return true;
         return false;
     }
 
     public void ChangeScene_MapEdit()
     {
-        SceneManager.LoadScene("MapEdit");
+       SceneManager.LoadScene("MapEdit");
     }
     public void ChangeScene_Main()
     {
         SceneManager.LoadScene("Main");
+    }
+
+    void resize()
+    {
+        if(btn_size.GetComponent<ButtonHandler>().getStageSize() != stages[focusStage - 1].GetComponent<Stage>().getStageSize())
+            stages[focusStage - 1].GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getStageSize());
     }
 }
