@@ -17,12 +17,10 @@ public class GameManager : MonoBehaviour
         PRT
     }
     private BlockType blockType;
-    private static List<GameObject> stages = new List<GameObject>();
     private List<GameObject> btn_Stages = new List<GameObject>();
     private GameObject ghostBlock;  //Block before click
     private GameObject focusBlock;  //Clicked block
-    private static int focusStage;
-
+   
 //----------- Prefabs-------------//
     public GameObject btn_Load;   //
     public GameObject stage;      //
@@ -42,9 +40,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        btn_size.onClick.AddListener(resize);
-        focusStage = 1; //수정
-        stages.Add(Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
+        btn_size.onClick.AddListener(resizeMap);//수정 수정 가능한지 생각해보기
+
+        if (Test.Stages.Count > Test.FocusStage)
+        {
+            Test.Stage.SetActive(true);
+        }
+        else
+            Test.Stages.Add(Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
     }
 
     void Start()
@@ -79,19 +82,20 @@ public class GameManager : MonoBehaviour
                 switch (blockType)
                 {
                     case BlockType.ORG:
-                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(orgBlock, ghostBlock.transform.position, Quaternion.identity));
+                        focusBlock = Instantiate(orgBlock, ghostBlock.transform.position, Quaternion.identity);
                         break;
                     case BlockType.ARW:
-                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(arwBlock, ghostBlock.transform.position, Quaternion.identity));
+                        focusBlock = Instantiate(arwBlock, ghostBlock.transform.position, Quaternion.identity);
                         break;
                     case BlockType.SLP:
-                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(slpBlock, ghostBlock.transform.position, Quaternion.identity));
+                        focusBlock = Instantiate(slpBlock, ghostBlock.transform.position, Quaternion.identity);
                         break;
                     case BlockType.STP:
-                        stages[focusStage - 1].GetComponent<Stage>().getElements().Add(Instantiate(stpBlock, ghostBlock.transform.position, Quaternion.identity));
+                        focusBlock = Instantiate(stpBlock, ghostBlock.transform.position, Quaternion.identity);
                         break;
                 }
-                stages[focusStage - 1].GetComponent<Stage>().setParent();
+                Test.Stage.GetComponent<Stage>().getElements().Add(focusBlock);
+                Test.Stage.GetComponent<Stage>().setParent(focusBlock);
                 Destroy(ghostBlock);
                 focusBlock = null;
             }
@@ -105,7 +109,7 @@ public class GameManager : MonoBehaviour
             {
                focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), 0.5f + (focusBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z));
 
-                if (focusBlock.GetComponent<Element>().inValidArea(stages[focusStage - 1].GetComponent<Stage>()))
+                if (focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
                     focusBlock.GetComponent<Element>().setVisible();
                 else
                     focusBlock.GetComponent<Element>().setInvisible();
@@ -116,9 +120,9 @@ public class GameManager : MonoBehaviour
         //--------------마우스 놓음----------------//
         if (m_Event.type == EventType.MouseUp)
         {
-            if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(stages[focusStage - 1].GetComponent<Stage>()))
+            if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
             {
-                stages[focusStage - 1].GetComponent<Stage>().getElements().Remove(focusBlock);
+                Test.Stage.GetComponent<Stage>().getElements().Remove(focusBlock);
                 Destroy(focusBlock);
             }
             focusBlock = null;
@@ -156,7 +160,7 @@ public class GameManager : MonoBehaviour
     }
 
     public float calcCrd(float point){
-        return Mathf.Floor(point - (stages[focusStage - 1].GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f + 0.5f) + (stages[focusStage - 1].GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f;
+        return Mathf.Floor(point - (Test.Stage.GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f + 0.5f) + (Test.Stage.GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f;
     }
     public void getSelectedBlockType()
     {
@@ -178,12 +182,12 @@ public class GameManager : MonoBehaviour
 
     public bool onBlock(RaycastHit hitInfo)
     {
-        if (!stages[focusStage - 1].GetComponent<Stage>().getElements().Any())
+        if (!Test.Stage.GetComponent<Stage>().getElements().Any())
         {
             return false;
         }
 
-        foreach (GameObject element in stages[focusStage - 1].GetComponent<Stage>().getElements())
+        foreach (GameObject element in Test.Stage.GetComponent<Stage>().getElements())
         {
             if (hitInfo.transform.position.x == element.transform.position.x &&
                 hitInfo.transform.position.z == element.transform.position.z &&
@@ -197,26 +201,24 @@ public class GameManager : MonoBehaviour
 
     public bool inStage(RaycastHit hitInfo)
     {
-        if (hitInfo.point.x < 0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize() &&
-            hitInfo.point.x > -0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize() &&
-            hitInfo.point.z < 0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize() &&
-            hitInfo.point.z > -0.5f * stages[focusStage - 1].GetComponent<Stage>().getStageSize())
+        if (hitInfo.point.x < 0.5f * Test.Stage.GetComponent<Stage>().getStageSize() &&
+            hitInfo.point.x > -0.5f * Test.Stage.GetComponent<Stage>().getStageSize() &&
+            hitInfo.point.z < 0.5f * Test.Stage.GetComponent<Stage>().getStageSize() &&
+            hitInfo.point.z > -0.5f * Test.Stage.GetComponent<Stage>().getStageSize())
             return true;
         return false;
     }
 
-    public void ChangeScene_MapEdit()
+   
+    public void ChangeScene_Stages()
     {
-       SceneManager.LoadScene("MapEdit");
-    }
-    public void ChangeScene_Main()
-    {
-        SceneManager.LoadScene("Main");
+        Test.Stage.SetActive(false);
+        SceneManager.LoadScene("Stages");
     }
 
-    void resize()
+    void resizeMap()
     {
-        if(btn_size.GetComponent<ButtonHandler>().getStageSize() != stages[focusStage - 1].GetComponent<Stage>().getStageSize())
-            stages[focusStage - 1].GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getStageSize());
+        if(btn_size.GetComponent<ButtonHandler>().getStageSize() != Test.Stage.GetComponent<Stage>().getStageSize())
+            Test.Stage.GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getStageSize());
     }
 }

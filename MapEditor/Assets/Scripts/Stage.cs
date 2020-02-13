@@ -18,6 +18,7 @@ public class Stage : MonoBehaviour
         stageSize = 9;
         elements = new List<GameObject>();
         createGameArea();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public List<GameObject> getElements()
@@ -28,6 +29,7 @@ public class Stage : MonoBehaviour
     private void createGameArea()
     {
         gameArea = Instantiate(pre_gameArea, new Vector3(0, 0, 0), Quaternion.identity);
+        gameArea.transform.SetParent(this.transform);
         modifyArea();
     }
     private void modifyArea()
@@ -54,9 +56,9 @@ public class Stage : MonoBehaviour
         modifyArea();
     }
 
-    public void setParent()
+    public void setParent(GameObject child)
     {
-        elements[elements.Count - 1].transform.SetParent(this.transform);
+        child.transform.SetParent(this.transform);
     }
 
     public void clearElements()

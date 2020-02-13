@@ -1423,7 +1423,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2020835972}
-        m_MethodName: ChangeScene_Main
+        m_MethodName: ChangeScene_Stages
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1949,6 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5deed4b5f17db8543a926e0b7ff7354f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btn_Load: {fileID: 0}
   stage: {fileID: 4127502154243866024, guid: f29fc759b45c30c4c958c14015e3f5c9, type: 3}
   orgGhost: {fileID: 7479072608303636672, guid: 7d03032810e0ef44e85f79c2c4d4b410,
     type: 3}
