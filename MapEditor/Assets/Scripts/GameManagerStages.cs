@@ -3,59 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManagerMain : MonoBehaviour
+public class GameManagerStages : MonoBehaviour
 {
-    public GameObject stage;
     public GameObject button;
+    public GameObject canvas;
 
     void Awake()
     {
-        if(Test.Buttons.Count != 0)
-            Test.Buttons[0].transform.parent.gameObject.SetActive(true);
+        if (Test.Canvases.Count > Test.FocusChapter)
+        {
+            Test.Canvas.SetActive(true);
+        }
+        else
+            Test.Canvases.Add(Instantiate(canvas, new Vector3(0, 0, 0), Quaternion.identity));
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void loadStage()
     {
         int index;
 
-        for (index = 0; Test.Buttons[index] != this.gameObject; index++) ;
+        for (index = 0; Test.Btn_Stages[index] != this.gameObject; index++) ;
 
         Test.FocusStage = index;
-        
+
         ChangeScene_MapEdit();
     }
-
 
     public void newStage()
     {
         GameObject Button;
-        
-        Button = Instantiate(button, new Vector3(50 + 100 * (Test.Buttons.Count % 9), -140 - 100 * (Test.Buttons.Count / 9), 0), Quaternion.identity);
-        Button.transform.SetParent(GameObject.Find("Canvas_Load").transform, false);
-        Test.Buttons.Add(Button);
 
         Test.FocusStage = Test.Stages.Count;
+        
+        Button = Instantiate(button, new Vector3(50 + 100 * (Test.Btn_Stages.Count % 9), -140 - 100 * (Test.Btn_Stages.Count / 9), 0), Quaternion.identity);
+        Button.transform.SetParent(Test.Canvas.transform, false);
+        Test.Btn_Stages.Add(Button);
 
         ChangeScene_MapEdit();
     }
 
     private void ChangeScene_MapEdit()
     {
-        Test.Buttons[0].transform.parent.gameObject.SetActive(false);
+        Test.Canvas.SetActive(false);
         SceneManager.LoadScene("MapEdit");
     }
 
+    public void ChangeScene_Chapters()
+    {
+        if (Test.Btn_Stages.Count != 0)
+            Test.Canvas.SetActive(false);
+        SceneManager.LoadScene("Chapters");
+    }
 }
 

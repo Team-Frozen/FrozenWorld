@@ -155,13 +155,13 @@ public class GameManager : MonoBehaviour
         }
         else
             Destroy(ghostBlock);
-        //-----------------------------------------//
-        
+        //-----------------------------------------//       
     }
 
     public float calcCrd(float point){
         return Mathf.Floor(point - (Test.Stage.GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f + 0.5f) + (Test.Stage.GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f;
     }
+
     public void getSelectedBlockType()
     {
         Toggle selectedToggle = ToggleGroup.ActiveToggles().FirstOrDefault();
@@ -169,9 +169,7 @@ public class GameManager : MonoBehaviour
             blockType = (BlockType)selectedToggle.GetComponent<ToggleHandler>().getBlockType();
         else
             blockType = 0;
-    }
-
-    
+    }    
 
     public bool inValidArea(RaycastHit hitInfo)
     {
