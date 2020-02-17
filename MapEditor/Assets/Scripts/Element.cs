@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Element : MonoBehaviour
+public abstract class Element : MonoBehaviour
 {
     void Awake()
     {
@@ -19,14 +19,8 @@ public class Element : MonoBehaviour
     {
         
     }
-    public bool inValidArea(Stage stage)
-    {
-        List<GameObject> elements = stage.getElements();
-        int size = stage.getStageSize();
-        if (inStage(size) && !onBlock(elements))  //Stage 안에 있고 블럭이 없는 곳
-            return true;
-        return false;
-    }
+    public abstract bool inValidArea(Stage stage);
+    public abstract void action();
 
     public bool onBlock(List<GameObject> elements)
     {
@@ -52,7 +46,7 @@ public class Element : MonoBehaviour
             return true;
         return false;
     }
-    public void setVisible()
+    public virtual void setVisible()
     {
         gameObject.layer = 8;
         GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);

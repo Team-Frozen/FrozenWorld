@@ -17,11 +17,11 @@ public class GameManager : MonoBehaviour
         PRT
     }
     private BlockType blockType;
-    private List<GameObject> btn_Stages = new List<GameObject>();
     private GameObject ghostBlock;  //Block before click
     private GameObject focusBlock;  //Clicked block
-   
+
 //----------- Prefabs-------------//
+    public GameObject unit;       //
     public GameObject btn_Load;   //
     public GameObject stage;      //
     public GameObject orgGhost;   //
@@ -47,7 +47,10 @@ public class GameManager : MonoBehaviour
             Test.Stage.SetActive(true);
         }
         else
+        {
             Test.Stages.Add(Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
+            setUnit();
+        }
     }
 
     void Start()
@@ -122,8 +125,7 @@ public class GameManager : MonoBehaviour
         {
             if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
             {
-                Test.Stage.GetComponent<Stage>().getElements().Remove(focusBlock);
-                Destroy(focusBlock);
+                focusBlock.GetComponent<Element>().action();
             }
             focusBlock = null;
         }
@@ -218,5 +220,15 @@ public class GameManager : MonoBehaviour
     {
         if(btn_size.GetComponent<ButtonHandler>().getStageSize() != Test.Stage.GetComponent<Stage>().getStageSize())
             Test.Stage.GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getStageSize());
+        setUnit();
+    }
+
+    void setUnit()
+    {
+        GameObject newUnit;
+
+        newUnit = Instantiate(unit, new Vector3(-(Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), 0.5f + (unit.transform.localScale.y * 0.5f), Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), Quaternion.identity);
+        Test.Stage.GetComponent<Stage>().getElements().Add(newUnit);
+        Test.Stage.GetComponent<Stage>().setParent(newUnit);
     }
 }
