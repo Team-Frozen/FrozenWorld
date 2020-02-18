@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7140831031031001895}
   - component: {fileID: 114601243268950340}
   m_Layer: 5
-  m_Name: Btn_Load
+  m_Name: Btn_LoadStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114601243268950340}
-        m_MethodName: loadStage
+        m_MethodName: checkBtnState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809032b5e181640438a3cedf6652656b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: {fileID: 0}
   button: {fileID: 0}
+  canvas: {fileID: 0}
 --- !u!1 &9091001983148908884
 GameObject:
   m_ObjectHideFlags: 0

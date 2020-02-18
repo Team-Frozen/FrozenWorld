@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
 //----------- Prefabs-------------//
     public GameObject unit;       //
+    public GameObject exit;       //
     public GameObject btn_Load;   //
     public GameObject stage;      //
     public GameObject orgGhost;   //
@@ -42,14 +43,16 @@ public class GameManager : MonoBehaviour
     {
         btn_size.onClick.AddListener(resizeMap);//수정 수정 가능한지 생각해보기
 
-        if (Test.Stages.Count > Test.FocusStage)
-        {
+        if (Test.Stages.Count == Test.Btn_Stages.Count) // stage load btn click (버튼의 수가 늘지 않았을 때)
             Test.Stage.SetActive(true);
-        }
-        else
+        else // new btn click
         {
-            Test.Stages.Add(Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
+            if (Test.Stages.Count == Test.FocusStage)
+                Test.Stages.Add(Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
+            else
+                Test.Stages.Insert(Test.FocusStage, Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity));
             setUnit();
+            setExit();
         }
     }
 
@@ -77,9 +80,7 @@ public class GameManager : MonoBehaviour
         {
             //블럭을 클릭한 경우와 그렇지 않은 경우
             if (onBlock(hitInfo))
-            {
                 focusBlock = hitInfo.transform.gameObject;
-            }
             else if(ghostBlock)
             {
                 switch (blockType)
@@ -124,9 +125,7 @@ public class GameManager : MonoBehaviour
         if (m_Event.type == EventType.MouseUp)
         {
             if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
-            {
                 focusBlock.GetComponent<Element>().action();
-            }
             focusBlock = null;
         }
         //-----------------------------------------//
@@ -183,18 +182,14 @@ public class GameManager : MonoBehaviour
     public bool onBlock(RaycastHit hitInfo)
     {
         if (!Test.Stage.GetComponent<Stage>().getElements().Any())
-        {
             return false;
-        }
 
         foreach (GameObject element in Test.Stage.GetComponent<Stage>().getElements())
         {
             if (hitInfo.transform.position.x == element.transform.position.x &&
                 hitInfo.transform.position.z == element.transform.position.z &&
                 hitInfo.transform.position.y == element.transform.position.y)
-            {
                 return true;
-            }
         }
         return false;
     }
@@ -221,6 +216,7 @@ public class GameManager : MonoBehaviour
         if(btn_size.GetComponent<ButtonHandler>().getStageSize() != Test.Stage.GetComponent<Stage>().getStageSize())
             Test.Stage.GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getStageSize());
         setUnit();
+        setExit();
     }
 
     void setUnit()
@@ -230,5 +226,14 @@ public class GameManager : MonoBehaviour
         newUnit = Instantiate(unit, new Vector3(-(Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), 0.5f + (unit.transform.localScale.y * 0.5f), Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), Quaternion.identity);
         Test.Stage.GetComponent<Stage>().getElements().Add(newUnit);
         Test.Stage.GetComponent<Stage>().setParent(newUnit);
+    }
+
+    void setExit()
+    {
+        GameObject newExit;
+
+        newExit = Instantiate(exit, new Vector3(Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f + 0.5f, 0.5f + (exit.transform.localScale.y * 0.5f), Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), Quaternion.identity);
+        Test.Stage.GetComponent<Stage>().getElements().Add(newExit);
+        Test.Stage.GetComponent<Stage>().setParent(newExit);
     }
 }

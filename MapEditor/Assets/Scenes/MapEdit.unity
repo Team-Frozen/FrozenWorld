@@ -1950,6 +1950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 768810221095747215, guid: 9c4f81647b6fe3f4d9b4f35c4073829d, type: 3}
+  exit: {fileID: 7722184433320637145, guid: 95696829e840ea44fbd89fecba00ca09, type: 3}
   btn_Load: {fileID: 0}
   stage: {fileID: 4127502154243866024, guid: f29fc759b45c30c4c958c14015e3f5c9, type: 3}
   orgGhost: {fileID: 7479072608303636672, guid: 7d03032810e0ef44e85f79c2c4d4b410,
