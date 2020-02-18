@@ -5,54 +5,60 @@ using UnityEngine.UI;
 
 public class StageManager : MonoBehaviour
 {
+    [SerializeField] List<Stage> stageList;
     [SerializeField] GameObject go_StageClearUI;
     [SerializeField] Text txt_playerMoves;
-    static public int playerMoves;
-    static public int currentStage;
-
-    [SerializeField] GameObject[] go_Stages;
-    //[SerializeField] Transform[] tf_PlayerPos;
-    //[SerializeField] Rigidbody rigid_Player;
-    //int[] minimumMoves;
-    //int[] score;
+    [SerializeField] List<Text> txt_Score;
+    Stage focusedStage;
+    public static int playerMoves;
+    public static int focusedStageNum = 1;
     
+    //Scene이 시작할 때마다 실행되는 기본적인 세팅
     void Start()
     {
-        ShowNewStage(currentStage);
+        playerMoves = 0;
+        Player.canMove = true;
+        go_StageClearUI.SetActive(false);
+        for (int i = 0; i < stageList.Count; i++)
+        {
+            stageList[i].gameObject.SetActive(false);
+        }
+        stageList[focusedStageNum - 1].gameObject.SetActive(true);
+        focusedStage = stageList[focusedStageNum - 1];
     }
 
+    //player 이동횟수 업데이트
     void Update()
     {
         txt_playerMoves.text = playerMoves.ToString();
     }
-
-    public void ShowNewStage(int stageIndex)
-    {
-        Player.canMove = true;
-        currentStage = stageIndex;
-        go_Stages[currentStage - 1].SetActive(true);
-        go_StageClearUI.SetActive(false);
-        playerMoves = 0;
-    }
     
+    //Stage Clear 했을 때 나타나는 UI(Panel)
     public void ShowStageClearUI()
     {
         Player.canMove = false;
         go_StageClearUI.SetActive(true);
-        //하트 띄우기, 하트 개수 저장 추가해야 함
+
+        focusedStage.CalcScore();
+        Debug.Log(focusedStage.GetScore());
+
+        for (int i = 0; i < focusedStage.GetScore(); i++)
+        {
+            Debug.Log("in");
+            txt_Score[i].gameObject.SetActive(true);
+        }
     }
 
+    //StageClear UI에서 NextStage 버튼 클릭 시
     public void NextStageBtn()
     {
-        if (currentStage < go_Stages.Length)
+        if (focusedStageNum < stageList.Count)
         {
-            Player.canMove = true;
-            //rigid_Player.gameObject.transform.position = tf_PlayerPos[currentStage].position;
-            currentStage -= 1;
-            go_Stages[currentStage++].SetActive(false);
-            go_Stages[currentStage++].SetActive(true);
-            go_StageClearUI.SetActive(false);
             playerMoves = 0;
+            Player.canMove = true;
+            go_StageClearUI.SetActive(false);
+            stageList[focusedStageNum - 1].gameObject.SetActive(false);
+            stageList[focusedStageNum++].gameObject.SetActive(true);
         }
     }
 }
