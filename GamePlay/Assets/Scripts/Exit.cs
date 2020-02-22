@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Exit : Element
 {
-    [SerializeField] StageManager stageManager;
+    GameManager gameManager;
 
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
     void Update()
     {
         //Player의 이동방향이 Exit로 향할 때
@@ -14,7 +18,7 @@ public class Exit : Element
             //Player와 Exit가 충돌했을 때, StageClear Panel 띄움
             if (Physics.Raycast(transform.position, Vector3.forward, out hit, 0.5f, layerMask_player) && Player.canMove)
             {
-                stageManager.ShowStageClearUI();
+                gameManager.ShowStageClearUI();
             }
         }
     }

@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
             //수직 또는 수평 키를 누른 경우 & 이동하는 방향에 물체가 없는 경우 이동
             if ((h * v == 0) && !(h == 0 && v == 0) && !Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layer_Wall))
             {
-                StageManager.playerMoves++;
+                GameManager.playerMoves++;
                 TryMove(GetDirection());
             }
             //else if(Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layer_Slope) && (GetDirection() == Vector3.right))
