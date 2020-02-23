@@ -21,6 +21,7 @@ public abstract class Element : MonoBehaviour
     }
     public abstract bool inValidArea(Stage stage);
     public abstract void action();
+    public abstract BlockType returnType(); //수정수정수정수정
 
     public bool onBlock(List<GameObject> elements)
     {
@@ -30,9 +31,7 @@ public abstract class Element : MonoBehaviour
                 transform.position.z == element.transform.position.z &&
                 transform.position.y == element.transform.position.y &&
                 element != this.gameObject)
-            {
                 return true;
-            }
         }
         return false;
     }

@@ -16,7 +16,7 @@ public class Exit : Element
         if (player.GetDirection() == Vector3.back)
         {
             //Player와 Exit가 충돌했을 때, StageClear Panel 띄움
-            if (Physics.Raycast(transform.position, Vector3.forward, out hit, 0.5f, layerMask_player) && Player.canMove)
+            if (Physics.Raycast(transform.position, Vector3.left, out hit, 0.5f, layerMask_player) && Player.canMove)
             {
                 gameManager.ShowStageClearUI();
             }

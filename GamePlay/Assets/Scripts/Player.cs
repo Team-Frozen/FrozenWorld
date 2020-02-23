@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
 
     public void SetPosToCenter()
     {
+        Debug.Log("v = 0");
         transform.position = new Vector3(CalcCenterPos(transform.position.x), 0, CalcCenterPos(transform.position.z));
     }
 

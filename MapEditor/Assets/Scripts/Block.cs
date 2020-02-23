@@ -16,6 +16,12 @@ public class Block : Element
         
     }
 
+    //각 Block에 대한 스크립트 만들고 넣어야함
+    public override BlockType returnType()
+    {
+        return BlockType.ORG;
+    }
+
     public override bool inValidArea(Stage stage)
     {
         List<GameObject> elements = stage.getElements();
