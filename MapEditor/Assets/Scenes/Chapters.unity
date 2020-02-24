@@ -314,117 +314,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699218378}
   m_CullTransparentMesh: 0
---- !u!1 &875059319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 875059323}
-  - component: {fileID: 875059322}
-  - component: {fileID: 875059321}
-  - component: {fileID: 875059320}
-  - component: {fileID: 875059324}
-  m_Layer: 5
-  m_Name: Canvas_Load_Chapters
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &875059320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875059319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &875059321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875059319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
---- !u!223 &875059322
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875059319}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &875059323
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875059319}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &875059324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875059319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 414d88e00fa4c68419e9f4fbc2d1dffc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1330023842
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +343,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c6a3eb6c1c3fd4795a2fd400639ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 6333176949276083815, guid: fba59d470a0371645b6c96df7b6204c1, type: 3}
+  btn_Chapters: {fileID: 6333176949276083815, guid: fba59d470a0371645b6c96df7b6204c1,
+    type: 3}
+  btn_Stages: {fileID: 552871758635945196, guid: e9bf8e425da47c04c863b9adbee23002,
+    type: 3}
+  unit: {fileID: 768810221095747215, guid: 9c4f81647b6fe3f4d9b4f35c4073829d, type: 3}
+  exit: {fileID: 7722184433320637145, guid: 95696829e840ea44fbd89fecba00ca09, type: 3}
+  stage: {fileID: 4127502154243866024, guid: f29fc759b45c30c4c958c14015e3f5c9, type: 3}
+  orgBlock: {fileID: 7691964977813003158, guid: 43adf2a100168dd4f9bea3358121cf42,
+    type: 3}
+  arwBlock: {fileID: 2241194493281046168, guid: 5ca821e040f7e0b40999b3550ef8fa0a,
+    type: 3}
+  slpBlock: {fileID: 1563635464423884788, guid: 29a3fa99856f1164497f97d1ee794ddd,
+    type: 3}
+  stpBlock: {fileID: 4738635032587121114, guid: d23bb6c58ccf31d439c59603464dca11,
+    type: 3}
+  canvas: {fileID: 2180985495619861139, guid: b12291ef0e8bc544e82c2e3a961196d4, type: 3}
 --- !u!4 &1330023844
 Transform:
   m_ObjectHideFlags: 0

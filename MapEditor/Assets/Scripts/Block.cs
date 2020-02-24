@@ -15,7 +15,10 @@ public class Block : Element
     {
         
     }
-
+    public override BlockType returnType()
+    {
+        return BlockType.ORG;
+    }
     public override bool inValidArea(Stage stage)
     {
         List<GameObject> elements = stage.getElements();

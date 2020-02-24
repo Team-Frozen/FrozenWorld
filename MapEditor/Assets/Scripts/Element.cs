@@ -21,6 +21,7 @@ public abstract class Element : MonoBehaviour
     }
     public abstract bool inValidArea(Stage stage);
     public abstract void action();
+    public abstract BlockType returnType();
 
     public bool onBlock(List<GameObject> elements)
     {

@@ -16,7 +16,10 @@ public class Exit : Element
     {
 
     }
-
+    public override BlockType returnType()
+    {
+        return BlockType.EXIT;
+    }
     public override bool inValidArea(Stage stage)
     {
         int size = stage.getStageSize();

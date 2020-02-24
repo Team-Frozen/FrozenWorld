@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
 //----------- Prefabs-------------//
     public GameObject unit;       //
     public GameObject exit;       //
-    public GameObject btn_Load;   //
     public GameObject stage;      //
     public GameObject orgGhost;   //
     public GameObject orgBlock;   //

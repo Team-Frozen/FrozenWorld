@@ -89,9 +89,8 @@ GameObject:
   - component: {fileID: 6333176949276083811}
   - component: {fileID: 6333176949276083808}
   - component: {fileID: 6333176949276083809}
-  - component: {fileID: 9196909428237934617}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Btn_LoadChapter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +191,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9196909428237934617}
+      - m_Target: {fileID: 0}
         m_MethodName: loadChapter
         m_Mode: 1
         m_Arguments:
@@ -203,16 +202,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &9196909428237934617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6333176949276083815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c6a3eb6c1c3fd4795a2fd400639ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 0}

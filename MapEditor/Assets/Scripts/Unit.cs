@@ -17,6 +17,11 @@ public class Unit : Element
         
     }
 
+    public override BlockType returnType()
+    {
+        return BlockType.UNIT;
+    }
+
     public override bool inValidArea(Stage stage)
     {
         List<GameObject> elements = stage.getElements();
