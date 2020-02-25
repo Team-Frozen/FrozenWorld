@@ -3,37 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
-public struct Data
-{
-    public int chapterCount;
-    public List<int> stageCount;
-    public List<StageData> stages;
-}
-
-[System.Serializable]
-public struct StageData
-{
-    public int minMove;
-    public int gameAreaSize;
-    public List<ElementData> elements;
-}
-
-[System.Serializable]
-public struct ElementData
-{
-    public Vec3 position;
-    public BlockType blockType;
-}
-
-[System.Serializable]
-public struct Vec3
-{
-    public float x;
-    public float y;
-    public float z;
-}
-
 public enum BlockType
 {
     UNIT,
@@ -44,6 +13,39 @@ public enum BlockType
     STP,
     PRT
 }
+
+[System.Serializable]
+public class Data
+{
+    public int chapterCount;
+    public List<int> stageCount;
+    public List<StageData> stages;
+}
+
+[System.Serializable]
+public class StageData
+{
+    //int minMove;
+    public int gameAreaSize;
+    public List<ElementData> elements;
+}
+
+[System.Serializable]
+public class ElementData
+{
+    public Vec3 position;
+    public BlockType blockType;
+}
+
+[System.Serializable]
+public class Vec3
+{
+    public float x;
+    public float y;
+    public float z;
+}
+
+
 public class SaveLoadManager : MonoBehaviour
 {
     private Data data;

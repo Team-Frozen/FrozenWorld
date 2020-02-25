@@ -5,68 +5,17 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public enum BlockType
-{
-    UNIT,
-    EXIT,
-    ORG,
-    ARW,
-    SLP,
-    STP,
-    PRT
-}
-
-[System.Serializable]
-public class Data
-{
-    public int chapterCount;
-    public List<int> stageCount;
-    public List<StageData> stages;
-}
-
-[System.Serializable]
-public class StageData
-{
-    //int minMove;
-    public int gameAreaSize;
-    public List<ElementData> elements;
-}
-
-[System.Serializable]
-public class ElementData
-{
-    public Vec3 position;
-    public BlockType blocktype;
-}
-
-[System.Serializable]
-public class Vec3
-{
-    public float x;
-    public float y;
-    public float z;
-}
-
 public class GameManagerChapter : MonoBehaviour
 {
  
 //-------------Prefabs--------------//
     public GameObject btn_Chapters; //
-    public GameObject btn_Stages;   //
-    public GameObject unit;         //
-    public GameObject exit;         //
-    public GameObject stage;        //
-    public GameObject orgBlock;     //
-    public GameObject arwBlock;     //
-    public GameObject slpBlock;     //
-    public GameObject stpBlock;     //
-    public GameObject canvas;       //
 //----------------------------------//
 
     private float mousePos;
     private int page;
 
-    public void Save()
+    void Awake()
     {
         page = Test.FocusChapter / 3;
         int i = 0;
@@ -86,37 +35,6 @@ public class GameManagerChapter : MonoBehaviour
         }
     }
 
-        data.chapterCount = Test.Chapters.Count;
-        data.stages = new List<StageData>();
-
-        for (int i = 0; i < Test.Chapters.Count; i++)
-        {
-            data.stageCount.Add(Test.Chapters[i].Count);
-
-            for (int j = 0; j < Test.Chapters[i].Count; j++)
-            {
-                StageData stageData = new StageData();
-                stageData.gameAreaSize = Test.Chapters[i][j].GetComponent<Stage>().getStageSize();
-                stageData.elements = new List<ElementData>();
-
-                for (int k = 0; k < Test.Chapters[i][j].GetComponent<Stage>().getElements().Count; k++)
-                {
-                    ElementData elementData = new ElementData();
-                    Vec3 vec3 = new Vec3();
-                    vec3.x = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().transform.position.x;
-                    vec3.y = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().transform.position.y;
-                    vec3.z = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().transform.position.z;
-                    elementData.position = vec3;
-                    elementData.blocktype = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().returnType();
-                    stageData.elements.Add(elementData);
-                }
-
-                data.stages.Add(stageData);
-            }
-        }
-
-        DataManager.BinarySerialize<Data>(data, "Data.sav");
-    }
     void OnGUI()
     {
         Event m_Event = Event.current;

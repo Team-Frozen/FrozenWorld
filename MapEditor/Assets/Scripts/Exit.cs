@@ -44,8 +44,4 @@ public class Exit : Element
         this.gameObject.transform.position = new Vector3(return_x, this.gameObject.transform.position.y, return_z);
         base.setVisible();
     }
-    public override BlockType returnType()
-    {
-        return BlockType.EXIT;
-    }
 }
