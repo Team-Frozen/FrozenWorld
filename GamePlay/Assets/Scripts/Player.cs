@@ -6,19 +6,16 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public static bool canMove = true;
-    [SerializeField ]float moveSpeed = 30f;
+    [SerializeField ] float moveSpeed = 30f;
     Stage stage;
     Rigidbody rigid;
     RaycastHit hit;
     Vector3 moveDir;
-    int layer_Wall, layer_Slope;
 
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
         stage = GameObject.FindGameObjectWithTag("Stage").GetComponent<Stage>();
-        layer_Wall = ((1 << LayerMask.NameToLayer("Wall")) | 1 << LayerMask.NameToLayer("OriginalBlock")) | (1 << LayerMask.NameToLayer("SlopeBlock"));
-        layer_Slope = 1 << LayerMask.NameToLayer("SlopeBlock");
     }
 
     void FixedUpdate()
@@ -30,9 +27,10 @@ public class Player : MonoBehaviour
             float v = Input.GetAxisRaw("Vertical");
             SetDirection(new Vector3(h, 0, v));
 
-            //수직 또는 수평 키를 누른 경우 & 이동하는 방향에 물체가 없는 경우 이동
-            if ((h * v == 0) && !(h == 0 && v == 0) && !Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layer_Wall))
+            //수직 또는 수평 키를 누른 경우 & 이동하려는 방향에 장애물이 없는 경우 이동
+            if ((h * v == 0) && !(h == 0 && v == 0) && CheckMove())
             {
+                canMove = false;
                 GameManager.playerMoves++;
                 TryMove(GetDirection());
             }
@@ -44,9 +42,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool CheckMove()
+    {
+        int layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
+        int layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
+
+        if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_exit))
+            return true;
+        else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_obstacle))
+            return false;
+        else
+            return true;
+    }
+
     public void TryMove(Vector3 dir)
     {
-        SetVelocityZero();
+        SetDirection(dir);
 
         //player 이동 방향으로 회전
         Quaternion q = Quaternion.LookRotation(new Vector3(-dir.z, dir.y, dir.x));
@@ -56,9 +67,27 @@ public class Player : MonoBehaviour
         rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);
     }
 
+    public void MoveToTarget(Vector3 target)
+    {
+        transform.position = Vector3.Lerp(transform.position, target, 1f);
+    }
+
+    public bool isReachedToCenter(Vector3 target)
+    {
+        if (GetDirection() == Vector3.left && transform.position.x < target.x && target.x - 0.1f < transform.position.x)
+            return true;
+        else if (GetDirection() == Vector3.right && transform.position.x > target.x)
+            return true;
+        else if (GetDirection() == Vector3.forward && this.transform.position.z > target.z)
+            return true;
+        else if (GetDirection() == Vector3.back && this.transform.position.z < target.z)
+            return true;
+        else
+            return false;
+    }
+
     public void SetPosToCenter()
     {
-        Debug.Log("v = 0");
         transform.position = new Vector3(CalcCenterPos(transform.position.x), 0, CalcCenterPos(transform.position.z));
     }
 
