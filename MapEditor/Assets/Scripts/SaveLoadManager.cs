@@ -89,78 +89,84 @@ public class SaveLoadManager : MonoBehaviour
         int index = 0;
 
         data = DataManager.BinaryDeserialize<Data>("Data.sav");
-        GameObject canvasLoadChptr = GameObject.Find("Canvas_Load_Chapters");
-
-        canvasLoadChptr.SetActive(false);
-
-        for (Test.FocusChapter = 0; Test.FocusChapter < data.chapterCount; Test.FocusChapter++)
+        if (data != null)
         {
-            //add chapter button
-            GameObject newChptrBtn;
-            newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Test.Btn_Chapters.Count), 0, 0), Quaternion.identity);
-            newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
-            Test.Btn_Chapters.Add(newChptrBtn);
+            GameObject canvasLoadChptr = GameObject.Find("Canvas_Load_Chapters");
 
-            //add canvas
-            GameObject newCanvas;
-            newCanvas = Instantiate(canvas, new Vector3(0, 0, 0), Quaternion.identity);
-            Test.Canvases.Add(newCanvas);
+            canvasLoadChptr.SetActive(false);
 
-            Test.Chapters.Add(new List<GameObject>());
-
-            for (Test.FocusStage = 0; Test.FocusStage < data.stageCount[Test.FocusChapter]; Test.FocusStage++)
+            for (Test.FocusChapter = 0; Test.FocusChapter < data.chapterCount; Test.FocusChapter++)
             {
-                //add stage
-                GameObject newStage;
-                newStage = Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity);
-                newStage.GetComponent<Stage>().setStageSize(data.stages[index].gameAreaSize);
-                Test.Stages.Add(newStage);
+                //add chapter button
+                GameObject newChptrBtn;
+                newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Test.Btn_Chapters.Count), 0, 0), Quaternion.identity);
+                newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
+                Test.Btn_Chapters.Add(newChptrBtn);
 
+                //add canvas
+                GameObject newCanvas;
+                newCanvas = Instantiate(canvas, new Vector3(0, 0, 0), Quaternion.identity);
+                Test.Canvases.Add(newCanvas);
+
+                Test.Chapters.Add(new List<GameObject>());
                 Test.Btn_AllStages.Add(new List<GameObject>());
 
-                //add stage button
-                GameObject newStageBtn;
-                newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % 9), -150 - 100 * (Test.Btn_Stages.Count / 9), 0), Quaternion.identity);
-                newStageBtn.transform.SetParent(newCanvas.transform, false);
-                Test.Btn_Stages.Add(newStageBtn);
-
-                for (int k = 0; k < data.stages[index].elements.Count; k++)
+                for (Test.FocusStage = 0; Test.FocusStage < data.stageCount[Test.FocusChapter]; Test.FocusStage++)
                 {
-                    //add block
-                    GameObject newBlock = null;
-                    Vector3 position = new Vector3(data.stages[index].elements[k].position.x, data.stages[index].elements[k].position.y, data.stages[index].elements[k].position.z);
+                    //add stage
+                    GameObject newStage;
+                    newStage = Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity);
+                    newStage.GetComponent<Stage>().setStageSize(data.stages[index].gameAreaSize);
+                    Test.Stages.Add(newStage);
+                    
+                    //add stage button
+                    GameObject newStageBtn;
+                    newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % 9), -150 - 100 * (Test.Btn_Stages.Count / 9), 0), Quaternion.identity);
+                    newStageBtn.transform.SetParent(newCanvas.transform, false);
+                    Test.Btn_Stages.Add(newStageBtn);
 
-                    switch (data.stages[index].elements[k].blockType)
+                    for (int k = 0; k < data.stages[index].elements.Count; k++)
                     {
-                        case BlockType.UNIT:
-                            newBlock = Instantiate(unit, position, Quaternion.identity);
-                            break;
-                        case BlockType.EXIT:
-                            newBlock = Instantiate(exit, position, Quaternion.identity);
-                            break;
-                        case BlockType.ORG:
-                            newBlock = Instantiate(orgBlock, position, Quaternion.identity);
-                            break;
-                        case BlockType.ARW:
-                            newBlock = Instantiate(arwBlock, position, Quaternion.identity);
-                            break;
-                        case BlockType.SLP:
-                            newBlock = Instantiate(slpBlock, position, Quaternion.identity);
-                            break;
-                        case BlockType.STP:
-                            newBlock = Instantiate(stpBlock, position, Quaternion.identity);
-                            break;
-                        case BlockType.PRT:
-                            newBlock = null;
-                            break;
+                        //add block
+                        GameObject newBlock = null;
+                        Vector3 position = new Vector3(data.stages[index].elements[k].position.x, data.stages[index].elements[k].position.y, data.stages[index].elements[k].position.z);
+
+                        switch (data.stages[index].elements[k].blockType)
+                        {
+                            case BlockType.UNIT:
+                                newBlock = Instantiate(unit, position, Quaternion.identity);
+                                break;
+                            case BlockType.EXIT:
+                                newBlock = Instantiate(exit, position, Quaternion.identity);
+                                break;
+                            case BlockType.ORG:
+                                newBlock = Instantiate(orgBlock, position, Quaternion.identity);
+                                break;
+                            case BlockType.ARW:
+                                newBlock = Instantiate(arwBlock, position, Quaternion.identity);
+                                break;
+                            case BlockType.SLP:
+                                newBlock = Instantiate(slpBlock, position, Quaternion.identity);
+                                break;
+                            case BlockType.STP:
+                                newBlock = Instantiate(stpBlock, position, Quaternion.identity);
+                                break;
+                            case BlockType.PRT:
+                                newBlock = null;
+                                break;
+                        }
+                        Test.Stage.GetComponent<Stage>().getElements().Add(newBlock);
+                        Test.Stage.GetComponent<Stage>().setParent(newBlock);
                     }
-                    Test.Stage.GetComponent<Stage>().getElements().Add(newBlock);
-                    Test.Stage.GetComponent<Stage>().setParent(newBlock);
+                    Test.Stage.SetActive(false);
+                    index++;
                 }
-                Test.Stage.SetActive(false);
-                index++;
+                newCanvas.SetActive(false);
             }
-            newCanvas.SetActive(false);
+        }
+        else
+        {
+            data = new Data();
         }
     }
 

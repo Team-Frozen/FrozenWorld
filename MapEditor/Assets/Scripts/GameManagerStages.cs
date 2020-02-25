@@ -205,7 +205,6 @@ public class GameManagerStages : MonoBehaviour
     {
         if (focusButton != null)
             focusButton.GetComponent<Image>().color = Color.white;
-
         if (Test.Btn_Stages.Count != 0)
             Test.Canvas.SetActive(false);
         SceneManager.LoadScene("Chapters");

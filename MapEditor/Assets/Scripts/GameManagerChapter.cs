@@ -112,7 +112,6 @@ public class GameManagerChapter : MonoBehaviour
         for (index = 0; Test.Btn_Chapters[index] != EventSystem.current.currentSelectedGameObject; index++) ;
 
         Test.FocusChapter = index;
-
         ChangeScene_Stages();
     }
 
