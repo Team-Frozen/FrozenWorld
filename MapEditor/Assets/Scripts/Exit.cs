@@ -5,6 +5,7 @@ using UnityEngine;
 public class Exit : Element
 {
     private float return_x, return_z;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class Exit : Element
     {
         return BlockType.EXIT;
     }
+
     public override bool inValidArea(Stage stage)
     {
         int size = stage.getStageSize();
@@ -41,5 +43,9 @@ public class Exit : Element
     {
         this.gameObject.transform.position = new Vector3(return_x, this.gameObject.transform.position.y, return_z);
         base.setVisible();
+    }
+    public override BlockType returnType()
+    {
+        return BlockType.EXIT;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Unit : Element
 {
     private float return_x, return_z;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,5 +43,10 @@ public class Unit : Element
     {
         this.gameObject.transform.position = new Vector3 (return_x, this.gameObject.transform.position.y, return_z);
         base.setVisible();
+    }
+
+    public override BlockType returnType()
+    {
+        return BlockType.UNIT;
     }
 }
