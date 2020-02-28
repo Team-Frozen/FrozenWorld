@@ -7,15 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerStages : MonoBehaviour
 {
-//----------- Prefabs-------------//
-    public GameObject button;     //
-    public GameObject ghostButton;//
-    public GameObject canvas;     //
-//--------------------------------//
+//------------ Prefabs--------------//
+    public  GameObject button;      //
+    public  GameObject canvas;      //
+    public  GameObject ghostButton; //
+//----------------------------------//
+    public  GameObject mainCanvas;
 
-    public GameObject mainCanvas;
+    private int        clickedBtnIndex;
     private GameObject focusButton;
-    private int clickedBtnIndex;
     private GameObject ghostBtn;
 
     void Awake()
@@ -75,8 +75,11 @@ public class GameManagerStages : MonoBehaviour
             else if(results.Count != 0) //Ray에 Btn_LoadStage가 맞았을 때
             {
                 int i;
-                for (i = 0; Test.Btn_Stages[i] != results[0].gameObject; i++) ;
-                
+
+                for (i = 0; Test.Btn_Stages[i] != results[0].gameObject; i++)
+                {
+                    Debug.Log(Test.Btn_Stages[i] + " " + results[0].gameObject);
+                }
                 clickedBtnIndex = i;
             }
         }

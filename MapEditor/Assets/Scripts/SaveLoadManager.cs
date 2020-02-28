@@ -61,6 +61,9 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject stpBlock;     //
     public GameObject canvas;       //
 //----------------------------------//
+
+    private GameObject canvasLoadChptr;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -78,10 +81,13 @@ public class SaveLoadManager : MonoBehaviour
     {
         if (Input.anyKeyDown)
             if (SceneManager.GetActiveScene().name == "Loading")
+            {
+                canvasLoadChptr.SetActive(true);
                 SceneManager.LoadScene("Chapters");
+            }
             else
                 if (Input.GetKey("s"))
-                    Save();
+                Save();
     }
 
     private void load()
@@ -91,7 +97,7 @@ public class SaveLoadManager : MonoBehaviour
         data = DataManager.BinaryDeserialize<Data>("Data.sav");
         if (data != null)
         {
-            GameObject canvasLoadChptr = GameObject.Find("Canvas_Load_Chapters");
+            canvasLoadChptr = GameObject.Find("Canvas_Load_Chapters");
 
             canvasLoadChptr.SetActive(false);
 
