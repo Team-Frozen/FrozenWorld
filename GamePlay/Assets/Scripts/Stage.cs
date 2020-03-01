@@ -6,12 +6,20 @@ public class Stage : MonoBehaviour
 {
     List<GameObject> elements;
     GameObject gameArea;
-    Transform tf_player;
-
-    [SerializeField] int stageNum { get; }
-    [SerializeField] int stageSize = 9;
-    [SerializeField] int minimumMoves { get; }
+    int stageNum;
+    int stageSize;
+    int minimumMoves = 3;   //임시값
     int score = 0;
+
+    //prefab//
+    public GameObject pre_gameArea;
+
+    void Awake()
+    {
+        elements = new List<GameObject>();
+        CreateGameArea();
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     public void CalcScore()
     {
@@ -29,6 +37,35 @@ public class Stage : MonoBehaviour
         }
     }
 
+    private void CreateGameArea()
+    {
+        gameArea = Instantiate(pre_gameArea, new Vector3(0, 0, 0), Quaternion.identity);
+        gameArea.transform.SetParent(this.transform);
+        SetArea();
+    }
+
+    private void SetArea()
+    {
+        gameArea.transform.GetChild(0).localScale = new Vector3(stageSize, 1, stageSize);
+        gameArea.transform.GetChild(0).GetComponent<Renderer>().material.mainTextureScale = new Vector2((float)stageSize * 0.5f, (float)stageSize * 0.5f);
+
+        gameArea.transform.GetChild(1).position = new Vector3(-(float)stageSize * 0.5f - 0.001f, 0, 0);
+        gameArea.transform.GetChild(1).localScale = new Vector3(0.1f, 1, (float)stageSize * 0.1f);
+
+        gameArea.transform.GetChild(2).position = new Vector3(0, 0, -(float)stageSize * 0.5f - 0.001f);
+        gameArea.transform.GetChild(2).localScale = new Vector3(0.1f, 1, (float)stageSize * 0.1f);
+
+        gameArea.transform.GetChild(3).position = new Vector3(0, 2, -(float)stageSize * 0.5f - 0.5f);
+        gameArea.transform.GetChild(4).position = new Vector3(-(float)stageSize * 0.5f - 0.5f, 2, 0);
+        gameArea.transform.GetChild(5).position = new Vector3((float)stageSize * 0.5f + 0.5f, 2, 0);
+        gameArea.transform.GetChild(6).position = new Vector3(0, 2, (float)stageSize * 0.5f + 0.5f);
+    }
+
+    public void SetParent(GameObject child)
+    {
+        child.transform.SetParent(this.transform);
+    }
+
     public List<GameObject> GetElements()
     {
         return elements;
@@ -37,6 +74,13 @@ public class Stage : MonoBehaviour
     public int GetStageSize()
     {
         return stageSize;
+    }
+
+    public void SetStageSize(int stageSize)
+    {
+        this.stageSize = stageSize;
+        SetArea();
+
     }
 
     public int GetScore()
