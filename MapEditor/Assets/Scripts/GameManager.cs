@@ -184,7 +184,8 @@ public class GameManager : MonoBehaviour
 
     public bool onBlock(RaycastHit hitInfo)
     {
-        if (!Test.Stage.GetComponent<Stage>().getElements().Any())
+        if (!Test.Stage.GetComponent<Stage>().getElements().Any() ||
+            !hitInfo.transform.GetComponent<Element>())
             return false;
 
         foreach (GameObject element in Test.Stage.GetComponent<Stage>().getElements())

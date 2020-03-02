@@ -66,20 +66,18 @@ public class GameManagerStages : MonoBehaviour
 
             m_gr.Raycast(ped, m_results);
             gr.Raycast(ped, results);
-            if (results.Count == 0 && m_results.Count == 0) //Ray에 아무것도 맞지 않았을 때
+            if (isRaycastResultNull(results) && isRaycastResultNull(m_results)) //Ray에 아무것도 맞지 않았을 때
             {
                 if (focusButton != null)
                     focusButton.GetComponent<Image>().color = Color.white;
                 focusButton = null;
             }
-            else if(results.Count != 0) //Ray에 Btn_LoadStage가 맞았을 때
+            else if(isRaycastResultNull(m_results)) //Ray에 Btn_LoadStage가 맞았을 때
             {
                 int i;
 
-                for (i = 0; Test.Btn_Stages[i] != results[0].gameObject; i++)
-                {
-                    Debug.Log(Test.Btn_Stages[i] + " " + results[0].gameObject);
-                }
+                for (i = 0; Test.Btn_Stages[i] != results[0].gameObject; i++) ;
+
                 clickedBtnIndex = i;
             }
         }
@@ -230,5 +228,13 @@ public class GameManagerStages : MonoBehaviour
             focusButton.GetComponent<Image>().color = Color.white;
             focusButton = null;
         }
+    }
+
+    private bool isRaycastResultNull(List<RaycastResult> results)
+    {
+        foreach (RaycastResult result in results)
+            if (result.gameObject.GetComponent<Button>())
+                return false;
+        return true;
     }
 }

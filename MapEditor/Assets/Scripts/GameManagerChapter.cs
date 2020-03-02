@@ -90,7 +90,7 @@ public class GameManagerChapter : MonoBehaviour
             {
                 m_gr.Raycast(ped, m_results);
                 gr.Raycast(ped, results);
-                if (results.Count == 0 && m_results.Count == 0) //Ray에 아무것도 맞지 않았을 때
+                if (isRaycastResultNull(results) && isRaycastResultNull(m_results)) //Ray에 아무것도 맞지 않았을 때
                 {
                     mousePos = Input.mousePosition.x;
 
@@ -98,7 +98,7 @@ public class GameManagerChapter : MonoBehaviour
                         focusButton.GetComponent<Image>().color = Color.white;
                     focusButton = null;
                 }
-                else if (results.Count != 0) //Ray에 Btn_LoadStage가 맞았을 때
+                else if (isRaycastResultNull(m_results)) //Ray에 Btn_LoadChapter가 맞았을 때 (main 이 null일 때)
                 {
                     int i;
                     for (i = 0; Test.Btn_Chapters[i] != results[0].gameObject; i++) ;
@@ -303,5 +303,13 @@ public class GameManagerChapter : MonoBehaviour
         else
             loadChapter();
         }
+    }
+
+    private bool isRaycastResultNull(List<RaycastResult> results)
+    {
+        foreach (RaycastResult result in results)
+            if (result.gameObject.GetComponent<Button>())
+                return false;
+        return true;
     }
 }
