@@ -1,18 +1,129 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManagerChapters : MonoBehaviour
 {
+    //prefab
+    public GameObject btn_Chapters;
+    //
+
+    float mousePos;
+    int page;
+
+    void Awake()
+    {
+        page = Database.FocusChapter / 3;
+        int i = 0;
+
+        foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+        {
+            Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
+            i++;
+        }
+
+        if (Database.Btn_Chapters.Count != 0)
+            Database.Btn_Chapters[0].transform.parent.gameObject.SetActive(true);
+
+        //Add Listener To All Btns
+        foreach (GameObject Button in Database.Btn_Chapters)
+        {
+            Button.GetComponent<Button>().onClick.AddListener(loadChapter);
+        }
+    }
+
+    void OnGUI()
+    {
+        Event m_Event = Event.current;
+
+        //--------마우스 클릭----------//
+        if (m_Event.type == EventType.MouseDown)
+        {
+            mousePos = Input.mousePosition.x;
+        }
+        //--------마우스 드래그----------//
+        if (m_Event.type == EventType.MouseDrag)
+        {
+            float diff = Input.mousePosition.x - mousePos;
+            if (Mathf.Abs(diff) <= 150)
+            {
+                int i = 0;
+                foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+                {
+                    Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) + diff - (900 * page), 0, 0);
+                    i++;
+                }
+            }
+        }
+        //--------마우스 놓음----------//
+        if (m_Event.type == EventType.MouseUp)
+        {
+            float diff = Input.mousePosition.x - mousePos;
+            if (Mathf.Abs(diff) <= 150)
+            {
+                int i = 0;
+                foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+                {
+                    Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
+                    i++;
+                }
+            }
+            else
+            {
+                if (diff < 0 && page < (Database.Btn_Chapters.Count - 1) / 3)
+                {
+                    page++;
+                    int i = 0;
+                    foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+                    {
+                        Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
+                        i++;
+                    }
+                }
+                else if (diff > 0 && page > 0)
+                {
+                    page--;
+                    int i = 0;
+                    foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+                    {
+                        Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
+                        i++;
+                    }
+                }
+                else
+                {
+                    int i = 0;
+                    foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+                    {
+                        Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+
+    public void loadChapter()
+    {
+        int index;
+        for (index = 0; Database.Btn_Chapters[index] != EventSystem.current.currentSelectedGameObject; index++);
+        Database.FocusChapter = index;
+
+        ChangeScene_Stages();
+    }
+
     public void ChangeScene_Stages()
     {
-        //추가
+        Database.Btn_Chapters[0].transform.parent.gameObject.SetActive(false);
         SceneManager.LoadScene("3_Stages");
     }
 
     public void ChangeScene_Start()
     {
+        Database.Btn_Chapters[0].transform.parent.gameObject.SetActive(false);
         SceneManager.LoadScene("1_Start");
     }
 }
