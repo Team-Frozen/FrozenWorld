@@ -27,7 +27,7 @@ public class BlockArrow_Up : Element
     {
         Debug.Log("arrow up");
 
-        player.SetPosToCenter();
+        player.MoveToCenter();
 
         player.SetVelocityZero();
         player.TryMove(Vector3.forward);

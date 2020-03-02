@@ -6,7 +6,6 @@ public class Stage : MonoBehaviour
 {
     List<GameObject> elements;
     GameObject gameArea;
-    int stageNum;
     int stageSize;
     int minimumMoves = 3;   //임시값
     int score = 0;
@@ -80,7 +79,6 @@ public class Stage : MonoBehaviour
     {
         this.stageSize = stageSize;
         SetArea();
-
     }
 
     public int GetScore()

@@ -17,7 +17,7 @@ public class BlockOriginal : Element
         Debug.Log("original");
 
         player.SetVelocityZero();
-        player.SetPosToCenter();
+        player.MoveToCenter();
         Player.canMove = true;
     }
 

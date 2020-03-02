@@ -27,7 +27,7 @@ public class BlockArrow_Right : Element
     {
         Debug.Log("arrow right");
 
-        player.SetPosToCenter();
+        player.MoveToCenter();
 
         player.SetVelocityZero();
         player.TryMove(Vector3.right);

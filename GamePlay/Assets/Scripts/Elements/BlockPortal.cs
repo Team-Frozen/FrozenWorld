@@ -28,7 +28,7 @@ public class BlockPortal : Element
     {
         Debug.Log("portal");
 
-        player.SetPosToCenter();
+        player.MoveToCenter();
         player.transform.position = relatedPortal.position_vec;
     }
 

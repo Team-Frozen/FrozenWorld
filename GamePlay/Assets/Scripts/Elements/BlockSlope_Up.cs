@@ -23,7 +23,7 @@ public class BlockSlope_Up : Element
         else if (Physics.Raycast(transform.position, -player.GetDirection(), out hit, 1f, layerMask_player))
         {
             player.SetVelocityZero();
-            player.SetPosToCenter();
+            player.MoveToCenter();
             Player.canMove = true;
         }
     }
