@@ -6,25 +6,29 @@ using UnityEngine.SceneManagement;
 public class Player : Element
 {
     public static bool canMove = true;
-    [SerializeField ] float moveSpeed = 30f;
-    Rigidbody rigid;
-    Vector3 moveDir;
+    
+    [SerializeField ]
+    private float moveSpeed = 30f;
+    private Rigidbody rigid;
+    private Vector3 initPos;    // 처음 위치
+    private Vector3 moveDir;    // 이동 방향
 
-    void Start()
+    private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+        layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
+        layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        //속도가 0일 때만 이동
         if (canMove && (rigid.velocity == Vector3.zero))
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
             SetDirection(new Vector3(h, 0, v));
 
-            //수직 또는 수평 키를 누른 경우 & 이동하려는 방향에 장애물이 없는 경우 이동
+            // 이동
             if ((h * v == 0) && !(h == 0 && v == 0) && CheckMove())
             {
                 canMove = false;
@@ -49,7 +53,7 @@ public class Player : Element
     {
         SetDirection(dir);
 
-        //player 이동 방향으로 회전
+        //player 이동 방향으로 회전 +수정
         Quaternion q = Quaternion.LookRotation(new Vector3(-dir.z, dir.y, dir.x));
         transform.rotation = q;
 
@@ -57,6 +61,7 @@ public class Player : Element
         rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);
     }
 
+    // target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)
     public bool isReachedToTarget(Vector3 target)
     {
         if (Mathf.Abs(transform.position.x - target.x) < 0.05f && Mathf.Abs(transform.position.z - target.z) < 0.05f)
@@ -65,19 +70,33 @@ public class Player : Element
             return false;
     }
 
-    public void SetPosToCenter()
+    //초기 위치로 변환
+    public void MoveToInitPos()
+    {
+        transform.position = initPos;
+    }
+
+    //한 칸의 중앙으로 위치 변환
+    public void MoveToCenter()
     {
         transform.position = new Vector3(CalcCenterPos(transform.position.x), 1, CalcCenterPos(transform.position.z));
     }
-
+       
+    //한 칸의 중앙 위치값 계산
     private float CalcCenterPos(float point)
     {
         return Mathf.Floor(point - (Database.Stage.GetComponent<Stage>().GetStageSize() + 1) % 2 * 0.5f + 0.5f) + (Database.Stage.GetComponent<Stage>().GetStageSize() + 1) % 2 * 0.5f;
     }
 
+    //player의 속도를 0으로 변환
     public void SetVelocityZero()
     {
         rigid.velocity = Vector3.zero;
+    }
+
+    public void SetInitPos(Vector3 pos)
+    {
+        initPos = pos;
     }
 
     public void SetDirection(Vector3 dir)

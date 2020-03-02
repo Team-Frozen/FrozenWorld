@@ -28,7 +28,7 @@ public class BlockStop : Element
         Debug.Log("STOP");
 
         player.SetVelocityZero();
-        player.SetPosToCenter();
+        player.MoveToCenter();
         Player.canMove = true;
     }
 

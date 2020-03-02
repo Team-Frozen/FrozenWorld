@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Element : MonoBehaviour
 {
-    [SerializeField]
-    protected Player player;
+    public Player player;
 
     protected RaycastHit hit;
     protected int layerMask_player, layerMask_wall, layerMask_exit, layerMask_obstacle;
@@ -14,11 +13,12 @@ public abstract class Element : MonoBehaviour
 
     void Start()
     {
-        position_vec = new Vector3(transform.position.x, 1, transform.position.z);
+        Debug.Log("element start");
+
         layerMask_player = 1 << LayerMask.NameToLayer("Player");
         layerMask_wall = 1 << LayerMask.NameToLayer("Wall");
-        layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
-        layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
+
+        position_vec = new Vector3(transform.position.x, 1, transform.position.z);
     }
 
     public abstract BlockType ReturnType();

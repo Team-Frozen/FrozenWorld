@@ -98,7 +98,7 @@ public class SaveLoadManager : MonoBehaviour
                 //add chapter button
                 GameObject newChptrBtn;
                 newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Database.Btn_Chapters.Count), 0, 0), Quaternion.identity);
-                newChptrBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusChapter + 1), typeof(Sprite)); //이미지 추가
+                newChptrBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusChapter + 1), typeof(Sprite));
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
                 Database.Btn_Chapters.Add(newChptrBtn);
 
@@ -121,7 +121,7 @@ public class SaveLoadManager : MonoBehaviour
                     //add stage button
                     GameObject newStageBtn;
                     newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Database.Btn_Stages.Count % 9), -150 - 100 * (Database.Btn_Stages.Count / 9), 0), Quaternion.identity);
-                    newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusStage + 1), typeof(Sprite)); //이미지 추가
+                    newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     Database.Btn_Stages.Add(newStageBtn);
 
@@ -135,6 +135,7 @@ public class SaveLoadManager : MonoBehaviour
                         {
                             case BlockType.UNIT:
                                 newBlock = Instantiate(unit, position, Quaternion.identity);
+                                newBlock.GetComponent<Player>().SetInitPos(position);
                                 break;
                             case BlockType.EXIT:
                                 newBlock = Instantiate(exit, position, Quaternion.identity);
@@ -155,6 +156,8 @@ public class SaveLoadManager : MonoBehaviour
                                 newBlock = null;
                                 break;
                         }
+                        if (k != 0)
+                            newBlock.GetComponent<Element>().player = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Player>();
                         Database.Stage.GetComponent<Stage>().GetElements().Add(newBlock);
                         Database.Stage.GetComponent<Stage>().SetParent(newBlock);
                     }

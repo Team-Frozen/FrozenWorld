@@ -16,6 +16,18 @@ public static class Database
     private static int focusStage = 0;
     private static int focusChapter = 0;
 
+    public static GameObject Player
+    {
+        get
+        {
+            return Stage.GetComponent<Stage>().GetElements()[0];
+        }
+        set
+        {
+            Stage.GetComponent<Stage>().GetElements()[0] = value;
+        }
+    }
+
     public static List<GameObject> Canvases
     {
         get
