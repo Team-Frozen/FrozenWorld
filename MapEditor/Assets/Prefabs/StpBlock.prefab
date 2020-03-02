@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1603802870575838277}
   - component: {fileID: 1057109837023930999}
   - component: {fileID: 6658863040070701555}
-  - component: {fileID: 114124237469197620}
+  - component: {fileID: 114741340622693864}
   m_Layer: 8
   m_Name: StpBlock
   m_TagString: Untagged
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114124237469197620
+--- !u!114 &114741340622693864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,6 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4738635032587121114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3bc85c6fdfcc44c8a2319bc6f5d97a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cf790454cb65804e94f681bef5b04c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

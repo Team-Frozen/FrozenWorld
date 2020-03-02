@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameArea : MonoBehaviour
+public class PrtBlock : Block
 {
     // Start is called before the first frame update
-    void Awake()
-    {
-        //DontDestroyOnLoad(this.gameObject);
-    }
-
     void Start()
     {
         
@@ -19,5 +14,15 @@ public class GameArea : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public override void changeProperty()
+    {
+
+    }
+
+    public override BlockType returnType()
+    {
+        return BlockType.PRT;
     }
 }

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private BlockType blockType;
     private GameObject ghostBlock;  //Block before click
     private GameObject focusBlock;  //Clicked block
+    private Vector3 mouseDownPoint;
 
 //----------- Prefabs-------------//
     public GameObject unit;       //
@@ -73,10 +74,11 @@ public class GameManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
         Physics.Raycast(ray, out hitInfo, 100f, layerMask);
-
+        
         //--------마우스 클릭 (맵 안에서)----------//
         if (m_Event.type == EventType.MouseDown)
         {
+            mouseDownPoint = Input.mousePosition;
             //블럭을 클릭한 경우와 그렇지 않은 경우
             if (onBlock(hitInfo))
                 focusBlock = hitInfo.transform.gameObject;
@@ -123,8 +125,10 @@ public class GameManager : MonoBehaviour
         //--------------마우스 놓음----------------//
         if (m_Event.type == EventType.MouseUp)
         {
+            if (focusBlock && mouseDownPoint == Input.mousePosition)
+                focusBlock.GetComponent<Element>().changeProperty();
             if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
-                focusBlock.GetComponent<Element>().action();
+                focusBlock.GetComponent<Element>().deleteElement();
             focusBlock = null;
         }
         //-----------------------------------------//
@@ -186,8 +190,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject element in Test.Stage.GetComponent<Stage>().getElements())
         {
             if (hitInfo.transform.position.x == element.transform.position.x &&
-                hitInfo.transform.position.z == element.transform.position.z &&
-                hitInfo.transform.position.y == element.transform.position.y)
+                hitInfo.transform.position.z == element.transform.position.z)
                 return true;
         }
         return false;

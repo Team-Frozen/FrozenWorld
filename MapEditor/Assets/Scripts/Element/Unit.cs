@@ -18,6 +18,18 @@ public class Unit : Element
         
     }
 
+    public override void changeProperty()
+    {
+        property++;
+        this.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+    }
+
+    public override void setProperty(int property)
+    {
+        this.property = property;
+        this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
+    }
+
     public override BlockType returnType()
     {
         return BlockType.UNIT;
@@ -39,7 +51,7 @@ public class Unit : Element
         base.setVisible();
     }
 
-    public override void action()
+    public override void deleteElement() //return to its original position
     {
         this.gameObject.transform.position = new Vector3 (return_x, this.gameObject.transform.position.y, return_z);
         base.setVisible();

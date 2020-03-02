@@ -33,6 +33,7 @@ public class StageData
 [System.Serializable]
 public class ElementData
 {
+    public int property;
     public Vec3 position;
     public BlockType blockType;
 }
@@ -161,6 +162,7 @@ public class SaveLoadManager : MonoBehaviour
                                 newBlock = null;
                                 break;
                         }
+                        newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
                         Test.Stage.GetComponent<Stage>().getElements().Add(newBlock);
                         Test.Stage.GetComponent<Stage>().setParent(newBlock);
                     }
@@ -200,6 +202,7 @@ public class SaveLoadManager : MonoBehaviour
                     vec3.y = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().transform.position.y;
                     vec3.z = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().transform.position.z;
                     elementData.position = vec3;
+                    elementData.property = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().getProperty();
                     elementData.blockType = Test.Chapters[i][j].GetComponent<Stage>().getElements()[k].GetComponent<Element>().returnType();
                     stageData.elements.Add(elementData);
                 }

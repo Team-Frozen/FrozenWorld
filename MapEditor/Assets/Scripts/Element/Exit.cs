@@ -39,9 +39,13 @@ public class Exit : Element
         base.setVisible();
     }
 
-    public override void action()
+    public override void deleteElement()
     {
         this.gameObject.transform.position = new Vector3(return_x, this.gameObject.transform.position.y, return_z);
         base.setVisible();
+    }
+
+    public override void changeProperty()
+    {
     }
 }

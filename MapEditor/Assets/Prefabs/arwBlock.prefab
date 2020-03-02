@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8154657951674498266}
   - component: {fileID: 7429977757740742610}
   - component: {fileID: 243874109229526831}
-  - component: {fileID: 114018105004169414}
+  - component: {fileID: 9192069296394915394}
   - component: {fileID: 65360731914555788}
   m_Layer: 8
   m_Name: arwBlock
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &114018105004169414
+--- !u!114 &9192069296394915394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2241194493281046168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3bc85c6fdfcc44c8a2319bc6f5d97a, type: 3}
+  m_Script: {fileID: 11500000, guid: eeb146c3729e0064db64d6ddae11cb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!65 &65360731914555788
