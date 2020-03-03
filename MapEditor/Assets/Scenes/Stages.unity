@@ -451,6 +451,8 @@ MonoBehaviour:
   canvas: {fileID: 2180985495619861139, guid: b12291ef0e8bc544e82c2e3a961196d4, type: 3}
   ghostButton: {fileID: 3289983002029995909, guid: 1e62e3f02c9c03e4ea3d78cd115be977,
     type: 3}
+  indicateBar: {fileID: 3656750280177416633, guid: 3eaf67057a71c8c448db66f955520bf7,
+    type: 3}
   mainCanvas: {fileID: 1293485745}
 --- !u!4 &411655792
 Transform:

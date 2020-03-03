@@ -11,12 +11,14 @@ public class GameManagerStages : MonoBehaviour
     public  GameObject button;      //
     public  GameObject canvas;      //
     public  GameObject ghostButton; //
+    public  GameObject indicateBar; //
 //----------------------------------//
     public  GameObject mainCanvas;
 
     private int        clickedBtnIndex;
     private GameObject focusButton;
     private GameObject ghostBtn;
+    private GameObject indicator;
 
     void Awake()
     {
@@ -94,7 +96,12 @@ public class GameManagerStages : MonoBehaviour
                     ghostBtn.transform.SetParent(mainCanvas.transform, false);
                 }
 
-                //추가
+                if (indicator != null)
+                    indicator.GetComponent<RectTransform>().anchoredPosition = new Vector3(calcBtnMovePos() % 9 * 100 + 45, -(calcBtnMovePos() / 9) * 100 - 155, 0);
+                else {
+                    indicator = Instantiate(indicateBar, new Vector3(calcBtnMovePos() % 9 * 100 + 45, - (calcBtnMovePos() / 9) * 100 - 155, 0), Quaternion.identity);
+                    indicator.transform.SetParent(mainCanvas.transform, false);
+                }
             }
         }
 
@@ -104,25 +111,36 @@ public class GameManagerStages : MonoBehaviour
             {
                 GameObject temp = Test.Stages[clickedBtnIndex];
 
+
+                if (focusButton != null)
+                    focusButton.GetComponent<Image>().color = Color.white;
+
                 if (clickedBtnIndex > calcBtnMovePos())
                 {
                     Test.Stages.RemoveAt(clickedBtnIndex);
                     Test.Stages.Insert(calcBtnMovePos(), temp);
+                    focusButton = Test.Btn_Stages[calcBtnMovePos()];
                 }
                 else if (clickedBtnIndex < calcBtnMovePos() - 1)
                 {
                     Test.Stages.Insert(calcBtnMovePos(), temp);
                     Test.Stages.RemoveAt(clickedBtnIndex);
+                    focusButton = Test.Btn_Stages[calcBtnMovePos() - 1];
                 }
-                //추가
-                //focusBlock != null
-                //  focusBlock_index < clicked && focusBlock_index > calcBtnMovePos() -> focusBlock = focusBlock_(index + 1)
-                //  focusBlock_index > clicked && focusBlock_index < calcBtnMovePos() -> focusBlock = focusBlock_(index - 1)
+
+                if(focusButton != null)
+                    focusButton.GetComponent<Image>().color = Color.red;
 
                 if (ghostBtn != null)
                 {
-                    Destroy(ghostBtn.gameObject);
+                    Destroy(ghostBtn);
                     ghostBtn = null;
+                }
+
+                if (indicator != null)
+                {
+                    Destroy(indicator);
+                    indicator = null;
                 }
             }
         }
