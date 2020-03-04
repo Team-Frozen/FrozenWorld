@@ -15,7 +15,7 @@ public enum BlockType
     PRT,
     WALL
 }
-
+// data
 [System.Serializable]
 public class Data
 {
@@ -47,11 +47,29 @@ public class Vec3
     public float z;
 }
 
+//data
+[System.Serializable]
+public class Data_clear
+{
+    public List<ChapterData_clear> chapters;
+}
+
+[System.Serializable]
+public class ChapterData_clear
+{
+    public bool isClear;
+    public List<StageData_clear> stages;
+}
+
+[System.Serializable]
+public class StageData_clear
+{
+    public bool isClear;
+    public int score;
+}
 
 public class SaveLoadManager : MonoBehaviour
 {
-    private Data data;
-
 //------------ prefabs -------------//
     public GameObject btn_Chapters; //
     public GameObject btn_Stages;   //
@@ -65,11 +83,19 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject prtBlock;     //
     public GameObject canvas;       //
 //----------------------------------//
+        
+    private Data data;
+    private Data_clear data_clear;
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         Load();
+
+        for (int i = 0; i < Database.Chapters.Count; i++)
+            Database.isClearChapter.Add(false);
+
+        Load_ClearData();
     }
 
     void Update()
@@ -77,9 +103,77 @@ public class SaveLoadManager : MonoBehaviour
         if (Input.anyKeyDown)
             if (SceneManager.GetActiveScene().name == "0_Loading")
                 SceneManager.LoadScene("1_Start");
-            //else
-            //    if (Input.GetKey("s"))
-            //        Save();
+            else
+                if (Input.GetKey("p"))
+                    Save_ClearData();
+    }
+
+    private void Load_ClearData()
+    {
+        data_clear = DataManager.BinaryDeserialize<Data_clear>("Data_clear.sav");
+
+        if (data_clear != null)
+        {
+            for (Database.FocusChapter = 0; Database.FocusChapter < data_clear.chapters.Count; Database.FocusChapter++)
+            {
+                if (data_clear.chapters[Database.FocusChapter].isClear)
+                    if (Database.FocusChapter + 1 < data_clear.chapters.Count)
+                        Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
+
+                Database.IsClearChapter = data_clear.chapters[Database.FocusChapter].isClear;
+
+                for (Database.FocusStage = 0; Database.FocusStage < data_clear.chapters[Database.FocusChapter].stages.Count; Database.FocusStage++)
+                {
+                    if (data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear)
+                    {
+                        if (Database.FocusStage + 1 < data_clear.chapters[Database.FocusChapter].stages.Count)
+                        {
+                            Database.Btn_AllStages[Database.FocusChapter][Database.FocusStage + 1].GetComponent<Button>().interactable = true;
+                        }
+                        else if (Database.FocusChapter + 1 < data_clear.chapters.Count)
+                        {
+                            Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
+                            Database.Btn_AllStages[Database.FocusChapter + 1][0].GetComponent<Button>().interactable = true;
+                        }
+                    }
+                    Database.Stage.GetComponent<Stage>().SetIsClear(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear);
+                    Database.Stage.GetComponent<Stage>().SetScore(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].score);
+                }
+            }
+        }
+        else
+        {
+            data_clear = new Data_clear();
+        }
+    }
+
+    public void Save_ClearData()
+    {
+        data_clear.chapters = new List<ChapterData_clear>();
+
+        //save chapter data
+        for (int i = 0; i < Database.Chapters.Count; i++)
+        {
+            ChapterData_clear chapterData_clear = new ChapterData_clear();
+            chapterData_clear.stages = new List<StageData_clear>();
+            chapterData_clear.isClear = Database.isClearChapter[i];
+            Debug.Log("chapter" + i + " " + Database.isClearChapter[i]);
+
+            //save stage data
+            for (int j = 0; j < Database.Chapters[i].Count; j++)
+            {
+                StageData_clear stageData_clear = new StageData_clear();
+                stageData_clear.isClear = Database.Chapters[i][j].GetComponent<Stage>().IsClear();
+                Debug.Log("stage" + j + " " + Database.Chapters[i][j].GetComponent<Stage>().IsClear());
+                stageData_clear.score = Database.Chapters[i][j].GetComponent<Stage>().GetScore();
+                chapterData_clear.stages.Add(stageData_clear);
+            }
+
+            data_clear.chapters.Add(chapterData_clear);
+        }
+
+        DataManager.BinarySerialize<Data_clear>(data_clear, "Data_clear.sav");
+        Debug.Log("clear data save");
     }
 
     private void Load()
@@ -100,6 +194,7 @@ public class SaveLoadManager : MonoBehaviour
                 newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Database.Btn_Chapters.Count), 0, 0), Quaternion.identity);
                 newChptrBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusChapter + 1), typeof(Sprite));
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
+                newChptrBtn.GetComponent<Button>().interactable = false;
                 Database.Btn_Chapters.Add(newChptrBtn);
 
                 //add canvas
@@ -123,6 +218,7 @@ public class SaveLoadManager : MonoBehaviour
                     newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Database.Btn_Stages.Count % 9), -150 - 100 * (Database.Btn_Stages.Count / 9), 0), Quaternion.identity);
                     newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
+                    newStageBtn.GetComponent<Button>().interactable = false;
                     Database.Btn_Stages.Add(newStageBtn);
 
                     for (int k = 0; k < data.stages[index].elements.Count; k++)
@@ -166,46 +262,12 @@ public class SaveLoadManager : MonoBehaviour
                 }
                 newCanvas.SetActive(false);
             }
+            Database.Btn_Chapters[0].GetComponent<Button>().interactable = true;
+            Database.Btn_AllStages[0][0].GetComponent<Button>().interactable = true;
         }
         else
         {
             data = new Data();
         }
-    }
-
-    public void Save()
-    {
-        data.chapterCount = Database.Chapters.Count;
-        data.stages = new List<StageData>();
-        data.stageCount = new List<int>();
-
-        for (int i = 0; i < Database.Chapters.Count; i++)
-        {
-            data.stageCount.Add(Database.Chapters[i].Count);
-
-            //save stages
-            for (int j = 0; j < Database.Chapters[i].Count; j++)
-            {
-                StageData stageData = new StageData();
-                stageData.gameAreaSize = Database.Chapters[i][j].GetComponent<Stage>().GetStageSize();
-                stageData.elements = new List<ElementData>();
-
-                //save elements
-                for (int k = 0; k < Database.Chapters[i][j].GetComponent<Stage>().GetElements().Count; k++)
-                {
-                    ElementData elementData = new ElementData();
-                    Vec3 vec3 = new Vec3();
-                    vec3.x = Database.Chapters[i][j].GetComponent<Stage>().GetElements()[k].GetComponent<Element>().transform.position.x;
-                    vec3.y = Database.Chapters[i][j].GetComponent<Stage>().GetElements()[k].GetComponent<Element>().transform.position.y;
-                    vec3.z = Database.Chapters[i][j].GetComponent<Stage>().GetElements()[k].GetComponent<Element>().transform.position.z;
-                    elementData.position = vec3;
-                    elementData.blockType = Database.Chapters[i][j].GetComponent<Stage>().GetElements()[k].GetComponent<Element>().ReturnType();
-                    stageData.elements.Add(elementData);
-                }
-                data.stages.Add(stageData);
-            }
-        }
-
-        DataManager.BinarySerialize<Data>(data, "Data.sav");
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public static class Database
 {
     private static List<List<GameObject>> chapters = new List<List<GameObject>>();
+    public static List<bool> isClearChapter = new List<bool>();
 
     private static List<List<GameObject>> btn_Stages = new List<List<GameObject>>();
     private static List<GameObject> btn_Chapters = new List<GameObject>();
@@ -15,6 +16,18 @@ public static class Database
 
     private static int focusStage = 0;
     private static int focusChapter = 0;
+
+    public static bool IsClearChapter
+    {
+        get
+        {
+            return isClearChapter[focusChapter];
+        }
+        set
+        {
+            isClearChapter[focusChapter] = value;
+        }
+    }
 
     public static GameObject Player
     {
@@ -44,11 +57,11 @@ public static class Database
     {
         get
         {
-            return canvases[FocusChapter];
+            return canvases[focusChapter];
         }
         set
         {
-            canvases[FocusChapter] = value;
+            canvases[focusChapter] = value;
         }
     }
 
@@ -148,5 +161,4 @@ public static class Database
             focusChapter = value;
         }
     }
-
 }

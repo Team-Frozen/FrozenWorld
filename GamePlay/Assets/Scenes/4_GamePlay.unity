@@ -3367,13 +3367,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1d72904a35871428584df702e5c553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  go_StageClearUI: {fileID: 471410894}
-  txt_PlayerMoves: {fileID: 2089067852}
+  StageClearUI: {fileID: 471410894}
   txt_Score:
   - {fileID: 868490895}
   - {fileID: 687459920}
   - {fileID: 1648300497}
   btn_Back: {fileID: 1003224132}
+  txt_PlayerMoves: {fileID: 2089067852}
 --- !u!4 &1735381533
 Transform:
   m_ObjectHideFlags: 0

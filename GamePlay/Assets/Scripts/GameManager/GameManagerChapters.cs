@@ -39,77 +39,51 @@ public class GameManagerChapters : MonoBehaviour
     {
         Event m_Event = Event.current;
 
-        //--------마우스 클릭----------//
+        //Mouse Pressed
         if (m_Event.type == EventType.MouseDown)
         {
             mousePos = Input.mousePosition.x;
         }
-        //--------마우스 드래그----------//
+
+        //Mouse Draged
         if (m_Event.type == EventType.MouseDrag)
         {
             float diff = Input.mousePosition.x - mousePos;
             if (Mathf.Abs(diff) <= 150)
-            {
-                int i = 0;
-                foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
-                {
-                    Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) + diff - (900 * page), 0, 0);
-                    i++;
-                }
-            }
+                setChptrLoc(diff);
         }
-        //--------마우스 놓음----------//
+
+        //Mouse Released
         if (m_Event.type == EventType.MouseUp)
         {
             float diff = Input.mousePosition.x - mousePos;
-            if (Mathf.Abs(diff) <= 150)
-            {
-                int i = 0;
-                foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
-                {
-                    Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
-                    i++;
-                }
-            }
-            else
+
+            if (Mathf.Abs(diff) > 150)
             {
                 if (diff < 0 && page < (Database.Btn_Chapters.Count - 1) / 3)
-                {
                     page++;
-                    int i = 0;
-                    foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
-                    {
-                        Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
-                        i++;
-                    }
-                }
                 else if (diff > 0 && page > 0)
-                {
                     page--;
-                    int i = 0;
-                    foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
-                    {
-                        Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
-                        i++;
-                    }
-                }
-                else
-                {
-                    int i = 0;
-                    foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
-                    {
-                        Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
-                        i++;
-                    }
-                }
             }
+
+            setChptrLoc(0f);
+        }
+    }
+
+    private void setChptrLoc(float diff)
+    {
+        int i = 0;
+        foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
+        {
+            Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) + diff - (900 * page), 0, 0);
+            i++;
         }
     }
 
     public void loadChapter()
     {
         int index;
-        for (index = 0; Database.Btn_Chapters[index] != EventSystem.current.currentSelectedGameObject; index++);
+        for (index = 0; Database.Btn_Chapters[index] != EventSystem.current.currentSelectedGameObject; index++) ;
         Database.FocusChapter = index;
 
         ChangeScene_Stages();

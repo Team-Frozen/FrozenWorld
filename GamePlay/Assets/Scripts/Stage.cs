@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    List<GameObject> elements;
-    GameObject gameArea;
-    int stageSize;
-    int minimumMoves = 3;   //임시값
-    int score = 0;
+    private  List<GameObject> elements;
+    private GameObject gameArea;
+    private int stageSize;
+
+    private bool isClear = false;
+    private int minimumMoves = 3;   //임시값
+    private int score = 0;
 
     //prefab//
     public GameObject pre_gameArea;
@@ -22,7 +24,7 @@ public class Stage : MonoBehaviour
 
     public void CalcScore()
     {
-        if (GameManager.playerMoves == minimumMoves)
+        if (GameManager.playerMoves <= minimumMoves)
         {
             score = 3;
         }
@@ -67,12 +69,12 @@ public class Stage : MonoBehaviour
 
     public List<GameObject> GetElements()
     {
-        return elements;
+        return this.elements;
     }
 
     public int GetStageSize()
     {
-        return stageSize;
+        return this.stageSize;
     }
 
     public void SetStageSize(int stageSize)
@@ -83,6 +85,21 @@ public class Stage : MonoBehaviour
 
     public int GetScore()
     {
-        return score;
+        return this.score;
+    }
+
+    public void SetScore(int score)
+    {
+        this.score = score;
+    }
+
+    public bool IsClear()
+    {
+        return this.isClear;
+    }
+
+    public void SetIsClear(bool isClear)
+    {
+        this.isClear = isClear;
     }
 }

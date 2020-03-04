@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 448}
   m_MaxSize: {x: 4002, y: 8048}
   vertical: 1
-  controlID: 66
+  controlID: 98
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 448}
   m_MaxSize: {x: 8006, y: 8048}
   vertical: 0
-  controlID: 65
+  controlID: 97
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_MinSize: {x: 917, y: 448}
   m_MaxSize: {x: 22012, y: 10024}
   vertical: 0
-  controlID: 64
+  controlID: 96
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -227,7 +227,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 821
-  m_MinSize: {x: 950, y: 498}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &10
 MonoBehaviour:
@@ -363,20 +363,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/Database
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts/Database
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\kio10\Desktop\FrozenWorld\GamePlay
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 480c0000
-    m_LastClickedID: 3144
-    m_ExpandedIDs: 00000000c6090000d40a0000320b0000a82a0000aa2a0000
+    m_SelectedIDs: 920b0000
+    m_LastClickedID: 2962
+    m_ExpandedIDs: 00000000c8090000d60a0000340b0000a82a0000aa2a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -404,7 +404,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c6090000320b0000a82a0000aa2a0000
+    m_ExpandedIDs: 00000000c8090000340b0000a82a0000aa2a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -435,15 +435,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Player
-      m_OriginalName: Player
+      m_Name: GameManagerStages
+      m_OriginalName: GameManagerStages
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 2680
+      m_UserData: 1984
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -523,23 +523,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 880b0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: ac91ffffd291ffff16a9ffff1ca9fffff6aeffffc2afffff04b0ffff34bfffff38cbffff3ecbffffeed9fffff4d9ffff86daffff8cdaffff98daffff0adfffffdae2ffffe0e2ffffdefbfffff4ffffffc20c00006e500000605100000652000048520000
+      m_SelectedIDs: 8ed7ffff
+      m_LastClickedID: -10354
+      m_ExpandedIDs: 1ad8ffffdefbfffff4ffffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Wall_SW
-        m_OriginalName: Wall_SW
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 11900
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -581,9 +581,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.349415, y: 2.8936656, z: 0.2789692}
+    m_Target: {x: -1, y: 1, z: 0}
     speed: 2
-    m_Value: {x: -2.349415, y: 2.8936656, z: 0.2789692}
+    m_Value: {x: -1, y: 1, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -615,9 +615,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.46616146, y: 0.086792484, z: -0.046016824, w: 0.8792287}
   m_Size:
-    m_Target: 17.305351
+    m_Target: 2.3392787
     speed: 2
-    m_Value: 17.305351
+    m_Value: 2.3392787
   m_Ortho:
     m_Target: 0
     speed: 2

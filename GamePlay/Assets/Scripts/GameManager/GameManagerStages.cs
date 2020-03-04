@@ -36,7 +36,7 @@ public class GameManagerStages : MonoBehaviour
             if (focusButton != null)
                 focusButton.GetComponent<Image>().color = Color.white;
             focusButton = EventSystem.current.currentSelectedGameObject;
-            focusButton.GetComponent<Image>().color = Color.grey;
+            focusButton.GetComponent<Image>().color = Color.cyan;
         }
         //두번 눌렀을 때
         else

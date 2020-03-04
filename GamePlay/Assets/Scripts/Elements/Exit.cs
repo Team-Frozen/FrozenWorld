@@ -36,6 +36,8 @@ public class Exit : Element
     {
         Debug.Log("EXIT");
 
+        Database.Stage.GetComponent<Stage>().SetIsClear(true);
+        Debug.Log(Database.Stage.GetComponent<Stage>().IsClear());
         gameManager.ShowStageClearUI();
     }
 
