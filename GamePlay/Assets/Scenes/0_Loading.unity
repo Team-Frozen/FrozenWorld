@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -749,6 +749,7 @@ MonoBehaviour:
     type: 3}
   btn_Stages: {fileID: 552871758635945196, guid: e9bf8e425da47c04c863b9adbee23002,
     type: 3}
+  wall: {fileID: 3075371000275032958, guid: d6819b5cc08d1054ca4bc07015612d3b, type: 3}
   unit: {fileID: 4530077794544196847, guid: 3a92f9243c24fe84f99ed6c82f41fa44, type: 3}
   exit: {fileID: 3160314096586365843, guid: 95696829e840ea44fbd89fecba00ca09, type: 3}
   stage: {fileID: 5990435951688460144, guid: f29fc759b45c30c4c958c14015e3f5c9, type: 3}

@@ -74,6 +74,7 @@ public class SaveLoadManager : MonoBehaviour
 //------------ prefabs -------------//
     public GameObject btn_Chapters; //
     public GameObject btn_Stages;   //
+    public GameObject wall;         //
     public GameObject unit;         //
     public GameObject exit;         //
     public GameObject stage;        //
@@ -239,6 +240,21 @@ public class SaveLoadManager : MonoBehaviour
                                 newBlock.GetComponent<Player>().SetInitPos(position);
                                 break;
                             case BlockType.EXIT:
+                                for (int i = 0; i < data.stages[index].gameAreaSize; i++)
+                                {
+                                    Vector3 wallPosition = new Vector3();
+
+                                    wallPosition.x = (data.stages[index].gameAreaSize + 1) * 0.5f;
+                                    wallPosition.y = 1.5f;
+                                    wallPosition.z = (data.stages[index].gameAreaSize + 1) * 0.5f - (i + 1);
+
+                                    if (position.x != wallPosition.x || position.z != wallPosition.z)
+                                    {
+                                        GameObject newWall;
+                                        newWall = Instantiate(wall, wallPosition, Quaternion.identity);
+                                        newWall.transform.SetParent(Database.Stage.GetComponent<Stage>().getGameArea().transform);
+                                    }
+                                }
                                 position.y = 0.5f + exit.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(exit, position, Quaternion.identity);
                                 break;

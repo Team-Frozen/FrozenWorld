@@ -58,8 +58,7 @@ public class Stage : MonoBehaviour
 
         gameArea.transform.GetChild(3).position = new Vector3(0, 2, -(float)stageSize * 0.5f - 0.5f);
         gameArea.transform.GetChild(4).position = new Vector3(-(float)stageSize * 0.5f - 0.5f, 2, 0);
-        gameArea.transform.GetChild(5).position = new Vector3((float)stageSize * 0.5f + 0.5f, 2, 0);
-        gameArea.transform.GetChild(6).position = new Vector3(0, 2, (float)stageSize * 0.5f + 0.5f);
+        gameArea.transform.GetChild(5).position = new Vector3(0, 2, (float)stageSize * 0.5f + 0.5f);
     }
 
     public void SetParent(GameObject child)
@@ -101,5 +100,10 @@ public class Stage : MonoBehaviour
     public void SetIsClear(bool isClear)
     {
         this.isClear = isClear;
+    }
+
+    public GameObject getGameArea()
+    {
+        return gameArea;
     }
 }

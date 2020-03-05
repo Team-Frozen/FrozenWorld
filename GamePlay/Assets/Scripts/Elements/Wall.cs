@@ -6,7 +6,7 @@ public class Wall : Element
 {
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && Physics.Raycast(Database.Player.transform.position, Database.Player.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_wall))
+        if (other.gameObject.CompareTag("Player") && Physics.Raycast(other.transform.position, other.transform.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_wall) && hit.transform.gameObject == this.gameObject)
         {
             Action(other.transform.GetComponent<Player>());
         }
@@ -14,8 +14,6 @@ public class Wall : Element
 
     public override void Action(Player player)
     {
-        Debug.Log("wall");
-
         Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToCenter();
         Player.canMove = true;
