@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7956342306878175321}
   - component: {fileID: 7419295803006849205}
   - component: {fileID: 9208824237891591946}
-  - component: {fileID: 5313545007340220466}
+  - component: {fileID: 6350577623622149915}
   m_Layer: 12
-  m_Name: BlockArw_Left
+  m_Name: BlockArw
   m_TagString: ArrowBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1341136798592706704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 0.01, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -90,9 +90,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.01, y: 0.01, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5313545007340220466
+--- !u!114 &6350577623622149915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341136798592706704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a100c55ab72e13743ac4dfea6049dc34, type: 3}
+  m_Script: {fileID: 11500000, guid: a67fe3de0e3ae2749b1c241210389567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4530077794544196846, guid: 3a92f9243c24fe84f99ed6c82f41fa44, type: 3}

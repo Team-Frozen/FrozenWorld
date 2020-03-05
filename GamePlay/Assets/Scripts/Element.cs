@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Element : MonoBehaviour
 {
-    public Player player;
-
+    protected int property;
     protected RaycastHit hit;
     protected int layerMask_player, layerMask_wall, layerMask_exit, layerMask_obstacle;
 
@@ -22,5 +21,10 @@ public abstract class Element : MonoBehaviour
     }
 
     public abstract BlockType ReturnType();
-    public abstract void Action();
+    public abstract void Action(Player player);
+
+    public virtual void setProperty(int property)
+    {
+        this.property = property;
+    }
 }

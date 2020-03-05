@@ -22,7 +22,7 @@ public class Player : Element
 
     private void FixedUpdate()
     {
-        if (canMove && (rigid.velocity == Vector3.zero))
+        if (canMove)
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
@@ -109,7 +109,7 @@ public class Player : Element
         return moveDir;
     }
 
-    public override void Action() 
+    public override void Action(Player player) 
     {
 
     }
@@ -119,4 +119,9 @@ public class Player : Element
         return BlockType.UNIT;
     }
 
+    public override void setProperty(int property)
+    {
+        this.property = property;
+        this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
+    }
 }

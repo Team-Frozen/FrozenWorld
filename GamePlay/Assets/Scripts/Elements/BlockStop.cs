@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BlockStop : Element
 {
-    bool isAction;
+    private Collider player;
 
     private void Update()
     {
-        if (!isAction && player.isReachedToTarget(position_vec))
+        if (player != null && player.GetComponent<Player>().isReachedToTarget(position_vec))
         {
-            Action();
-            isAction = true;
+            Action(player.GetComponent<Player>());
+            player = null;
         }
     }
 
@@ -19,11 +19,11 @@ public class BlockStop : Element
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            isAction = false;
+            player = other;
         }
     }
 
-    public override void Action()
+    public override void Action(Player player)
     {
         Debug.Log("STOP");
 

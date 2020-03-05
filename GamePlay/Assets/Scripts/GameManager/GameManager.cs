@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 { 
-    [SerializeField] GameObject StageClearUI;    //Clear 했을 때 나타나는 Panel
+    /*[SerializeField] */ public GameObject StageClearUI;    //Clear 했을 때 나타나는 Panel
     [SerializeField] List<Text> txt_Score;  // 점수
     [SerializeField] Button btn_Back;       // 뒤로가기 버튼
     [SerializeField] Text txt_PlayerMoves;  // Player 이동 횟수

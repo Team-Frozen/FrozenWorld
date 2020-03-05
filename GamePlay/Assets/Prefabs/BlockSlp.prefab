@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 470785664699855964}
   - component: {fileID: 1176542499867944453}
   - component: {fileID: 5009533261522273805}
-  - component: {fileID: 2346281277839378238}
+  - component: {fileID: 973702001173399220}
   m_Layer: 14
-  m_Name: BlockSlp_Left
+  m_Name: BlockSlp
   m_TagString: SlopeBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2346281277839378238
+--- !u!114 &973702001173399220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4875296842261418469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8480519646e54843830561c2ffc1062, type: 3}
+  m_Script: {fileID: 11500000, guid: 86e8ce3669bc93341b9fea3007576c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4530077794544196846, guid: 3a92f9243c24fe84f99ed6c82f41fa44, type: 3}

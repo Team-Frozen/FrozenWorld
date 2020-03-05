@@ -6,13 +6,13 @@ public class BlockOriginal : Element
 {
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && Physics.Raycast(transform.position, -player.GetDirection(), out hit, 1f, layerMask_player))
+        if (other.gameObject.CompareTag("Player") && Physics.Raycast(transform.position, -other.transform.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_player))
         {
-            Action();
+            Action(other.gameObject.GetComponent<Player>());
         }
     }
 
-    public override void Action()
+    public override void Action(Player player)
     {
         Debug.Log("original");
 

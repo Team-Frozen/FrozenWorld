@@ -35,6 +35,7 @@ public class StageData
 [System.Serializable]
 public class ElementData
 {
+    public int property;
     public Vec3 position;
     public BlockType blockType;
 }
@@ -225,35 +226,43 @@ public class SaveLoadManager : MonoBehaviour
                     {
                         //add block
                         GameObject newBlock = null;
-                        Vector3 position = new Vector3(data.stages[index].elements[k].position.x, data.stages[index].elements[k].position.y, data.stages[index].elements[k].position.z);
+                        Vector3 position = new Vector3();
+
+                        position.x = data.stages[index].elements[k].position.x;
+                        position.z = data.stages[index].elements[k].position.z;
 
                         switch (data.stages[index].elements[k].blockType)
                         {
                             case BlockType.UNIT:
+                                position.y = 0.5f + unit.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(unit, position, Quaternion.identity);
                                 newBlock.GetComponent<Player>().SetInitPos(position);
                                 break;
                             case BlockType.EXIT:
+                                position.y = 0.5f + exit.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(exit, position, Quaternion.identity);
                                 break;
                             case BlockType.ORG:
+                                position.y = 0.5f + orgBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(orgBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.ARW:
+                                position.y = 0.5f + arwBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(arwBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.SLP:
+                                position.y = 0.5f + slpBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(slpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.STP:
+                                position.y = 0.5f + stpBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.PRT:
                                 newBlock = null;
                                 break;
                         }
-                        if (k != 0)
-                            newBlock.GetComponent<Element>().player = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Player>();
+                        newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
                         Database.Stage.GetComponent<Stage>().GetElements().Add(newBlock);
                         Database.Stage.GetComponent<Stage>().SetParent(newBlock);
                     }
@@ -267,6 +276,7 @@ public class SaveLoadManager : MonoBehaviour
         }
         else
         {
+            System.IO.Directory.CreateDirectory("C:/FrozenWorld_Data");
             data = new Data();
         }
     }

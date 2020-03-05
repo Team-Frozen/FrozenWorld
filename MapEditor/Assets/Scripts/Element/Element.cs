@@ -6,21 +6,6 @@ public abstract class Element : MonoBehaviour
 {
     protected int property;
 
-    void Awake()
-    {
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public abstract bool inValidArea(Stage stage);
     public abstract void deleteElement();
     public abstract BlockType returnType();

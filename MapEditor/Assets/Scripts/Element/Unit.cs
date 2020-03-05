@@ -6,21 +6,10 @@ public class Unit : Element
 {
     private float return_x, return_z;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void changeProperty()
     {
         property++;
+        property = property % 4;
         this.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
     }
 

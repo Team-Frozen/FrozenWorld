@@ -5,26 +5,26 @@ using UnityEngine;
 public class BlockPortal : Element
 {
     [SerializeField] BlockPortal relatedPortal;
-    bool isAction = true;
+    private Collider player;
 
     private void Update()
     {
-        if (!isAction && player.isReachedToTarget(position_vec))
+        if (player != null && player.GetComponent<Player>().isReachedToTarget(position_vec))
         {
-            Action();
-            isAction = true;
+            Action(player.GetComponent<Player>());
+            player = null;
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && Physics.Raycast(position_vec, -player.GetDirection(), out hit, 1f, layerMask_player))
+        if (other.gameObject.CompareTag("Player") && Physics.Raycast(position_vec, -other.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_player))
         {
-            isAction = false;
+            player = other;
         }
     }
     
-    public override void Action()
+    public override void Action(Player player)
     {
         Debug.Log("portal");
 

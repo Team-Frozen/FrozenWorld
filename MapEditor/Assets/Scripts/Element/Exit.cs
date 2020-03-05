@@ -6,17 +6,6 @@ public class Exit : Element
 {
     private float return_x, return_z;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public override BlockType returnType()
     {
         return BlockType.EXIT;
