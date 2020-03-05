@@ -92,6 +92,7 @@ public class Player : Element
     public void SetVelocityZero()
     {
         rigid.velocity = Vector3.zero;
+        SetDirection(Vector3.zero);
     }
 
     public void SetInitPos(Vector3 pos)

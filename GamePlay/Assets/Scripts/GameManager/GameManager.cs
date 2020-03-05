@@ -6,22 +6,31 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 { 
-    /*[SerializeField] */ public GameObject StageClearUI;    //Clear 했을 때 나타나는 Panel
-    [SerializeField] List<Text> txt_Score;  // 점수
-    [SerializeField] Button btn_Back;       // 뒤로가기 버튼
-    [SerializeField] Text txt_PlayerMoves;  // Player 이동 횟수
+    public GameObject StageClearUI;    //Clear 했을 때 나타나는 Panel
+    public List<Text> txt_Score;  // 점수
+    public Button btn_Back;       // 뒤로가기 버튼
+    public Text txt_PlayerMoves;  // Player 이동 횟수
+
     public static int playerMoves;
-    private SaveLoadManager saveload;
+    private Exit exit;
+    //private SaveLoadManager saveload;
 
     private void Awake()
     {
         InitStage();
         Database.Stage.SetActive(true);
+        exit = Database.Stage.GetComponent<Stage>().GetElements()[1].GetComponent<Exit>();
     }
 
     //Player 이동횟수 업데이트
     void Update()
     {
+        if (exit.isCollide)
+        {
+            exit.isCollide = false;
+            ShowStageClearUI();
+        }
+
         txt_PlayerMoves.text = playerMoves.ToString();
     }
 
@@ -44,7 +53,7 @@ public class GameManager : MonoBehaviour
     }
 
     //StageClear UI에서 NextStage 버튼 클릭 시
-    public void Change_NextStage()
+    public void Btn_NextStage()
     {
         //다음 Stage가 같은 Chapter인 경우
         if (Database.FocusStage + 1 < Database.Stages.Count)
@@ -74,6 +83,7 @@ public class GameManager : MonoBehaviour
             InitStage();
             ChangeScene_Chapters();
         }
+        exit = Database.Stage.GetComponent<Stage>().GetElements()[1].GetComponent<Exit>();
     }
 
     private void OpenNextStageBtn()
@@ -121,9 +131,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("2_Chapters");
     }
 
-    public void ChangeScene_Start()
+    public void Btn_RestartStage()
     {
-        Database.Stage.SetActive(false);
-        SceneManager.LoadScene("1_Start");
+        InitStage();
     }
 }

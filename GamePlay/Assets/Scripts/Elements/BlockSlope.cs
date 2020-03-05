@@ -16,8 +16,6 @@ public class BlockSlope : Element       //leftSlope Block
     {
         if (Physics.Raycast(transform.position, new Vector3(-(property / 2) * (1 - (property % 2)), 0, (property - 2) * (property % 2)), out hit, 1f, layerMask_player))
         {
-            Debug.Log("Slope Left");
-
             player.GetComponent<Rigidbody>().AddForce(player.GetDirection() * 10, ForceMode.Impulse);
         }
         else if (Physics.Raycast(transform.position, -player.GetDirection(), out hit, 1f, layerMask_player))

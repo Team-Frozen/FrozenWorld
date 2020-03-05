@@ -25,8 +25,6 @@ public class BlockStop : Element
 
     public override void Action(Player player)
     {
-        Debug.Log("STOP");
-
         player.SetVelocityZero();
         player.MoveToCenter();
         Player.canMove = true;

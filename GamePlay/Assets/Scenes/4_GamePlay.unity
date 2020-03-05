@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.446577, g: 0.49641114, b: 0.5748164, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657695, g: 0.4964111, b: 0.57481635, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 1583594605}
   - component: {fileID: 1583594604}
   m_Layer: 5
-  m_Name: Btn_Home
+  m_Name: Btn_Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1064,7 +1064,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1735381532}
-        m_MethodName: ChangeScene_Start
+        m_MethodName: Btn_RestartStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1092,7 +1092,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0400ac22db0e93f409cb7c60870aa80c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 232f98a37891da34ea0edbf9629d48fe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1461,7 +1461,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1735381532}
-        m_MethodName: Change_NextStage
+        m_MethodName: Btn_NextStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

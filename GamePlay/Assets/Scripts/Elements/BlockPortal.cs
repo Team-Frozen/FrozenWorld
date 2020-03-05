@@ -26,8 +26,6 @@ public class BlockPortal : Element
     
     public override void Action(Player player)
     {
-        Debug.Log("portal");
-
         player.MoveToCenter();
         player.transform.position = relatedPortal.position_vec;
     }

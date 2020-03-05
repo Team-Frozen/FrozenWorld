@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Exit : Element
 {
-    private GameManager gameManager;
+    public bool isCollide { get; set; }
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        isCollide = false;
         layerMask_player = 1 << LayerMask.NameToLayer("Player");
     }
 
@@ -23,7 +23,7 @@ public class Exit : Element
     //    }
     //}
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && other.GetComponent<Player>().GetDirection() == Vector3.right)
         {
@@ -33,11 +33,8 @@ public class Exit : Element
 
     public override void Action(Player player)
     {
-        Debug.Log("EXIT");
-
         Database.Stage.GetComponent<Stage>().SetIsClear(true);
-        Debug.Log(Database.Stage.GetComponent<Stage>().IsClear());
-        gameManager.ShowStageClearUI();
+        isCollide = true;
     }
 
     public override BlockType ReturnType()

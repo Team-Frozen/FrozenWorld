@@ -14,10 +14,7 @@ public class BlockArrow : Element
 
     public override void Action(Player player)
     {
-        Debug.Log("arrow left");
-
         player.MoveToCenter();
-
         player.SetVelocityZero();
         player.TryMove(new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2)));
     }
