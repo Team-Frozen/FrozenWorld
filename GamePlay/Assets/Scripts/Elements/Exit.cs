@@ -33,6 +33,7 @@ public class Exit : Element
 
     public override void Action(Player player)
     {
+        player.SetVelocityZero();
         Database.Stage.GetComponent<Stage>().SetIsClear(true);
         isCollide = true;
     }

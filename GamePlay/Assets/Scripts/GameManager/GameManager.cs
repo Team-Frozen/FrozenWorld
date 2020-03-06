@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         }
 
         //StageClear 저장
-        //saveload.Save_ClearData();
+        SaveLoadManager.Save_ClearData();
     }
 
     //StageClear UI에서 NextStage 버튼 클릭 시

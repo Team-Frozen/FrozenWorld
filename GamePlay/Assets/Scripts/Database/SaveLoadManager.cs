@@ -102,12 +102,9 @@ public class SaveLoadManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+       if (Input.anyKeyDown)
             if (SceneManager.GetActiveScene().name == "0_Loading")
-                SceneManager.LoadScene("1_Start");
-            else
-                if (Input.GetKey("p"))
-                    Save_ClearData();
+                SceneManager.LoadScene("1_Start");                    
     }
 
     private void Load_ClearData()
@@ -149,8 +146,9 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
-    public void Save_ClearData()
+    public static void Save_ClearData()
     {
+        Data_clear data_clear = new Data_clear();
         data_clear.chapters = new List<ChapterData_clear>();
 
         //save chapter data
