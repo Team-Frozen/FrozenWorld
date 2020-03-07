@@ -27,7 +27,7 @@ public class Data
 [System.Serializable]
 public class StageData
 {
-    //int minMove;
+    public int minMove;
     public int gameAreaSize;
     public List<ElementData> elements;
 }
@@ -211,6 +211,7 @@ public class SaveLoadManager : MonoBehaviour
                     GameObject newStage;
                     newStage = Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity);
                     newStage.GetComponent<Stage>().SetStageSize(data.stages[index].gameAreaSize);
+                    newStage.GetComponent<Stage>().SetMinMove(data.stages[index].minMove);
                     Database.Stages.Add(newStage);
                     
                     //add stage button

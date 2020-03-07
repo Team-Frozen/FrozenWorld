@@ -9,7 +9,7 @@ public class Stage : MonoBehaviour
     private int stageSize;
 
     private bool isClear = false;
-    private int minimumMoves = 3;   //임시값
+    private int minMove;   //임시값
     private int score = 0;
 
     //prefab//
@@ -24,11 +24,11 @@ public class Stage : MonoBehaviour
 
     public void CalcScore()
     {
-        if (GameManager.playerMoves <= minimumMoves)
+        if (GameManager.playerMoves <= minMove)
         {
             score = 3;
         }
-        else if (minimumMoves < GameManager.playerMoves && GameManager.playerMoves < minimumMoves + 3)
+        else if (minMove < GameManager.playerMoves && GameManager.playerMoves < minMove + 3)
         {
             score = 2;
         }
@@ -80,6 +80,11 @@ public class Stage : MonoBehaviour
     {
         this.stageSize = stageSize;
         SetArea();
+    }
+
+    public void SetMinMove(int minMove)
+    {
+        this.minMove = minMove;
     }
 
     public int GetScore()

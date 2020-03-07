@@ -37,11 +37,13 @@ public class GameManager : MonoBehaviour
 
     public ToggleGroup ToggleGroup;
     public Button btn_size;
+    public Button btn_minMove;
 
     // Start is called before the first frame update
     void Awake()
     {
         btn_size.onClick.AddListener(resizeMap);//수정 수정 가능한지 생각해보기
+        btn_minMove.onClick.AddListener(setMinMove);
 
         if (Test.Stages.Count == Test.Btn_Stages.Count) // stage load btn click (버튼의 수가 늘지 않았을 때)
             Test.Stage.SetActive(true);
@@ -214,15 +216,21 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Stages");
     }
 
-    void resizeMap()
+    private void setMinMove()
     {
-        if(btn_size.GetComponent<ButtonHandler>().getStageSize() != Test.Stage.GetComponent<Stage>().getStageSize())
-            Test.Stage.GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getStageSize());
+        if (btn_minMove.GetComponent<ButtonHandler>().getText() != Test.Stage.GetComponent<Stage>().getMinMove())
+            Test.Stage.GetComponent<Stage>().setMinMove(btn_minMove.GetComponent<ButtonHandler>().getText());
+    }
+
+    private void resizeMap()
+    {
+        if(btn_size.GetComponent<ButtonHandler>().getText() != Test.Stage.GetComponent<Stage>().getStageSize())
+            Test.Stage.GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getText());
         setUnit();
         setExit();
     }
 
-    void setUnit()
+    private void setUnit()
     {
         GameObject newUnit;
 
@@ -231,7 +239,7 @@ public class GameManager : MonoBehaviour
         Test.Stage.GetComponent<Stage>().setParent(newUnit);
     }
 
-    void setExit()
+    private void setExit()
     {
         GameObject newExit;
 

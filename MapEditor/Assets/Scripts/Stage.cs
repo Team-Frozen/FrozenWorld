@@ -56,6 +56,16 @@ public class Stage : MonoBehaviour
         modifyArea();
     }
 
+    public int getMinMove()
+    {
+        return minMove;
+    }
+
+    public void setMinMove(int minMove)
+    {
+        this.minMove = minMove;
+    }
+
     public void setParent(GameObject child)
     {
         child.transform.SetParent(this.transform);

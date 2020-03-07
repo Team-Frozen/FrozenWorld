@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour
 {
-    public Text size;
-
-    public int getStageSize()
+    public Text num;
+   
+    public int getText()
     {
-       return Int32.Parse(size.text);
+       return Int32.Parse(num.text);
     }
 }

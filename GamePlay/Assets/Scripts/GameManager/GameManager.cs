@@ -113,6 +113,10 @@ public class GameManager : MonoBehaviour
         Player.canMove = true;
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().MoveToInitPos();
+
+        txt_Score[0].gameObject.SetActive(false);
+        txt_Score[1].gameObject.SetActive(false);
+        txt_Score[2].gameObject.SetActive(false);
         StageClearUI.SetActive(false);
     }
 

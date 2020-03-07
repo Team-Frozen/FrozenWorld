@@ -25,7 +25,7 @@ public class Data
 [System.Serializable]
 public class StageData
 {
-    //int minMove;
+    public int minMove;
     public int gameAreaSize;
     public List<ElementData> elements;
 }
@@ -71,16 +71,12 @@ public class SaveLoadManager : MonoBehaviour
        
         load();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.anyKeyDown)
+        {
             if (SceneManager.GetActiveScene().name == "Loading")
             {
                 canvasLoadChptr.SetActive(true);
@@ -88,7 +84,8 @@ public class SaveLoadManager : MonoBehaviour
             }
             else
                 if (Input.GetKey("s"))
-                Save();
+                    Save();
+        }
     }
 
     private void load()
@@ -123,6 +120,7 @@ public class SaveLoadManager : MonoBehaviour
                     //add stage
                     GameObject newStage;
                     newStage = Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity);
+                    newStage.GetComponent<Stage>().setMinMove(data.stages[index].minMove);
                     newStage.GetComponent<Stage>().setStageSize(data.stages[index].gameAreaSize);
                     Test.Stages.Add(newStage);
                     
@@ -191,6 +189,7 @@ public class SaveLoadManager : MonoBehaviour
             for (int j = 0; j < Test.Chapters[i].Count; j++)
             {
                 StageData stageData = new StageData();
+                stageData.minMove = Test.Chapters[i][j].GetComponent<Stage>().getMinMove();
                 stageData.gameAreaSize = Test.Chapters[i][j].GetComponent<Stage>().getStageSize();
                 stageData.elements = new List<ElementData>();
 
