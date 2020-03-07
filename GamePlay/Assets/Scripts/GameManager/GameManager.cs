@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     public static int playerMoves;
     private Exit exit;
-    //private SaveLoadManager saveload;
 
     private void Awake()
     {

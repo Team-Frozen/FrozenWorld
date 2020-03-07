@@ -9,7 +9,7 @@ public class Stage : MonoBehaviour
     private int stageSize;
 
     private bool isClear = false;
-    private int minMove;   //임시값
+    private int minMove;
     private int score = 0;
 
     //prefab//

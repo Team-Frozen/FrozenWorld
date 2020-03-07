@@ -6,7 +6,7 @@ public class StpBlock : Block
 {
     public override void changeProperty()
     {
-        property++;
+        
     }
 
     public override void setProperty(int property)

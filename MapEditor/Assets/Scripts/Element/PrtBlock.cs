@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrtBlock : Block
 {
+    PrtBlock linkedPrt;
+
     public override void changeProperty()
     {
 
@@ -12,5 +14,15 @@ public class PrtBlock : Block
     public override BlockType returnType()
     {
         return BlockType.PRT;
+    }
+
+    public void setLinkedPrt(PrtBlock linked)
+    {
+        linkedPrt = linked;
+    }
+
+    public PrtBlock getLinkedPrt()
+    {
+        return linkedPrt;
     }
 }

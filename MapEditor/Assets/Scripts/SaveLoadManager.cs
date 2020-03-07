@@ -60,6 +60,7 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject arwBlock;     //
     public GameObject slpBlock;     //
     public GameObject stpBlock;     //
+    public GameObject prtBlock;     //
     public GameObject canvas;       //
 //----------------------------------//
 
@@ -157,7 +158,7 @@ public class SaveLoadManager : MonoBehaviour
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.PRT:
-                                newBlock = null;
+                                newBlock = Instantiate(prtBlock, position, Quaternion.identity);
                                 break;
                         }
                         newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
@@ -172,6 +173,7 @@ public class SaveLoadManager : MonoBehaviour
         }
         else
         {
+            System.IO.Directory.CreateDirectory("C:/FrozenWorld_Data");
             data = new Data();
         }
     }

@@ -36,12 +36,12 @@ public abstract class Element : MonoBehaviour
     public virtual void setVisible()
     {
         gameObject.layer = 8;
-        GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        GetComponent<MeshRenderer>().material.color = new Color(GetComponent<MeshRenderer>().material.color.r, GetComponent<MeshRenderer>().material.color.g, GetComponent<MeshRenderer>().material.color.b, 1.0f);
     }
     public void setInvisible()
     {
         gameObject.layer = 0;
-        GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        GetComponent<MeshRenderer>().material.color = new Color(GetComponent<MeshRenderer>().material.color.r, GetComponent<MeshRenderer>().material.color.g, GetComponent<MeshRenderer>().material.color.b, 0.0f);
     }
 
     public int getProperty()

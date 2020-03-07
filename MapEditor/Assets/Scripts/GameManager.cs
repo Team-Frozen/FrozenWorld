@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public GameObject slpBlock;   //
     public GameObject stpGhost;   //
     public GameObject stpBlock;   //
+    public GameObject prtGhost;   //
+    public GameObject prtBlock;   //
 //--------------------------------//
 
     public ToggleGroup ToggleGroup;
@@ -100,9 +102,39 @@ public class GameManager : MonoBehaviour
                     case BlockType.STP:
                         focusBlock = Instantiate(stpBlock, ghostBlock.transform.position, Quaternion.identity);
                         break;
+                    case BlockType.PRT:
+                        focusBlock = Instantiate(prtBlock, ghostBlock.transform.position, Quaternion.identity);
+
+                        GameObject linkedBlock;
+                        Vector3 vaildPos = new Vector3(0, 0.5f, 0);
+                        int stageSize = Test.Stage.GetComponent<Stage>().getStageSize();
+
+                        for (int i = 0; i < stageSize; i++)
+                        {
+                            vaildPos.z = -stageSize / 2.0f + 0.5f + i;
+                            for (int j = 0; j < stageSize; j++)
+                            {
+                                vaildPos.x = -stageSize / 2.0f + 0.5f + j;
+                                if (!Test.Stage.GetComponent<Stage>().hasElementOn(vaildPos))
+                                {
+                                    linkedBlock = Instantiate(prtBlock, vaildPos, Quaternion.identity);
+
+                                    linkedBlock.GetComponent<PrtBlock>().setLinkedPrt(focusBlock.GetComponent<PrtBlock>());
+                                    focusBlock.GetComponent<PrtBlock>().setLinkedPrt(linkedBlock.GetComponent<PrtBlock>());
+
+                                    Test.Stage.GetComponent<Stage>().getElements().Add(linkedBlock);
+                                    Test.Stage.GetComponent<Stage>().setParent(linkedBlock);
+
+                                    goto label;
+                                }
+                            }
+                        }
+                        label:
+                        break;
                 }
                 Test.Stage.GetComponent<Stage>().getElements().Add(focusBlock);
                 Test.Stage.GetComponent<Stage>().setParent(focusBlock);
+
                 Destroy(ghostBlock);
                 focusBlock = null;
             }
@@ -122,7 +154,6 @@ public class GameManager : MonoBehaviour
                     focusBlock.GetComponent<Element>().setInvisible();
             }
         }
-        //-----------------------------------------//
 
         //--------------마우스 놓음----------------//
         if (m_Event.type == EventType.MouseUp)
@@ -130,10 +161,15 @@ public class GameManager : MonoBehaviour
             if (focusBlock && mouseDownPoint == Input.mousePosition)
                 focusBlock.GetComponent<Element>().changeProperty();
             if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
+            {
+                if (focusBlock.GetComponent<Element>().returnType() == global::BlockType.PRT)   //PRT일 경우 linked PRT 제거
+                    focusBlock.GetComponent<PrtBlock>().getLinkedPrt().deleteElement();
+
                 focusBlock.GetComponent<Element>().deleteElement();
+            }
+            
             focusBlock = null;
         }
-        //-----------------------------------------//
 
         //--------------마우스 이동----------------//
         if (inValidArea(hitInfo))
@@ -154,14 +190,16 @@ public class GameManager : MonoBehaviour
                     case BlockType.STP:
                         ghostBlock = Instantiate(stpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (stpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
+                    case BlockType.PRT:
+                        ghostBlock = Instantiate(prtGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (prtGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        break;
                 }
             }
             else
                 ghostBlock.GetComponent<GhostBlock>().move(new Vector3(calcCrd(hitInfo.point.x), 0.5f + (ghostBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)));
         }
         else
-            Destroy(ghostBlock);
-        //-----------------------------------------//       
+            Destroy(ghostBlock);       
     }
 
     public float calcCrd(float point){

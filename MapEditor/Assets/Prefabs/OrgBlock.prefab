@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2897017150290886020}
   - component: {fileID: 674190122652796884}
   - component: {fileID: 4134205154344980061}
-  - component: {fileID: 6149662346298729701}
+  - component: {fileID: 114325768759578072}
   m_Layer: 8
   m_Name: OrgBlock
   m_TagString: Block
@@ -92,7 +92,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6149662346298729701
+--- !u!114 &114325768759578072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

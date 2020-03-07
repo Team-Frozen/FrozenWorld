@@ -157,14 +157,12 @@ public class SaveLoadManager : MonoBehaviour
             ChapterData_clear chapterData_clear = new ChapterData_clear();
             chapterData_clear.stages = new List<StageData_clear>();
             chapterData_clear.isClear = Database.isClearChapter[i];
-            Debug.Log("chapter" + i + " " + Database.isClearChapter[i]);
 
             //save stage data
             for (int j = 0; j < Database.Chapters[i].Count; j++)
             {
                 StageData_clear stageData_clear = new StageData_clear();
                 stageData_clear.isClear = Database.Chapters[i][j].GetComponent<Stage>().IsClear();
-                Debug.Log("stage" + j + " " + Database.Chapters[i][j].GetComponent<Stage>().IsClear());
                 stageData_clear.score = Database.Chapters[i][j].GetComponent<Stage>().GetScore();
                 chapterData_clear.stages.Add(stageData_clear);
             }
@@ -222,6 +220,7 @@ public class SaveLoadManager : MonoBehaviour
                     newStageBtn.GetComponent<Button>().interactable = false;
                     Database.Btn_Stages.Add(newStageBtn);
 
+                    int prtNum = 0;
                     for (int k = 0; k < data.stages[index].elements.Count; k++)
                     {
                         //add block
@@ -274,7 +273,14 @@ public class SaveLoadManager : MonoBehaviour
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.PRT:
-                                newBlock = null;
+                                position.y = 0.5f + prtBlock.transform.localScale.y * 0.5f;
+                                newBlock = Instantiate(prtBlock, position, Quaternion.identity);
+                                if (prtNum % 2 == 1)
+                                {
+                                    newBlock.GetComponent<BlockPortal>().SetLinkedPortal(Database.Stage.GetComponent<Stage>().GetElements()[k - 1].GetComponent<BlockPortal>());
+                                    Database.Stage.GetComponent<Stage>().GetElements()[k - 1].GetComponent<BlockPortal>().SetLinkedPortal(newBlock.GetComponent<BlockPortal>());
+                                }
+                                prtNum++;
                                 break;
                         }
                         newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);

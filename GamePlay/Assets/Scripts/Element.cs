@@ -12,8 +12,6 @@ public abstract class Element : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("element start");
-
         layerMask_player = 1 << LayerMask.NameToLayer("Player");
         layerMask_wall = 1 << LayerMask.NameToLayer("Wall");
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlockPortal : Element
 {
-    [SerializeField] BlockPortal relatedPortal;
+    private BlockPortal linkedPortal;
     private Collider player;
 
     private void Update()
@@ -27,11 +27,16 @@ public class BlockPortal : Element
     public override void Action(Player player)
     {
         player.MoveToCenter();
-        player.transform.position = relatedPortal.position_vec;
+        player.transform.position = linkedPortal.position_vec;
     }
 
     public override BlockType ReturnType()
     {
         return BlockType.PRT;
+    }
+
+    public void SetLinkedPortal(BlockPortal linked)
+    {
+        linkedPortal = linked;
     }
 }

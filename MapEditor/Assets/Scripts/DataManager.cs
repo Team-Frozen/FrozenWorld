@@ -14,7 +14,7 @@ public class DataManager
 
     public static T BinaryDeserialize<T>(string fileName)
     {
-        if (File.Exists(Application.persistentDataPath + fileName))
+        if (File.Exists("C:/FrozenWorld_Data/" + fileName))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream("C:/FrozenWorld_Data/" + fileName, FileMode.Open);

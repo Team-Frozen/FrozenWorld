@@ -6,7 +6,6 @@ public class BlockOriginal : Element
 {
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("halo");
         if (other.gameObject.CompareTag("Player") && Physics.Raycast(transform.position, -other.transform.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_player))
         {
             Action(other.gameObject.GetComponent<Player>());

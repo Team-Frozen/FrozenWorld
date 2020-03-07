@@ -44,6 +44,16 @@ public class Stage : MonoBehaviour
         gameArea.transform.GetChild(2).localScale = new Vector3(0.1f, 1, (float)stageSize * 0.1f);
     }
 
+    public bool hasElementOn(Vector3 pos)
+    {
+        foreach (GameObject element in elements)
+        {
+            if (element.transform.position.x == pos.x && element.transform.position.z == pos.z)
+                return true;
+        }
+        return false;
+    }
+
     public int getStageSize()
     {
         return stageSize;

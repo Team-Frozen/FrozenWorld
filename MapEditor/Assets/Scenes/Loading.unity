@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -755,10 +755,12 @@ MonoBehaviour:
   stage: {fileID: 4127502154243866024, guid: f29fc759b45c30c4c958c14015e3f5c9, type: 3}
   orgBlock: {fileID: 7691964977813003158, guid: 43adf2a100168dd4f9bea3358121cf42,
     type: 3}
-  arwBlock: {fileID: 2241194493281046168, guid: 5ca821e040f7e0b40999b3550ef8fa0a,
+  arwBlock: {fileID: 5854932990282273342, guid: 221babeb61a469c479419d3171bdf177,
     type: 3}
   slpBlock: {fileID: 1563635464423884788, guid: 29a3fa99856f1164497f97d1ee794ddd,
     type: 3}
   stpBlock: {fileID: 4738635032587121114, guid: d23bb6c58ccf31d439c59603464dca11,
+    type: 3}
+  prtBlock: {fileID: 7517757480721077648, guid: ec10afc577efc474ab5da4b463080adb,
     type: 3}
   canvas: {fileID: 2180985495619861139, guid: b12291ef0e8bc544e82c2e3a961196d4, type: 3}
