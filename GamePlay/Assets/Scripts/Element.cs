@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class Element : MonoBehaviour
 {
-    protected int property;
     protected RaycastHit hit;
     protected int layerMask_player, layerMask_wall, layerMask_exit, layerMask_obstacle;
 
-    protected Vector3 position_vec;
+    protected Vector3 position_vec; //element position
+    protected int property;
 
     void Start()
     {

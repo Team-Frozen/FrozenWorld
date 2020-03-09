@@ -74,6 +74,7 @@ public class SaveLoadManager : MonoBehaviour
 //------------ prefabs -------------//
     public GameObject btn_Chapters; //
     public GameObject btn_Stages;   //
+    public GameObject Img_Score;    //
     public GameObject wall;         //
     public GameObject unit;         //
     public GameObject exit;         //
@@ -115,14 +116,17 @@ public class SaveLoadManager : MonoBehaviour
         {
             for (Database.FocusChapter = 0; Database.FocusChapter < data_clear.chapters.Count; Database.FocusChapter++)
             {
+                //ClearChapter의 다음 Btn_Chapter까지 interactable
                 if (data_clear.chapters[Database.FocusChapter].isClear)
                     if (Database.FocusChapter + 1 < data_clear.chapters.Count)
                         Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
 
+                //Chapter: Clear했는지 저장
                 Database.IsClearChapter = data_clear.chapters[Database.FocusChapter].isClear;
 
                 for (Database.FocusStage = 0; Database.FocusStage < data_clear.chapters[Database.FocusChapter].stages.Count; Database.FocusStage++)
                 {
+                    //ClearStage의 다음 Btn_Stage까지 interactable
                     if (data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear)
                     {
                         if (Database.FocusStage + 1 < data_clear.chapters[Database.FocusChapter].stages.Count)
@@ -135,8 +139,15 @@ public class SaveLoadManager : MonoBehaviour
                             Database.Btn_AllStages[Database.FocusChapter + 1][0].GetComponent<Button>().interactable = true;
                         }
                     }
+                    //Stage: Clear했는지 저장
                     Database.Stage.GetComponent<Stage>().SetIsClear(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear);
-                    Database.Stage.GetComponent<Stage>().SetScore(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].score);
+                    
+                    //Stage: Score 저장
+                    int temp_score = data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].score;
+                    Database.Stage.GetComponent<Stage>().SetScore(temp_score);
+
+                    //StageScene에서 Score SetActive
+                    Database.Stage.GetComponent<Stage>().SetActiveStageScore();
                 }
             }
         }
@@ -220,7 +231,15 @@ public class SaveLoadManager : MonoBehaviour
                     newStageBtn.GetComponent<Button>().interactable = false;
                     Database.Btn_Stages.Add(newStageBtn);
 
-                    int prtNum = 0;
+                    //add stage score
+                    List<GameObject> stageScore = new List<GameObject>();
+                    for (int i = 0; i < 3; i++)
+                    {
+                        stageScore.Add(Instantiate(Img_Score, new Vector3(i * 30 - 30, -30, 0), Quaternion.identity));
+                        stageScore[i].transform.SetParent(newStageBtn.transform, false);
+                    }
+
+                    int prtBlockNum = 0;
                     for (int k = 0; k < data.stages[index].elements.Count; k++)
                     {
                         //add block
@@ -275,12 +294,12 @@ public class SaveLoadManager : MonoBehaviour
                             case BlockType.PRT:
                                 position.y = 0.5f + prtBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(prtBlock, position, Quaternion.identity);
-                                if (prtNum % 2 == 1)
+                                if (prtBlockNum % 2 == 1)
                                 {
                                     newBlock.GetComponent<BlockPortal>().SetLinkedPortal(Database.Stage.GetComponent<Stage>().GetElements()[k - 1].GetComponent<BlockPortal>());
                                     Database.Stage.GetComponent<Stage>().GetElements()[k - 1].GetComponent<BlockPortal>().SetLinkedPortal(newBlock.GetComponent<BlockPortal>());
                                 }
-                                prtNum++;
+                                prtBlockNum++;
                                 break;
                         }
                         newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);

@@ -11,6 +11,7 @@ public class Stage : MonoBehaviour
     private bool isClear = false;
     private int minMove;
     private int score = 0;
+    private int currentScore = 0;
 
     //prefab//
     public GameObject pre_gameArea;
@@ -25,17 +26,14 @@ public class Stage : MonoBehaviour
     public void CalcScore()
     {
         if (GameManager.playerMoves <= minMove)
-        {
-            score = 3;
-        }
+            currentScore = 3;
         else if (minMove < GameManager.playerMoves && GameManager.playerMoves < minMove + 3)
-        {
-            score = 2;
-        }
+            currentScore = 2;
         else
-        {
-            score = 1;
-        }
+            currentScore = 1;
+
+        if (currentScore > score)
+            score = currentScore;
     }
 
     private void CreateGameArea()
@@ -59,6 +57,15 @@ public class Stage : MonoBehaviour
         gameArea.transform.GetChild(3).position = new Vector3(0, 2, -(float)stageSize * 0.5f - 0.5f);
         gameArea.transform.GetChild(4).position = new Vector3(-(float)stageSize * 0.5f - 0.5f, 2, 0);
         gameArea.transform.GetChild(5).position = new Vector3(0, 2, (float)stageSize * 0.5f + 0.5f);
+    }
+
+    public void SetActiveStageScore()
+    {
+        for (int i = 0; i < 3; i++)
+            Database.Btn_AllStages[Database.FocusChapter][Database.FocusStage].transform.GetChild(i).gameObject.SetActive(false);
+
+        for (int i = 0; i < score; i++)
+            Database.Btn_AllStages[Database.FocusChapter][Database.FocusStage].transform.GetChild(i).gameObject.SetActive(true);
     }
 
     public void SetParent(GameObject child)
@@ -95,6 +102,11 @@ public class Stage : MonoBehaviour
     public void SetScore(int score)
     {
         this.score = score;
+    }
+
+    public int GetCurrentScore()
+    {
+        return this.currentScore;
     }
 
     public bool IsClear()

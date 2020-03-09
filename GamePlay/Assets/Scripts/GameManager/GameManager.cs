@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 { 
-    public GameObject StageClearUI;    //Clear 했을 때 나타나는 Panel
-    public List<Text> txt_Score;  // 점수
-    public Button btn_Back;       // 뒤로가기 버튼
-    public Text txt_PlayerMoves;  // Player 이동 횟수
+    public GameObject StageClearUI;     //Clear 했을 때 나타나는 Panel
+    public List<Image> img_Score;       //점수
+    public Button btn_Back;             //뒤로가기 버튼
+    public Text txt_PlayerMoves;        //Player 이동 횟수
 
     public static int playerMoves;
     private Exit exit;
@@ -39,16 +39,16 @@ public class GameManager : MonoBehaviour
         Player.canMove = false;
         btn_Back.interactable = false;
         StageClearUI.SetActive(true);
-        
-        //점수 계산
-        Database.Stage.GetComponent<Stage>().CalcScore();
-        for (int i = 0; i < Database.Stage.GetComponent<Stage>().GetScore(); i++)
+
+        Database.Stage.GetComponent<Stage>().CalcScore();   //점수 계산
+        SaveLoadManager.Save_ClearData();   //StageClear 저장
+
+        for (int i = 0; i < Database.Stage.GetComponent<Stage>().GetCurrentScore(); i++)
         {
-            txt_Score[i].gameObject.SetActive(true);
+            img_Score[i].gameObject.SetActive(true);    //Panel에 점수표시
         }
 
-        //StageClear 저장
-        SaveLoadManager.Save_ClearData();
+        Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
     }
 
     //StageClear UI에서 NextStage 버튼 클릭 시
@@ -113,9 +113,9 @@ public class GameManager : MonoBehaviour
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().MoveToInitPos();
 
-        txt_Score[0].gameObject.SetActive(false);
-        txt_Score[1].gameObject.SetActive(false);
-        txt_Score[2].gameObject.SetActive(false);
+        img_Score[0].gameObject.SetActive(false);
+        img_Score[1].gameObject.SetActive(false);
+        img_Score[2].gameObject.SetActive(false);
         StageClearUI.SetActive(false);
     }
 
