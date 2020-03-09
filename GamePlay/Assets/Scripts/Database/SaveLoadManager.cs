@@ -69,6 +69,17 @@ public class StageData_clear
     public int score;
 }
 
+//Setting Data
+[System.Serializable]
+public class Data_Setting
+{
+    public bool camera_Rectangle;
+    public bool display_Vertical;
+    public bool control_Button;
+    public float BGMVolume;
+    public float soundVolume;
+}
+
 public class SaveLoadManager : MonoBehaviour
 {
 //------------ prefabs -------------//
@@ -89,6 +100,7 @@ public class SaveLoadManager : MonoBehaviour
         
     private Data data;
     private Data_clear data_clear;
+    private Data_Setting data_setting;
 
     void Awake()
     {
@@ -99,6 +111,7 @@ public class SaveLoadManager : MonoBehaviour
             Database.isClearChapter.Add(false);
 
         Load_ClearData();
+        Load_SettingData();
     }
 
     void Update()
@@ -319,5 +332,35 @@ public class SaveLoadManager : MonoBehaviour
             System.IO.Directory.CreateDirectory("C:/FrozenWorld_Data");
             data = new Data();
         }
+    }
+
+    private void Load_SettingData()
+    {
+        data_setting = DataManager.BinaryDeserialize<Data_Setting>("DataSetting.sav");
+        if (data_setting != null)
+        {
+            SettingData.BGMVolume = data_setting.BGMVolume;
+            SettingData.SoundVolume = data_setting.soundVolume;
+            SettingData.CameraAngle_Rectangle = data_setting.camera_Rectangle;
+            SettingData.ControlMode_Button = data_setting.control_Button;
+            SettingData.Display_Vertical = data_setting.display_Vertical;
+        }
+        else
+        {
+            data_setting = new Data_Setting();
+        }            
+    }
+
+    public static void Save_SettingData()
+    {
+        Data_Setting data_setting = new Data_Setting();
+
+        data_setting.BGMVolume = SettingData.BGMVolume;
+        data_setting.soundVolume = SettingData.SoundVolume;
+        data_setting.camera_Rectangle = SettingData.CameraAngle_Rectangle;
+        data_setting.control_Button = SettingData.ControlMode_Button;
+        data_setting.display_Vertical = SettingData.Display_Vertical;
+
+        DataManager.BinarySerialize<Data_Setting>(data_setting, "DataSetting.sav");
     }
 }

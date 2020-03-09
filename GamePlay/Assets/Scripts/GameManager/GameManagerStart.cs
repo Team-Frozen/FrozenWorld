@@ -5,13 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerStart : MonoBehaviour
 {
-    private void Awake()
+    void Awake()
     {
-
+        AudioManager.Instance.playBGM(AudioType.MAIN_BGM);
     }
 
     public void ChangeScene_Chapters()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         SceneManager.LoadScene("2_Chapters");
+    }
+
+    public void ChangeScene_Setting()
+    {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
+        SceneManager.LoadScene("Setting");
     }
 }

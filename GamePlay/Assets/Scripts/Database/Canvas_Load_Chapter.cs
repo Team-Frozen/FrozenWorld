@@ -18,15 +18,4 @@ public class Canvas_Load_Chapter : MonoBehaviour
             return;
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

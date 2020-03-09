@@ -18,6 +18,8 @@ public class GameManagerStages : MonoBehaviour
 
     void Awake()
     {
+        AudioManager.Instance.playBGM(AudioType.MAIN_BGM);
+
         focusButton = null;
         Database.Canvas.SetActive(true);
 
@@ -30,6 +32,7 @@ public class GameManagerStages : MonoBehaviour
 
     public void BtnClicked() //Btn_Load_Stage 눌렀을 때 실행하는 함수
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         //한번 눌렀을 때
         if (focusButton == null || focusButton != EventSystem.current.currentSelectedGameObject)
         {
@@ -63,6 +66,7 @@ public class GameManagerStages : MonoBehaviour
     //뒤로가기 버튼
     public void ChangeScene_Chapters()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         if (focusButton != null)
             focusButton.GetComponent<Image>().color = Color.white;
 

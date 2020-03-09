@@ -91,12 +91,14 @@ public class GameManagerChapters : MonoBehaviour
 
     public void ChangeScene_Stages()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         Database.Btn_Chapters[0].transform.parent.gameObject.SetActive(false);
         SceneManager.LoadScene("3_Stages");
     }
 
     public void ChangeScene_Start()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         Database.Btn_Chapters[0].transform.parent.gameObject.SetActive(false);
         SceneManager.LoadScene("1_Start");
     }

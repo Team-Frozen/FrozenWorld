@@ -11,12 +11,6 @@ public class TextEffect : MonoBehaviour
         StartCoroutine(blinkEffect());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public IEnumerator blinkEffect()
     {
         int i = 0;

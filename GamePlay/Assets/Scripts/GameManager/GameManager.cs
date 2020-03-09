@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        AudioManager.Instance.playBGM(AudioType.GAMEPLAY_BGM);
+
         InitStage();
         Database.Stage.SetActive(true);
         exit = Database.Stage.GetComponent<Stage>().GetElements()[1].GetComponent<Exit>();
@@ -121,6 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene_Stages()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         if (Database.Stage.GetComponent<Stage>().IsClear())
             OpenNextStageBtn();
 
@@ -130,12 +133,14 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene_Chapters()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         Database.Stage.SetActive(false);
         SceneManager.LoadScene("2_Chapters");
     }
 
     public void Btn_RestartStage()
     {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         InitStage();
     }
 }
