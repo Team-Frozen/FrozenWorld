@@ -36,21 +36,22 @@ public class GameManager : MonoBehaviour
     }
 
     //Stage Clear 했을 때 나타나는 UI(Panel)
-    public void ShowStageClearUI()
+    private void ShowStageClearUI()
     {
         Player.canMove = false;
         btn_Back.interactable = false;
         StageClearUI.SetActive(true);
 
         Database.Stage.GetComponent<Stage>().CalcScore();   //점수 계산
-        SaveLoadManager.Save_ClearData();   //StageClear 저장
+        SaveLoadManager.Save_ClearData();                   //StageClear 저장
 
         for (int i = 0; i < Database.Stage.GetComponent<Stage>().GetCurrentScore(); i++)
         {
-            img_Score[i].gameObject.SetActive(true);    //Panel에 점수표시
+            img_Score[i].gameObject.SetActive(true);        //Panel에 점수표시
         }
 
         Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
+        Database.Chapter.SetActiveChapterScore();                       //ChapterScene에서 점수 표시
     }
 
     //StageClear UI에서 NextStage 버튼 클릭 시
@@ -69,7 +70,6 @@ public class GameManager : MonoBehaviour
         else if (Database.FocusChapter + 1 < Database.Chapters.Count)
         {
             Database.Stage.SetActive(false);
-            Database.IsClearChapter = true;
             OpenNextStageBtn();
             InitStage();
             Database.FocusChapter++;
@@ -79,11 +79,11 @@ public class GameManager : MonoBehaviour
         //모든 Stage를 클리어했을 경우
         else
         {
-            Database.IsClearChapter = true;
-            OpenNextStageBtn(); //save
+            OpenNextStageBtn();
             InitStage();
             ChangeScene_Chapters();
         }
+
         exit = Database.Stage.GetComponent<Stage>().GetElements()[1].GetComponent<Exit>();
     }
 
@@ -93,13 +93,14 @@ public class GameManager : MonoBehaviour
         if (Database.FocusStage + 1 < Database.Stages.Count)
         {
             Database.Btn_AllStages[Database.FocusChapter][Database.FocusStage + 1].GetComponent<Button>().interactable = true;
-
         }
         //다음 Stage가 다른 Chapter인 경우
         else if (Database.FocusChapter + 1 < Database.Chapters.Count)
         {
             Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
             Database.Btn_AllStages[Database.FocusChapter + 1][0].GetComponent<Button>().interactable = true;
+
+            Database.Chapter.SetActiveChapterScore(Database.FocusChapter + 1);
         }
         //모든 stage를 깼을 경우
         else

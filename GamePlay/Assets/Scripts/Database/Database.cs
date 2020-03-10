@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public static class Database
 {
-    private static List<List<GameObject>> chapters = new List<List<GameObject>>();
-    public static List<bool> isClearChapter = new List<bool>();
+    private static List<Chapter> chapters = new List<Chapter>();
+    private static List<List<GameObject>> stages = new List<List<GameObject>>();
 
     private static List<List<GameObject>> btn_Stages = new List<List<GameObject>>();
     private static List<GameObject> btn_Chapters = new List<GameObject>();
@@ -16,18 +16,6 @@ public static class Database
 
     private static int focusStage = 0;
     private static int focusChapter = 0;
-
-    public static bool IsClearChapter
-    {
-        get
-        {
-            return isClearChapter[focusChapter];
-        }
-        set
-        {
-            isClearChapter[focusChapter] = value;
-        }
-    }
 
     public static GameObject Player
     {
@@ -38,30 +26,6 @@ public static class Database
         set
         {
             Stage.GetComponent<Stage>().GetElements()[0] = value;
-        }
-    }
-
-    public static List<GameObject> Canvases
-    {
-        get
-        {
-            return canvases;
-        }
-        set
-        {
-            canvases = value;
-        }
-    }
-
-    public static GameObject Canvas
-    {
-        get
-        {
-            return canvases[focusChapter];
-        }
-        set
-        {
-            canvases[focusChapter] = value;
         }
     }
 
@@ -101,7 +65,19 @@ public static class Database
         }
     }
 
-    public static List<GameObject> Stages
+    public static List<Chapter> Chapter_List
+    {
+        get
+        {
+            return chapters;
+        }
+        set
+        {
+            chapters = value;
+        }
+    }
+
+    public static Chapter Chapter
     {
         get
         {
@@ -117,11 +93,23 @@ public static class Database
     {
         get
         {
-            return chapters;
+            return stages;
         }
         set
         {
-            chapters = value;
+            stages = value;
+        }
+    }
+
+    public static List<GameObject> Stages
+    {
+        get
+        {
+            return stages[focusChapter];
+        }
+        set
+        {
+            stages[focusChapter] = value;
         }
     }
 
@@ -135,6 +123,30 @@ public static class Database
         set
         {
             Stages[focusStage] = value;
+        }
+    }
+
+    public static List<GameObject> Canvases
+    {
+        get
+        {
+            return canvases;
+        }
+        set
+        {
+            canvases = value;
+        }
+    }
+
+    public static GameObject Canvas
+    {
+        get
+        {
+            return canvases[focusChapter];
+        }
+        set
+        {
+            canvases[focusChapter] = value;
         }
     }
 

@@ -15,6 +15,7 @@ public enum BlockType
     PRT,
     WALL
 }
+
 // data
 [System.Serializable]
 public class Data
@@ -48,7 +49,7 @@ public class Vec3
     public float z;
 }
 
-//data
+//data_clear
 [System.Serializable]
 public class Data_clear
 {
@@ -82,21 +83,22 @@ public class Data_Setting
 
 public class SaveLoadManager : MonoBehaviour
 {
-//------------ prefabs -------------//
-    public GameObject btn_Chapters; //
-    public GameObject btn_Stages;   //
-    public GameObject Img_Score;    //
-    public GameObject wall;         //
-    public GameObject unit;         //
-    public GameObject exit;         //
-    public GameObject stage;        //
-    public GameObject orgBlock;     //
-    public GameObject arwBlock;     //
-    public GameObject slpBlock;     //
-    public GameObject stpBlock;     //
-    public GameObject prtBlock;     //
-    public GameObject canvas;       //
-//----------------------------------//
+    //prefabs---------------------------//
+    public GameObject btn_Chapters;
+    public GameObject btn_Stages;
+    public GameObject img_stageScore;
+    public GameObject txt_chapterScore;
+    public GameObject wall;
+    public GameObject unit;
+    public GameObject exit;
+    public GameObject stage;
+    public GameObject orgBlock;
+    public GameObject arwBlock;
+    public GameObject slpBlock;
+    public GameObject stpBlock;
+    public GameObject prtBlock;
+    public GameObject canvas;
+    //-----------------------------------//
         
     private Data data;
     private Data_clear data_clear;
@@ -106,10 +108,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         Load();
-
-        for (int i = 0; i < Database.Chapters.Count; i++)
-            Database.isClearChapter.Add(false);
-
         Load_ClearData();
         Load_SettingData();
     }
@@ -129,16 +127,11 @@ public class SaveLoadManager : MonoBehaviour
         {
             for (Database.FocusChapter = 0; Database.FocusChapter < data_clear.chapters.Count; Database.FocusChapter++)
             {
-                //ClearChapter의 다음 Btn_Chapter까지 interactable
-                if (data_clear.chapters[Database.FocusChapter].isClear)
-                    if (Database.FocusChapter + 1 < data_clear.chapters.Count)
-                        Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
-
-                //Chapter: Clear했는지 저장
-                Database.IsClearChapter = data_clear.chapters[Database.FocusChapter].isClear;
-
                 for (Database.FocusStage = 0; Database.FocusStage < data_clear.chapters[Database.FocusChapter].stages.Count; Database.FocusStage++)
                 {
+                    //Stage: Score 저장
+                    Database.Stage.GetComponent<Stage>().SetScore(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].score);
+
                     //ClearStage의 다음 Btn_Stage까지 interactable
                     if (data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear)
                     {
@@ -151,17 +144,29 @@ public class SaveLoadManager : MonoBehaviour
                             Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
                             Database.Btn_AllStages[Database.FocusChapter + 1][0].GetComponent<Button>().interactable = true;
                         }
-                    }
-                    //Stage: Clear했는지 저장
-                    Database.Stage.GetComponent<Stage>().SetIsClear(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear);
-                    
-                    //Stage: Score 저장
-                    int temp_score = data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].score;
-                    Database.Stage.GetComponent<Stage>().SetScore(temp_score);
 
-                    //StageScene에서 Score SetActive
-                    Database.Stage.GetComponent<Stage>().SetActiveStageScore();
+                        //StageScene에서 Score SetActive
+                        Database.Stage.GetComponent<Stage>().SetActiveStageScore();
+                    }
+
+                    //Stage: Clear했는지 저장
+                    Database.Stage.GetComponent<Stage>().SetIsClear(data_clear.chapters[Database.FocusChapter].stages[Database.FocusStage].isClear);     
                 }
+
+                //Chapter 점수 계산
+                Database.Chapter.CalcScore(Database.FocusChapter);
+
+                if (Database.FocusChapter == 0 || data_clear.chapters[Database.FocusChapter].isClear || data_clear.chapters[Database.FocusChapter - 1].isClear == true)
+                {
+                    //Btn 활성화
+                    Database.Btn_Chapters[Database.FocusChapter].GetComponent<Button>().interactable = true;
+
+                    //ChapterScene에서 Score SetActive
+                    Database.Chapter.SetActiveChapterScore();
+                }
+                
+                //Chapter: Clear했는지 저장
+                Database.Chapter.SetIsClear(data_clear.chapters[Database.FocusChapter].isClear);
             }
         }
         else
@@ -180,7 +185,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             ChapterData_clear chapterData_clear = new ChapterData_clear();
             chapterData_clear.stages = new List<StageData_clear>();
-            chapterData_clear.isClear = Database.isClearChapter[i];
+            chapterData_clear.isClear = Database.Chapter_List[i].GetIsClear();
 
             //save stage data
             for (int j = 0; j < Database.Chapters[i].Count; j++)
@@ -218,15 +223,22 @@ public class SaveLoadManager : MonoBehaviour
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
                 newChptrBtn.GetComponent<Button>().interactable = false;
                 Database.Btn_Chapters.Add(newChptrBtn);
-
+                
+                //add chapter score
+                GameObject chapterScore;
+                chapterScore = Instantiate(txt_chapterScore, new Vector3(0, -100, 0), Quaternion.identity);
+                chapterScore.transform.SetParent(newChptrBtn.transform, false);
+                chapterScore.SetActive(false);
+                
                 //add canvas
                 GameObject newCanvas;
                 newCanvas = Instantiate(canvas, new Vector3(0, 0, 0), Quaternion.identity);
                 Database.Canvases.Add(newCanvas);
 
+                Database.Chapter_List.Add(new Chapter());
                 Database.Chapters.Add(new List<GameObject>());
                 Database.Btn_AllStages.Add(new List<GameObject>());
-
+                
                 for (Database.FocusStage = 0; Database.FocusStage < data.stageCount[Database.FocusChapter]; Database.FocusStage++)
                 {
                     //add stage
@@ -248,8 +260,9 @@ public class SaveLoadManager : MonoBehaviour
                     List<GameObject> stageScore = new List<GameObject>();
                     for (int i = 0; i < 3; i++)
                     {
-                        stageScore.Add(Instantiate(Img_Score, new Vector3(i * 30 - 30, -30, 0), Quaternion.identity));
+                        stageScore.Add(Instantiate(img_stageScore, new Vector3(i * 30 - 30, -30, 0), Quaternion.identity));
                         stageScore[i].transform.SetParent(newStageBtn.transform, false);
+                        stageScore[i].SetActive(false);
                     }
 
                     int prtBlockNum = 0;
@@ -324,8 +337,9 @@ public class SaveLoadManager : MonoBehaviour
                 }
                 newCanvas.SetActive(false);
             }
-            Database.Btn_Chapters[0].GetComponent<Button>().interactable = true;
-            Database.Btn_AllStages[0][0].GetComponent<Button>().interactable = true;
+            Database.Chapter_List[0].SetActiveChapterScore(0);     //Chapter1_Score active
+            Database.Btn_Chapters[0].GetComponent<Button>().interactable = true;        //Chapter1_Btn interactable
+            Database.Btn_AllStages[0][0].GetComponent<Button>().interactable = true;    //Chapter1_Stage1_Btn interactable
         }
         else
         {
