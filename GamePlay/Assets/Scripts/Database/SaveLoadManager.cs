@@ -279,8 +279,11 @@ public class SaveLoadManager : MonoBehaviour
                         {
                             case BlockType.UNIT:
                                 position.y = 0.5f + unit.transform.localScale.y * 0.5f;
-                                newBlock = Instantiate(unit, position, Quaternion.identity);
-                                newBlock.GetComponent<Player>().SetInitPos(position);
+                                Database.Stage.GetComponent<Stage>().SetPlayerPos(position);
+                                Database.Stage.GetComponent<Stage>().SetPlayerProperty(data.stages[index].elements[k].property);
+                                //position.y = 0.5f + unit.transform.localScale.y * 0.5f;
+                                //newBlock = Instantiate(unit, position, Quaternion.identity);
+                                //newBlock.GetComponent<Player>().SetInitPos(position);
                                 break;
                             case BlockType.EXIT:
                                 for (int i = 0; i < data.stages[index].gameAreaSize; i++)
@@ -328,15 +331,21 @@ public class SaveLoadManager : MonoBehaviour
                                 prtBlockNum++;
                                 break;
                         }
-                        newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
-                        Database.Stage.GetComponent<Stage>().GetElements().Add(newBlock);
-                        Database.Stage.GetComponent<Stage>().SetParent(newBlock);
+                        if (data.stages[index].elements[k].blockType != BlockType.UNIT)
+                        {
+                            newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
+                            Database.Stage.GetComponent<Stage>().GetElements().Add(newBlock);
+                            Database.Stage.GetComponent<Stage>().SetParent(newBlock);
+                        }
                     }
                     Database.Stage.SetActive(false);
                     index++;
                 }
                 newCanvas.SetActive(false);
             }
+            Database.Player = Instantiate(unit, Vector3.zero, Quaternion.identity);
+            Database.Player.SetActive(false);
+
             Database.Chapter_List[0].SetActiveChapterScore(0);     //Chapter1_Score active
             Database.Btn_Chapters[0].GetComponent<Button>().interactable = true;        //Chapter1_Btn interactable
             Database.Btn_AllStages[0][0].GetComponent<Button>().interactable = true;    //Chapter1_Stage1_Btn interactable

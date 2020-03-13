@@ -8,6 +8,9 @@ public class Stage : MonoBehaviour
     private GameObject gameArea;
     private int stageSize;
 
+    private Vector3 playerPos;
+    private int playerProperty;
+
     private bool isClear = false;
     private int minMove;
     private int score = 0;
@@ -66,6 +69,25 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < score; i++)
             Database.Btn_AllStages[Database.FocusChapter][Database.FocusStage].transform.GetChild(i).gameObject.SetActive(true);
+    }
+
+    public void SetPlayerPos(Vector3 pos)
+    {
+        playerPos = pos;
+    }
+    public Vector3 GetPlayerPos()
+    {
+        return playerPos;
+    }
+
+    public void SetPlayerProperty(int property)
+    {
+        playerProperty = property;
+    }
+
+    public int GetPlayerProperty()
+    {
+        return playerProperty;
     }
 
     public void SetParent(GameObject child)

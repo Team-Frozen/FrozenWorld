@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public static class Database
 {
+    private static GameObject player;
     private static List<Chapter> chapters = new List<Chapter>();
     private static List<List<GameObject>> stages = new List<List<GameObject>>();
 
@@ -21,13 +22,25 @@ public static class Database
     {
         get
         {
-            return Stage.GetComponent<Stage>().GetElements()[0];
+            return player;
         }
         set
         {
-            Stage.GetComponent<Stage>().GetElements()[0] = value;
+            player = value;
         }
     }
+
+    //public static GameObject Player
+    //{
+    //    get
+    //    {
+    //        return Stage.GetComponent<Stage>().GetElements()[0];
+    //    }
+    //    set
+    //    {
+    //        Stage.GetComponent<Stage>().GetElements()[0] = value;
+    //    }
+    //}
 
     public static List<List<GameObject>> Btn_AllStages
     {

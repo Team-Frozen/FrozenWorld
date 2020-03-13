@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
 
         InitStage();
         Database.Stage.SetActive(true);
-        exit = Database.Stage.GetComponent<Stage>().GetElements()[1].GetComponent<Exit>();
+        Database.Player.SetActive(true);
+        exit = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Exit>();
     }
 
     //Player 이동횟수 업데이트
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
             ChangeScene_Chapters();
         }
 
-        exit = Database.Stage.GetComponent<Stage>().GetElements()[1].GetComponent<Exit>();
+        exit = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Exit>();
     }
 
     private void OpenNextStageBtn()
@@ -115,6 +116,7 @@ public class GameManager : MonoBehaviour
         Player.canMove = true;
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().MoveToInitPos();
+        Database.Player.transform.Rotate(0.0f, 90.0f * Database.Stage.GetComponent<Stage>().GetPlayerProperty(), 0.0f, Space.Self);
 
         img_Score[0].gameObject.SetActive(false);
         img_Score[1].gameObject.SetActive(false);
@@ -129,6 +131,7 @@ public class GameManager : MonoBehaviour
             OpenNextStageBtn();
 
         Database.Stage.SetActive(false);
+        Database.Player.SetActive(false);
         SceneManager.LoadScene("3_Stages");
     }
 
@@ -136,6 +139,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         Database.Stage.SetActive(false);
+        Database.Player.SetActive(false);
         SceneManager.LoadScene("2_Chapters");
     }
 
