@@ -112,11 +112,12 @@ public class SaveLoadManager : MonoBehaviour
 
         Load_ClearData();
         Load_SettingData();
+        Database.FocusChapter = 0;
     }
 
     void Update()
     {
-       if (Input.anyKeyDown)
+       if (Input.touchCount > 0 || Input.anyKeyDown)
             if (SceneManager.GetActiveScene().name == "0_Loading")
                 SceneManager.LoadScene("1_Start");                    
     }
@@ -329,8 +330,8 @@ public class SaveLoadManager : MonoBehaviour
         }
         else
         {
-            System.IO.Directory.CreateDirectory("C:/FrozenWorld_Data");
             data = new Data();
+            DataManager.BinarySerialize<Data>(data, "Data.sav");
         }
     }
 

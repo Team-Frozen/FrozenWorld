@@ -22,19 +22,25 @@ public class Player : Element
 
     private void FixedUpdate()
     {
-        if (canMove)
+        if (canMove && !SettingData.ControlMode_Button)
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
             SetDirection(new Vector3(h, 0, v));
 
             // 이동
-            if ((h * v == 0) && !(h == 0 && v == 0) && CheckMove())
-            {
-                canMove = false;
-                GameManager.playerMoves++;
-                TryMove(GetDirection());
-            }
+            if ((h * v == 0) && !(h == 0 && v == 0))
+                move(GetDirection());
+        }
+    }
+
+    public void move(Vector3 direction)
+    {
+        if (CheckMove())
+        {
+            canMove = false;
+            GameManager.playerMoves++;
+            TryMove(direction);
         }
     }
 

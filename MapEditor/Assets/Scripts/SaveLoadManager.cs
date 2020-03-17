@@ -173,7 +173,6 @@ public class SaveLoadManager : MonoBehaviour
         }
         else
         {
-            System.IO.Directory.CreateDirectory("C:/FrozenWorld_Data");
             data = new Data();
         }
     }

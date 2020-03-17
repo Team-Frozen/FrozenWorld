@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerStart : MonoBehaviour
 {
+    public GameObject settingPanel;
+
     void Awake()
     {
         AudioManager.Instance.playBGM(AudioType.MAIN_BGM);
@@ -16,9 +18,16 @@ public class GameManagerStart : MonoBehaviour
         SceneManager.LoadScene("2_Chapters");
     }
 
-    public void ChangeScene_Setting()
+    public void ShowSettingPanel()
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
-        SceneManager.LoadScene("Setting");
+        settingPanel.SetActive(true);
+    }
+
+    public void CloseSettingPanel()
+    {
+        SaveLoadManager.Save_SettingData();
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
+        settingPanel.SetActive(false);
     }
 }

@@ -17,13 +17,7 @@ public class GameManagerChapters : MonoBehaviour
     void Awake()
     {
         page = Database.FocusChapter / 3;
-        int i = 0;
-
-        foreach (GameObject Btn_Chapter in Database.Btn_Chapters)
-        {
-            Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) - (900 * page), 0, 0);
-            i++;
-        }
+        setChptrLoc(0);
 
         if (Database.Btn_Chapters.Count != 0)
             Database.Btn_Chapters[0].transform.parent.gameObject.SetActive(true);
