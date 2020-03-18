@@ -30,4 +30,9 @@ public class GameManagerStart : MonoBehaviour
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         settingPanel.SetActive(false);
     }
+    public void ChangeScene_Character()
+    {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
+        SceneManager.LoadScene("1-1_Character");
+    }
 }

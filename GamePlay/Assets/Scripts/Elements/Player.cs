@@ -6,15 +6,17 @@ using UnityEngine.SceneManagement;
 public class Player : Element
 {
     public static bool canMove = true;
-    
-    [SerializeField ]
-    private float moveSpeed = 30f;
+
+    [SerializeField]
+    private float moveSpeed;
     private Rigidbody rigid;
-    private Vector3 initPos;    // 처음 위치
+    //private Vector3 initPos;    // 처음 위치
     private Vector3 moveDir;    // 이동 방향
 
     private void Awake()
     {
+        moveSpeed = 50;
+        DontDestroyOnLoad(gameObject);
         rigid = GetComponent<Rigidbody>();
         layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
         layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
@@ -79,7 +81,7 @@ public class Player : Element
     //초기 위치로 변환
     public void MoveToInitPos()
     {
-        transform.position = initPos;
+        transform.position = Database.Stage.GetComponent<Stage>().GetPlayerPos();
     }
 
     //한 칸의 중앙으로 위치 변환
@@ -101,10 +103,10 @@ public class Player : Element
         SetDirection(Vector3.zero);
     }
 
-    public void SetInitPos(Vector3 pos)
-    {
-        initPos = pos;
-    }
+    //public void SetInitPos(Vector3 pos)
+    //{
+    //    initPos = pos;
+    //}
 
     public void SetDirection(Vector3 dir)
     {
