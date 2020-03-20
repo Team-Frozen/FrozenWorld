@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             InitStage();
             ChangeScene_Chapters();
         }
-
+        InitStage();
         exit = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Exit>();
     }
 
@@ -115,7 +115,9 @@ public class GameManager : MonoBehaviour
         playerMoves = 0;
         Player.canMove = true;
         btn_Back.interactable = true;
+        Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToInitPos();
+        Debug.Log(Database.Stage.GetComponent<Stage>().GetPlayerProperty());
         Database.Player.transform.Rotate(0.0f, 90.0f * Database.Stage.GetComponent<Stage>().GetPlayerProperty(), 0.0f, Space.Self);
 
         img_Score[0].gameObject.SetActive(false);
