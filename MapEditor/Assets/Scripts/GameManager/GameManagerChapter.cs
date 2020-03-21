@@ -15,6 +15,7 @@ public class GameManagerChapter : MonoBehaviour
 //----------------------------------//
     public GameObject mainCanvas;
     public GameObject pan_Confirm;
+    private GameObject Load_Chapter_Canvas;
 
     private int         clickedBtnIndex;
     private GameObject  focusButton;
@@ -41,14 +42,14 @@ public class GameManagerChapter : MonoBehaviour
         {
             Button.GetComponent<Button>().onClick.AddListener(checkBtnState);
         }
-
+        Load_Chapter_Canvas = GameObject.Find("Canvas_Load_Chapters");
     }
 
     void OnGUI()
     {
         if (GUIActivate)
         {
-            GraphicRaycaster gr = GameObject.Find("Canvas_Load_Chapters").GetComponent<GraphicRaycaster>();
+            GraphicRaycaster gr = Load_Chapter_Canvas.GetComponent<GraphicRaycaster>();
             GraphicRaycaster m_gr = mainCanvas.GetComponent<GraphicRaycaster>();
 
             PointerEventData ped = new PointerEventData(null);
@@ -210,6 +211,7 @@ public class GameManagerChapter : MonoBehaviour
     {
         if (focusButton != null)
         {
+            Load_Chapter_Canvas.SetActive(false);
             pan_Confirm.SetActive(true);
             GUIActivate = false;
         }
@@ -217,6 +219,7 @@ public class GameManagerChapter : MonoBehaviour
 
     public void hidePopUp()
     {
+        Load_Chapter_Canvas.SetActive(true);
         pan_Confirm.SetActive(false);
         GUIActivate = true;
     }
@@ -257,7 +260,7 @@ public class GameManagerChapter : MonoBehaviour
         GameObject Button;
 
         Button = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Test.Btn_Chapters.Count) - (900 * page), 0, 0), Quaternion.identity);// 수정
-        Button.transform.SetParent(GameObject.Find("Canvas_Load_Chapters").transform, false);
+        Button.transform.SetParent(Load_Chapter_Canvas.transform, false);
         Test.Btn_Chapters.Add(Button);
 
         Test.FocusChapter = Test.Chapters.Count;
@@ -273,7 +276,7 @@ public class GameManagerChapter : MonoBehaviour
             focusButton.GetComponent<Image>().color = Color.white;
         Test.Btn_Chapters[0].transform.parent.gameObject.SetActive(false);
         GUIActivate = false;
-        SceneManager.LoadScene("Stages");
+        SceneManager.LoadScene("3_Stages");
     }
 
     private int calcBtnMovePos() //return 0 ~ Btn_Chapters.Count - 1 마우스 위치에 따른 List index 위치
@@ -293,15 +296,15 @@ public class GameManagerChapter : MonoBehaviour
         {
             var colors = EventSystem.current.currentSelectedGameObject.GetComponent<Button>().colors;
 
-        if (focusButton == null || focusButton != EventSystem.current.currentSelectedGameObject)
-        {
-            if (focusButton != null)
-                focusButton.GetComponent<Image>().color = Color.white;
-            focusButton = EventSystem.current.currentSelectedGameObject;
-            focusButton.GetComponent<Image>().color = Color.red;
-        }
-        else
-            loadChapter();
+            if (focusButton == null || focusButton != EventSystem.current.currentSelectedGameObject)
+            {
+                if (focusButton != null)
+                    focusButton.GetComponent<Image>().color = Color.white;
+                focusButton = EventSystem.current.currentSelectedGameObject;
+                focusButton.GetComponent<Image>().color = Color.red;
+            }
+            else
+                loadChapter();
         }
     }
 

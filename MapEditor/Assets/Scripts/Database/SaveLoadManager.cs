@@ -78,10 +78,10 @@ public class SaveLoadManager : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            if (SceneManager.GetActiveScene().name == "Loading")
+            if (SceneManager.GetActiveScene().name == "1_Loading")
             {
                 canvasLoadChptr.SetActive(true);
-                SceneManager.LoadScene("Chapters");
+                SceneManager.LoadScene(1);
             }
             else
                 if (Input.GetKey("s"))
@@ -131,6 +131,7 @@ public class SaveLoadManager : MonoBehaviour
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     Test.Btn_Stages.Add(newStageBtn);
 
+                    int prtBlockNum = 0;
                     for (int k = 0; k < data.stages[index].elements.Count; k++)
                     {
                         //add block
@@ -141,6 +142,7 @@ public class SaveLoadManager : MonoBehaviour
                         {
                             case BlockType.UNIT:
                                 newBlock = Instantiate(unit, position, Quaternion.identity);
+                                newBlock.AddComponent<Unit>();
                                 break;
                             case BlockType.EXIT:
                                 newBlock = Instantiate(exit, position, Quaternion.identity);
@@ -153,12 +155,19 @@ public class SaveLoadManager : MonoBehaviour
                                 break;
                             case BlockType.SLP:
                                 newBlock = Instantiate(slpBlock, position, Quaternion.identity);
+                                newBlock.AddComponent<SlpBlock>();
                                 break;
                             case BlockType.STP:
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.PRT:
                                 newBlock = Instantiate(prtBlock, position, Quaternion.identity);
+                                if (prtBlockNum % 2 == 1)
+                                {
+                                    newBlock.GetComponent<PrtBlock>().setLinkedPortal(Test.Stage.GetComponent<Stage>().getElements()[k - 1].GetComponent<PrtBlock>());
+                                    Test.Stage.GetComponent<Stage>().getElements()[k - 1].GetComponent<PrtBlock>().setLinkedPortal(newBlock.GetComponent<PrtBlock>());
+                                }
+                                prtBlockNum++;
                                 break;
                         }
                         newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
