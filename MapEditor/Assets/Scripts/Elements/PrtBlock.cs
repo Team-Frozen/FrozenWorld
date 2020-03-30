@@ -25,4 +25,8 @@ public class PrtBlock : Block
     {
         return linkedPrt;
     }
+    public void setLinkedPortal(PrtBlock linked)
+    {
+        linkedPrt = linked;
+    }
 }

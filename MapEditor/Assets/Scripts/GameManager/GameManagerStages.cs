@@ -217,7 +217,7 @@ public class GameManagerStages : MonoBehaviour
     private void ChangeScene_MapEdit()
     {
         Test.Canvas.SetActive(false);
-        SceneManager.LoadScene("MapEdit");
+        SceneManager.LoadScene("4_MapEdit");
     }
 
     public void ChangeScene_Chapters()
@@ -226,7 +226,7 @@ public class GameManagerStages : MonoBehaviour
             focusButton.GetComponent<Image>().color = Color.white;
         if (Test.Btn_Stages.Count != 0)
             Test.Canvas.SetActive(false);
-        SceneManager.LoadScene("Chapters");
+        SceneManager.LoadScene("2_Chapters");
     }
 
     public void removeStage() //Btn_Remove 눌렀을 때 실행하는 함수

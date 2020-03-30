@@ -98,6 +98,9 @@ public class GameManager : MonoBehaviour
                         break;
                     case BlockType.SLP:
                         focusBlock = Instantiate(slpBlock, ghostBlock.transform.position, Quaternion.identity);
+                        focusBlock.AddComponent<SlpBlock>();
+                        focusBlock.AddComponent<BoxCollider>();
+                        focusBlock.layer = 8;
                         break;
                     case BlockType.STP:
                         focusBlock = Instantiate(stpBlock, ghostBlock.transform.position, Quaternion.identity);
@@ -159,7 +162,9 @@ public class GameManager : MonoBehaviour
         if (m_Event.type == EventType.MouseUp)
         {
             if (focusBlock && mouseDownPoint == Input.mousePosition)
+            {
                 focusBlock.GetComponent<Element>().changeProperty();
+            }
             if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
             {
                 if (focusBlock.GetComponent<Element>().returnType() == global::BlockType.PRT)   //PRT일 경우 linked PRT 제거
@@ -186,6 +191,7 @@ public class GameManager : MonoBehaviour
                         break;
                     case BlockType.SLP:
                         ghostBlock = Instantiate(slpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (slpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock.AddComponent<GhostBlock>();
                         break;
                     case BlockType.STP:
                         ghostBlock = Instantiate(stpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (stpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
@@ -251,13 +257,14 @@ public class GameManager : MonoBehaviour
     public void ChangeScene_Stages()
     {
         Test.Stage.SetActive(false);
-        SceneManager.LoadScene("Stages");
+        SceneManager.LoadScene("3_Stages");
     }
 
     private void setMinMove()
     {
         if (btn_minMove.GetComponent<ButtonHandler>().getText() != Test.Stage.GetComponent<Stage>().getMinMove())
             Test.Stage.GetComponent<Stage>().setMinMove(btn_minMove.GetComponent<ButtonHandler>().getText());
+        Debug.Log("setMinMove" + Test.Stage.GetComponent<Stage>().getMinMove());
     }
 
     private void resizeMap()

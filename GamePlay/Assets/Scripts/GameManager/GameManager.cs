@@ -272,10 +272,12 @@ public class GameManager : MonoBehaviour
         float timeSinceStarted;// = Time.time - _timeStartedLerping;
         float percentageComplete;// = timeSinceStarted / lerpTime;
         float currentValue;
-        float end = img_Score[iterateTime].transform.localScale.x;
+        float end;
 
+        Debug.Log(iterateTime + " " + Database.Stage.GetComponent<Stage>().GetCurrentScore());
         if (iterateTime < Database.Stage.GetComponent<Stage>().GetCurrentScore())
         {
+            end = img_Score[iterateTime].transform.localScale.x;
             img_Score[iterateTime].gameObject.SetActive(true);
             while (true)
             {
