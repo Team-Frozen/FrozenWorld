@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 { 
     public GameObject StageClearUI;     //Clear 했을 때 나타나는 Panel
+    public GameObject MenuUI;
     public List<Image> img_Score;       //점수
     public Button btn_Back;             //뒤로가기 버튼
     public Text txt_PlayerMoves;        //Player 이동 횟수
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         AudioManager.Instance.playBGM(AudioType.GAMEPLAY_BGM);
-
+        
         InitStage();
         Database.Stage.SetActive(true);
         Database.Player.SetActive(true);
@@ -117,6 +118,36 @@ public class GameManager : MonoBehaviour
 
         Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
         Database.Chapter.SetActiveChapterScore();                       //ChapterScene에서 점수 표시
+    }
+
+    //Menu Button 눌렀을 때 나타나는 UI(Panel)
+    public void ShowMenuUI()
+    {
+        Time.timeScale = 0;
+        Player.canMove = false;
+        btn_Back.interactable = false;
+        MenuUI.SetActive(true);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        Player.canMove = true;
+        btn_Back.interactable = true;
+        MenuUI.SetActive(false);
+    }
+
+    public void SoundOnOff()
+    {
+        //ON일때
+
+        //OFF일 때
+    }
+
+    public void BackToHome()
+    {
+        ResumeGame();
+        ChangeScene_Stages();
     }
 
     //StageClear UI에서 NextStage 버튼 클릭 시
