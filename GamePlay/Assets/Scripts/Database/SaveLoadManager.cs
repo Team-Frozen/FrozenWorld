@@ -218,17 +218,15 @@ public class SaveLoadManager : MonoBehaviour
             {
                 //add chapter button
                 GameObject newChptrBtn;
-                newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Database.Btn_Chapters.Count), 0, 0), Quaternion.identity);
-                newChptrBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusChapter + 1), typeof(Sprite));
+
+                newChptrBtn = Instantiate(btn_Chapters, new Vector3(800 * (Database.Btn_Chapters.Count), 20, 0), Quaternion.identity);
+                newChptrBtn.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("number/cave" + (Database.FocusChapter + 1), typeof(Sprite));
+                newChptrBtn.transform.GetChild(0).GetComponent<Button>().interactable = false;
+                newChptrBtn.transform.GetChild(2).GetComponent<Image>().sprite = (Sprite)Resources.Load("string/cave" + (Database.FocusChapter + 1), typeof(Sprite));
+                newChptrBtn.transform.GetChild(2).GetComponent<Image>().SetNativeSize();
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
-                newChptrBtn.GetComponent<Button>().interactable = false;
-                Database.Btn_Chapters.Add(newChptrBtn);
-                
-                //add chapter score
-                GameObject chapterScore;
-                chapterScore = Instantiate(txt_chapterScore, new Vector3(0, -100, 0), Quaternion.identity);
-                chapterScore.transform.SetParent(newChptrBtn.transform, false);
-                chapterScore.SetActive(false);
+
+                Database.Btn_Chapters.Add(newChptrBtn.transform.GetChild(0).gameObject);
                 
                 //add canvas
                 GameObject newCanvas;
@@ -250,7 +248,7 @@ public class SaveLoadManager : MonoBehaviour
                     
                     //add stage button
                     GameObject newStageBtn;
-                    newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Database.Btn_Stages.Count % 9), -150 - 100 * (Database.Btn_Stages.Count / 9), 0), Quaternion.identity);
+                    newStageBtn = Instantiate(btn_Stages, new Vector3(-400 + 200 * (Database.Btn_Stages.Count % 5), 450 - 200 * (Database.Btn_Stages.Count / 5), 0), Quaternion.identity);
                     newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     newStageBtn.GetComponent<Button>().interactable = false;
@@ -260,7 +258,9 @@ public class SaveLoadManager : MonoBehaviour
                     List<GameObject> stageScore = new List<GameObject>();
                     for (int i = 0; i < 3; i++)
                     {
-                        stageScore.Add(Instantiate(img_stageScore, new Vector3(i * 30 - 30, -30, 0), Quaternion.identity));
+                        stageScore.Add(Instantiate(img_stageScore, new Vector3((1 - i) * 50, 30, 0), Quaternion.identity));
+                        stageScore[i].GetComponent<RectTransform>().anchorMin = new Vector2(0.5f * i, 0);
+                        stageScore[i].GetComponent<RectTransform>().anchorMax = new Vector2(0.5f * i, 0);
                         stageScore[i].transform.SetParent(newStageBtn.transform, false);
                         stageScore[i].SetActive(false);
                     }

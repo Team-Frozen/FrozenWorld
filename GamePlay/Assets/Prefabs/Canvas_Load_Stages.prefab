@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2180985495619861136}
   - component: {fileID: 2180985495619861137}
   - component: {fileID: 2180985495619861138}
+  - component: {fileID: 225400457082192140}
   m_Layer: 5
   m_Name: Canvas_Load_Stages
   m_TagString: Untagged
@@ -72,11 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -111,3 +112,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1f7728bd7e84d4083fdafa8156f40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &225400457082192140
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2180985495619861139}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

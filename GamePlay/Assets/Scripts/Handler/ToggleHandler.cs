@@ -17,7 +17,7 @@ public class ToggleHandler : MonoBehaviour
     public Text text;
     public ToggleType toggleType;
 
-    private int endPoint;
+    private float endPoint;
     private bool isOn;
     private bool switching;
     private float t;
@@ -25,7 +25,7 @@ public class ToggleHandler : MonoBehaviour
 
     void Awake()
     {
-        endPoint = 15;
+        endPoint = 55f;
         moveSpeed = 3.5f;
         switching = false;
         t = 0.0f;
