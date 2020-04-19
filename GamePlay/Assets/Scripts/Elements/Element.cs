@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Element : MonoBehaviour
 {
     protected RaycastHit hit;
-    protected int layerMask_player, layerMask_wall, layerMask_exit, layerMask_obstacle;
+    protected int layerMask_player, layerMask_wall, layerMask_exit, layerMask_obstacle, layerMask_slope;
 
     protected Vector3 position_vec; //element position
     protected int property;
@@ -20,6 +20,16 @@ public abstract class Element : MonoBehaviour
 
     public abstract BlockType ReturnType();
     public abstract void Action(Player player);
+
+    public Vector3 GetPosition()
+    {
+        return position_vec;
+    }
+
+    public int getProperty()
+    {
+        return this.property;
+    }
 
     public virtual void setProperty(int property)
     {

@@ -71,6 +71,16 @@ public class Stage : MonoBehaviour
             Database.Btn_AllStages[Database.FocusChapter][Database.FocusStage].transform.GetChild(i).gameObject.SetActive(true);
     }
 
+    public GameObject GetElementOn(Vector3 pos)
+    {
+        foreach (GameObject element in elements)
+        {
+            if (Mathf.Abs(element.transform.position.x - pos.x) < 10e-2 && Mathf.Abs(element.transform.position.z - pos.z) < 10e-2)
+                return element;
+        }
+        return null;
+    }
+
     public void SetPlayerPos(Vector3 pos)
     {
         playerPos = pos;

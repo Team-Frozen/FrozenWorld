@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 883032039647065330}
   m_Layer: 15
   m_Name: BlockStp
-  m_TagString: Untagged
+  m_TagString: StopBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.01, y: 1, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &883032039647065330
 MonoBehaviour:
@@ -104,4 +104,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f840f1cb4c4f9b147a2eef229f511993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4530077794544196846, guid: 3a92f9243c24fe84f99ed6c82f41fa44, type: 3}

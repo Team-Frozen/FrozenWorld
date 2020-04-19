@@ -207,10 +207,10 @@ public class GameManager : MonoBehaviour
     {
         playerMoves = 0;
         Player.canMove = true;
+        Player.isCollide = false;
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToInitPos();
-        Debug.Log(Database.Stage.GetComponent<Stage>().GetPlayerProperty());
         Database.Player.transform.Rotate(0.0f, 90.0f * Database.Stage.GetComponent<Stage>().GetPlayerProperty(), 0.0f, Space.Self);
 
         img_Score[0].gameObject.SetActive(false);
@@ -305,7 +305,6 @@ public class GameManager : MonoBehaviour
         float currentValue;
         float end;
 
-        Debug.Log(iterateTime + " " + Database.Stage.GetComponent<Stage>().GetCurrentScore());
         if (iterateTime < Database.Stage.GetComponent<Stage>().GetCurrentScore())
         {
             end = img_Score[iterateTime].transform.localScale.x;

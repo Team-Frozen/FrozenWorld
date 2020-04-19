@@ -12,6 +12,8 @@ TagManager:
   - ArrowBlock
   - PortalBlock
   - SlopeBlock
+  - StopBlock
+  - GameArea
   layers:
   - Default
   - TransparentFX
@@ -28,8 +30,8 @@ TagManager:
   - ArrowBlock
   - PortalBlock
   - SlopeBlock
-  - 
-  - 
+  - StopBlock
+  - GameArea
   - 
   - 
   - 

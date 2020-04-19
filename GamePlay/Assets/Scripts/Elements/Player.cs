@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 public class Player : Element
 {
     public static bool canMove = true;
+    public static bool isCollide = false;
 
     [SerializeField]
     private float moveSpeed;
+    private Vector3 moveDir;    //이동 방향
     private Rigidbody rigid;
-    //private Vector3 initPos;    // 처음 위치
-    private Vector3 moveDir;    // 이동 방향
+
+    private GameObject underBlock;      //player 아래에 있는 블록
+    private GameObject nextBlock;       //player 이동 방향에 있는 블록
 
     private void Awake()
     {
@@ -19,10 +22,11 @@ public class Player : Element
         DontDestroyOnLoad(gameObject);
         rigid = GetComponent<Rigidbody>();
         layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
+        layerMask_slope = 1 << LayerMask.NameToLayer("SlopeBlock");
         layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (canMove && !SettingData.ControlMode_Button)
         {
@@ -30,9 +34,35 @@ public class Player : Element
             float v = Input.GetAxisRaw("Vertical");
             SetDirection(new Vector3(h, 0, v));
 
-            // 이동
+            //이동 (수평/수직 동시에 이동 불가)
             if ((h * v == 0) && !(h == 0 && v == 0))
                 move(GetDirection());
+        }
+
+        if (isCollide)
+        {
+            Debug.Log("Player.Update()...");
+
+            if (GetDirection() != Vector3.zero) //WALL에 부딪힌 경우 제외
+            {
+                if (isReachedToTarget(underBlock.GetComponent<Element>().GetPosition() + GetDirection()))  //다음 칸으로 왔다면 내려감 (ARW, STP, PRT, NULL인 경우만)
+                {
+                    rigid.velocity = Vector3.zero;
+                    rigid.velocity = Vector3.down * 1.5f;
+
+                    if (isOnFloor())    //바닥에 닿았을 때
+                    {
+                        rigid.velocity = Vector3.zero;
+                        isCollide = false;
+
+                        if (nextBlock == null)
+                            TryMove(GetDirection());
+                        else
+                            nextBlock = null;
+                    }
+                }
+            }
+            
         }
     }
 
@@ -42,17 +72,37 @@ public class Player : Element
         {
             canMove = false;
             GameManager.playerMoves++;
+
+            //ORG위에서 벽에 부딪혔을 경우 다시 움직일 때를 위한 Setting
+            SetUnderBlock(this.transform.position);
+            SetNextBlock(this.transform.position + GetDirection());
+
             TryMove(direction);
         }
     }
 
     private bool CheckMove()
     {
-        // slope block 옆면 충돌시 false 추가해야 함 //
-        if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_exit))
-            return true;
+        //SLP
+        if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_slope))
+        {
+            int propertySlope = Database.Stage.GetComponent<Stage>().GetElementOn(this.transform.position + this.GetDirection()).GetComponent<Element>().getProperty();
+
+            if (this.GetDirection() == new Vector3((propertySlope - 1) * (1 - (propertySlope % 2)), 0, (2 - propertySlope) * (propertySlope % 2)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //ORG, WALL
         else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_obstacle))
             return false;
+        //EXIT
+        else if(Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_exit))
+            return true;
         else
             return true;
     }
@@ -69,13 +119,21 @@ public class Player : Element
         rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);
     }
 
-    // target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)
+    //Target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)
     public bool isReachedToTarget(Vector3 target)
     {
         if (Mathf.Abs(transform.position.x - target.x) < 0.05f && Mathf.Abs(transform.position.z - target.z) < 0.05f)
             return true;
         else
             return false;
+    }
+
+    //바닥에 있는지 확인
+    public bool isOnFloor()
+    {
+        var ray = new Ray(this.transform.position, Vector3.down);
+        var maxDistance = 0.6f;
+        return Physics.Raycast(ray, maxDistance, -1);
     }
 
     //초기 위치로 변환
@@ -87,7 +145,7 @@ public class Player : Element
     //한 칸의 중앙으로 위치 변환
     public void MoveToCenter()
     {
-        transform.position = new Vector3(CalcCenterPos(transform.position.x), 1, CalcCenterPos(transform.position.z));
+        transform.position = new Vector3(CalcCenterPos(transform.position.x), transform.position.y, CalcCenterPos(transform.position.z));
     }
        
     //한 칸의 중앙 위치값 계산
@@ -103,11 +161,6 @@ public class Player : Element
         SetDirection(Vector3.zero);
     }
 
-    //public void SetInitPos(Vector3 pos)
-    //{
-    //    initPos = pos;
-    //}
-
     public void SetDirection(Vector3 dir)
     {
         moveDir = dir;
@@ -116,6 +169,16 @@ public class Player : Element
     public Vector3 GetDirection()
     {
         return moveDir;
+    }
+
+    public void SetNextBlock(Vector3 blockPos)
+    {
+        nextBlock = Database.Stage.GetComponent<Stage>().GetElementOn(blockPos);
+    }
+
+    public void SetUnderBlock(Vector3 blockPos)
+    {
+        underBlock = Database.Stage.GetComponent<Stage>().GetElementOn(blockPos);
     }
 
     public override void Action(Player player) 

@@ -98,9 +98,6 @@ public class GameManager : MonoBehaviour
                         break;
                     case BlockType.SLP:
                         focusBlock = Instantiate(slpBlock, ghostBlock.transform.position, Quaternion.identity);
-                        focusBlock.AddComponent<SlpBlock>();
-                        focusBlock.AddComponent<BoxCollider>();
-                        focusBlock.layer = 8;
                         break;
                     case BlockType.STP:
                         focusBlock = Instantiate(stpBlock, ghostBlock.transform.position, Quaternion.identity);
@@ -191,7 +188,6 @@ public class GameManager : MonoBehaviour
                         break;
                     case BlockType.SLP:
                         ghostBlock = Instantiate(slpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (slpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
-                        ghostBlock.AddComponent<GhostBlock>();
                         break;
                     case BlockType.STP:
                         ghostBlock = Instantiate(stpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (stpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
