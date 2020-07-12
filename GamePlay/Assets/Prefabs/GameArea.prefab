@@ -152,9 +152,9 @@ GameObject:
   - component: {fileID: 2328590968845553281}
   - component: {fileID: 8676866274799959709}
   - component: {fileID: 1115647488605558994}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: IceSheet
-  m_TagString: Untagged
+  m_TagString: GameArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

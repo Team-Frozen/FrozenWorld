@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSlope : Element       //leftSlope Block
+public class BlockSlope : Element
 {
-    void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -14,10 +14,16 @@ public class BlockSlope : Element       //leftSlope Block
 
     public override void Action(Player player)
     {
-        if (Physics.Raycast(transform.position, new Vector3(-(property / 2) * (1 - (property % 2)), 0, (property - 2) * (property % 2)), out hit, 1f, layerMask_player))
+        //정방향으로 충돌했을 경우
+        if (Physics.Raycast(transform.position, new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2)), out hit, 1f, layerMask_player))
         {
-            player.GetComponent<Rigidbody>().AddForce(player.GetDirection() * 10, ForceMode.Impulse);
+            player.SetUnderBlock(position_vec);
+            player.SetNextBlock(position_vec + player.GetDirection());  //player.update()에서 nextblock에 따른 움직임 구현
+            
+            player.GetComponent<Rigidbody>().AddForce(player.GetDirection() * 25, ForceMode.Impulse);
+            Player.isCollide = true;
         }
+        //옆면에 충돌했을 경우
         else if (Physics.Raycast(transform.position, -player.GetDirection(), out hit, 1f, layerMask_player))
         {
             player.SetVelocityZero();

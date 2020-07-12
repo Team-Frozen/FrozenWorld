@@ -237,6 +237,7 @@ public class GameManager : MonoBehaviour
     {
         playerMoves = 0;
         Player.canMove = true;
+        Player.isCollide = false;
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToInitPos();
@@ -333,7 +334,7 @@ public class GameManager : MonoBehaviour
         float percentageComplete;// = timeSinceStarted / lerpTime;
         float currentValue;
         float end;
-        
+
         if (iterateTime < Database.Stage.GetComponent<Stage>().GetCurrentScore())
         {
             end = img_Score[iterateTime].transform.localScale.x;

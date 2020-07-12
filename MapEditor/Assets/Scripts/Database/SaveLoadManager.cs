@@ -155,7 +155,6 @@ public class SaveLoadManager : MonoBehaviour
                                 break;
                             case BlockType.SLP:
                                 newBlock = Instantiate(slpBlock, position, Quaternion.identity);
-                                newBlock.AddComponent<SlpBlock>();
                                 break;
                             case BlockType.STP:
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);

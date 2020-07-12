@@ -281,9 +281,6 @@ public class SaveLoadManager : MonoBehaviour
                                 position.y = 0.5f + unit.transform.localScale.y * 0.5f;
                                 Database.Stage.GetComponent<Stage>().SetPlayerPos(position);
                                 Database.Stage.GetComponent<Stage>().SetPlayerProperty(data.stages[index].elements[k].property);
-                                //position.y = 0.5f + unit.transform.localScale.y * 0.5f;
-                                //newBlock = Instantiate(unit, position, Quaternion.identity);
-                                //newBlock.GetComponent<Player>().SetInitPos(position);
                                 break;
                             case BlockType.EXIT:
                                 for (int i = 0; i < data.stages[index].gameAreaSize; i++)
