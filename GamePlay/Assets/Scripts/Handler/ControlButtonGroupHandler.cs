@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlButtonGroupHandler : MonoBehaviour
 {
-    void Start()
+   void Start()
     {
         if (!SettingData.ControlMode_Button)
             gameObject.SetActive(false);

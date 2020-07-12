@@ -7,8 +7,22 @@ public static class SettingData
     private static float backgroundMusicVolume;
     private static float soundVolume;
     private static bool cameraAngle_Rectangle;
+    private static bool camera_zoom;
     private static bool display_Vertical;
     private static bool controlMode_Button;
+    private static bool soundOn;
+
+    public static bool SoundOn
+    {
+        get
+        {
+            return soundOn;
+        }
+        set
+        {
+            soundOn = value;
+        }
+    }
 
     public static float BGMVolume
     {
@@ -43,6 +57,18 @@ public static class SettingData
         set
         {
             cameraAngle_Rectangle = value;
+        }
+    }
+
+    public static bool Camera_Zoom
+    {
+        get
+        {
+            return camera_zoom;
+        }
+        set
+        {
+            camera_zoom = value;
         }
     }
 

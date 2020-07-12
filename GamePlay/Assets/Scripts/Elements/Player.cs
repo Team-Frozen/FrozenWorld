@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : Element
 {
@@ -15,6 +16,10 @@ public class Player : Element
 
     private void Awake()
     {
+        if (!SettingData.CameraAngle_Rectangle)
+        {
+            transform.GetChild(0).rotation = Quaternion.Euler(50, 45, 0);
+        }
         moveSpeed = 50;
         DontDestroyOnLoad(gameObject);
         rigid = GetComponent<Rigidbody>();
@@ -62,11 +67,42 @@ public class Player : Element
         SetDirection(dir);
 
         //player 이동 방향으로 회전 +수정
-        Quaternion q = Quaternion.LookRotation(new Vector3(-dir.z, dir.y, dir.x));
-        transform.rotation = q;
+        setUnitImage();
 
         //player 가속
         rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);
+    }
+
+    public void setUnitImage()
+    {
+        int ImageNum = 0;
+
+        if(moveDir.z == 1)
+            ImageNum = 1;
+        else if(moveDir.x == 1)
+            ImageNum = 2;
+        else if (moveDir.z == -1)
+            ImageNum = 3;
+        else if (moveDir.x == -1)
+            ImageNum = 4;
+        
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("unit/" + "MoolBung" + "Play" + ImageNum, typeof(Sprite));
+        setImagePosition(ImageNum);
+    }
+
+    public void initUnitImage()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("unit/" + "MoolBung" + "Play" + ((this.property + 2) % 4), typeof(Sprite));
+        setImagePosition((this.property + 2) % 4);
+    }
+
+    private void setImagePosition(int dir)
+    {
+        if(dir < 3)
+            transform.GetChild(0).localPosition = new Vector3(-0.16f, 0, -0.16f);
+        else
+            transform.GetChild(0).localPosition = new Vector3(-0.23f, 0, -0.23f);
+
     }
 
     // target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)
@@ -131,6 +167,5 @@ public class Player : Element
     public override void setProperty(int property)
     {
         this.property = property;
-        this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
     }
 }

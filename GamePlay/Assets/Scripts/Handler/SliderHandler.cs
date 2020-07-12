@@ -12,14 +12,26 @@ public class SliderHandler : MonoBehaviour
     }
 
     public SliderType sliderType;
+    public GameObject[] Img_SoundOff;
 
     void Awake()
     {
+        if (!SettingData.SoundOn)
+        {
+            Img_SoundOff[0].SetActive(true);
+            Img_SoundOff[1].SetActive(true);
+        }
         GetComponent<Slider>().value = Data;
     }
 
     public void setSliderValue()
     {
+        if (Data != GetComponent<Slider>().value && !SettingData.SoundOn)
+        {
+            SettingData.SoundOn = true;
+            Img_SoundOff[0].SetActive(false);
+            Img_SoundOff[1].SetActive(false);
+        }
         Data = GetComponent<Slider>().value;
     }
 

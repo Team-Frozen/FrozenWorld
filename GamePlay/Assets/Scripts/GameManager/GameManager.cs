@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 { 
     public GameObject StageClearUI;     //Clear 했을 때 나타나는 Panel
     public GameObject MenuUI;
+    public GameObject Minimap;
+
     public List<Image> img_Score;       //점수
     public Button btn_Back;             //뒤로가기 버튼
     public Text txt_PlayerMoves;        //Player 이동 횟수
@@ -16,6 +18,10 @@ public class GameManager : MonoBehaviour
     public static int playerMoves;
 
     private Exit exit;
+    private int clickNum = 0;
+    private float clicktime = 0;
+    private const float clickdelay = 0.5f;
+
     private float pressedPoint_x;
     private float pressedPoint_y;
 
@@ -52,28 +58,49 @@ public class GameManager : MonoBehaviour
             //Mouse Pressed
             if (m_Event.type == EventType.MouseDown)
             {
+                clickNum++;
+                if (clickNum == 1)
+                    clicktime = Time.time;
+                if (clickNum > 1)
+                {
+                    if (Time.time - clicktime < clickdelay)
+                    {
+                        SettingData.Camera_Zoom = !SettingData.Camera_Zoom;
+                        Minimap.SetActive(SettingData.Camera_Zoom);
+                        clickNum = 0;
+                        clicktime = 0;
+                    }
+                    else
+                    {
+                        clickNum = 1;
+                        clicktime = Time.time;
+                    }
+                }
+
                 pressedPoint_x = Input.mousePosition.x;
                 pressedPoint_y = Input.mousePosition.y;
             }
 
+            //Mouse Released
             if (m_Event.type == EventType.MouseUp && EventSystem.current.currentSelectedGameObject == null)
             {
-                Vector3 direction;
+                Vector3 direction = Vector3.zero;
+                
                 //Rhombus일 때
                 if (!SettingData.CameraAngle_Rectangle)
                 {
-                    if (pressedPoint_x < Input.mousePosition.x) //오른쪽 위 or 오른쪽 아래일 때
+                    if (pressedPoint_x < Input.mousePosition.x - 50)    // 오른쪽 위 or 오른쪽 아래일 때
                     {
-                        if (pressedPoint_y < Input.mousePosition.y)
+                        if (pressedPoint_y < Input.mousePosition.y - 50)
                             direction = new Vector3(1, 0, 0);
                         else
                             direction = new Vector3(0, 0, -1);
                     }
-                    else                                        //왼쪽 위 or 왼쪽 아래일 때
+                    else if(Input.mousePosition.x < pressedPoint_x - 50) // 왼쪽 위 or 왼쪽 아래일 때
                     {
-                        if (pressedPoint_y < Input.mousePosition.y) // 왼쪽 위
+                        if (pressedPoint_y < Input.mousePosition.y - 50) // 왼쪽 위
                             direction = new Vector3(0, 0, 1);
-                        else                                        // 왼쪽 아래
+                        else                                             // 왼쪽 아래
                             direction = new Vector3(-1, 0, 0);
                     }
                 }
@@ -82,23 +109,25 @@ public class GameManager : MonoBehaviour
                 {
                     if (Mathf.Abs(pressedPoint_x - Input.mousePosition.x) > Mathf.Abs(pressedPoint_y - Input.mousePosition.y)) // x축의 변화가 더 클 때 - 좌우일 때
                     {
-                        if (pressedPoint_x < Input.mousePosition.x)  // 왼쪽
+                        if (pressedPoint_x < Input.mousePosition.x - 50)  // 왼쪽
                             direction = new Vector3(1, 0, 0);
                         else                                         // 오른쪽
                             direction = new Vector3(-1, 0, 0);
                     }
-                    else //위 or 아래일 때
+                    else if (Mathf.Abs(pressedPoint_x - Input.mousePosition.x) < Mathf.Abs(pressedPoint_y - Input.mousePosition.y))
                     {
-                        if (pressedPoint_y < Input.mousePosition.y)
+                        if (pressedPoint_y < Input.mousePosition.y - 50)
                             direction = new Vector3(0, 0, 1);
                         else
                             direction = new Vector3(0, 0, -1);
                     }
                 }
-                if (Player.canMove)
+                if (Player.canMove && direction != Vector3.zero)
                 {
                     Database.Player.GetComponent<Player>().SetDirection(direction);
                     Database.Player.GetComponent<Player>().move(direction);
+                    clickNum = 0;
+                    clicktime = 0;
                 }
             }
         }
@@ -127,6 +156,7 @@ public class GameManager : MonoBehaviour
         Player.canMove = false;
         btn_Back.interactable = false;
         MenuUI.SetActive(true);
+        MenuUI.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
     }
 
     public void ResumeGame()
@@ -139,9 +169,9 @@ public class GameManager : MonoBehaviour
 
     public void SoundOnOff()
     {
-        //ON일때
-
-        //OFF일 때
+        SettingData.SoundOn = !SettingData.SoundOn;
+        SaveLoadManager.Save_SettingData();
+        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
     }
 
     public void BackToHome()
@@ -210,8 +240,7 @@ public class GameManager : MonoBehaviour
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToInitPos();
-        Debug.Log(Database.Stage.GetComponent<Stage>().GetPlayerProperty());
-        Database.Player.transform.Rotate(0.0f, 90.0f * Database.Stage.GetComponent<Stage>().GetPlayerProperty(), 0.0f, Space.Self);
+        Database.Player.GetComponent<Player>().initUnitImage();
 
         img_Score[0].gameObject.SetActive(false);
         img_Score[1].gameObject.SetActive(false);
@@ -304,8 +333,7 @@ public class GameManager : MonoBehaviour
         float percentageComplete;// = timeSinceStarted / lerpTime;
         float currentValue;
         float end;
-
-        Debug.Log(iterateTime + " " + Database.Stage.GetComponent<Stage>().GetCurrentScore());
+        
         if (iterateTime < Database.Stage.GetComponent<Stage>().GetCurrentScore())
         {
             end = img_Score[iterateTime].transform.localScale.x;

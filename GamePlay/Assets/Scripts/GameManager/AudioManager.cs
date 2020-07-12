@@ -49,7 +49,10 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        GetComponent<AudioSource>().volume = SettingData.BGMVolume;
+        if (SettingData.SoundOn)
+            GetComponent<AudioSource>().volume = SettingData.BGMVolume;
+        else
+            GetComponent<AudioSource>().volume = 0;
     }
 
     //BGM 틀기
@@ -68,8 +71,11 @@ public class AudioManager : MonoBehaviour
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         soundGameObject.AddComponent<Sound>();
+        if (SettingData.SoundOn)
+            audioSource.volume = SettingData.SoundVolume;
+        else
+            audioSource.volume = 0;
 
-        audioSource.volume = SettingData.SoundVolume;
         audioSource.PlayOneShot(GetAudioClip(audioType));
     }
 
@@ -90,7 +96,8 @@ public class AudioManager : MonoBehaviour
 
         for (t = 0; t < 1; t += Time.deltaTime)
         {
-            GetComponent<AudioSource>().volume = t * SettingData.BGMVolume;
+            if(SettingData.SoundOn)
+                GetComponent<AudioSource>().volume = t * SettingData.BGMVolume;
             yield return null;
         }
     }

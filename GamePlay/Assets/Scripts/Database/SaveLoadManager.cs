@@ -79,6 +79,7 @@ public class Data_Setting
     public bool control_Button;
     public float BGMVolume;
     public float soundVolume;
+    public bool soundOn;
 }
 
 public class SaveLoadManager : MonoBehaviour
@@ -201,7 +202,6 @@ public class SaveLoadManager : MonoBehaviour
         }
 
         DataManager.BinarySerialize<Data_clear>(data_clear, "Data_clear.sav");
-        Debug.Log("clear data save");
     }
 
     private void Load()
@@ -368,6 +368,7 @@ public class SaveLoadManager : MonoBehaviour
             SettingData.CameraAngle_Rectangle = data_setting.camera_Rectangle;
             SettingData.ControlMode_Button = data_setting.control_Button;
             SettingData.Display_Vertical = data_setting.display_Vertical;
+            SettingData.SoundOn = data_setting.soundOn;
         }
         else
         {
@@ -384,6 +385,7 @@ public class SaveLoadManager : MonoBehaviour
         data_setting.camera_Rectangle = SettingData.CameraAngle_Rectangle;
         data_setting.control_Button = SettingData.ControlMode_Button;
         data_setting.display_Vertical = SettingData.Display_Vertical;
+        data_setting.soundOn = SettingData.SoundOn;
 
         DataManager.BinarySerialize<Data_Setting>(data_setting, "DataSetting.sav");
     }
