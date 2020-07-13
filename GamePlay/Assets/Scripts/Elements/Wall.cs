@@ -36,8 +36,9 @@ public class Wall : Element
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             player.SetDirection(-player.GetDirection());
 
-            Quaternion q = Quaternion.LookRotation(new Vector3(-player.GetDirection().z, player.GetDirection().y, player.GetDirection().x));
-            player.transform.rotation = q;
+            player.setUnitImage();
+            //Quaternion q = Quaternion.LookRotation(new Vector3(-player.GetDirection().z, player.GetDirection().y, player.GetDirection().x));
+            //player.transform.rotation = q;
         }
     }
 

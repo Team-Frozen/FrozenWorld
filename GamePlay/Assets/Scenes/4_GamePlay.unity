@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.446577, g: 0.49641114, b: 0.5748164, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657695, g: 0.4964111, b: 0.57481635, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2494,6 +2494,7 @@ MonoBehaviour:
   - {fileID: 880180634}
   btn_Back: {fileID: 1003224132}
   txt_PlayerMoves: {fileID: 2089067852}
+  txt_MoveScore: {fileID: 1777210842}
   fadeGroup: []
 --- !u!4 &1735381533
 Transform:
@@ -2659,7 +2660,7 @@ GameObject:
   - component: {fileID: 1777210843}
   - component: {fileID: 1777210842}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Txt_MoveScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2715,7 +2716,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 
 --- !u!222 &1777210843
 CanvasRenderer:
   m_ObjectHideFlags: 0

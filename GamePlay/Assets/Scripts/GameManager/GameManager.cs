@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
 
     public List<Image> img_Score;       //점수
     public Button btn_Back;             //뒤로가기 버튼
-    public Text txt_PlayerMoves;        //Player 이동 횟수
+    public Text txt_PlayerMoves;        //Player 이동 횟수 txt
+    public Text txt_MoveScore;          //Stage 클리어 시 Player 이동 횟수 txt
     public List<CanvasGroup> fadeGroup;
     public static int playerMoves;
 
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(popUp());
 
+        txt_MoveScore.text = playerMoves.ToString();
         Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
         Database.Chapter.SetActiveChapterScore();                       //ChapterScene에서 점수 표시
     }

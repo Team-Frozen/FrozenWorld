@@ -31,7 +31,7 @@ public class Player : Element
         layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (canMove && !SettingData.ControlMode_Button)
         {
