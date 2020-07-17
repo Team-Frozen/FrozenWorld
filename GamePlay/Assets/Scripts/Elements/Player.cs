@@ -17,15 +17,15 @@ public class Player : Element
     private GameObject underBlock;      //player 아래에 있는 블록
     private GameObject nextBlock;       //player 이동 방향에 있는 블록
 
+    private Animator ani;
+
     private void Awake()
     {
-        if (!SettingData.CameraAngle_Rectangle)
-        {
-            transform.GetChild(0).rotation = Quaternion.Euler(50, 45, 0);
-        }
+        ani = transform.GetChild(0).GetComponent<Animator>();
         moveSpeed = 50;
         DontDestroyOnLoad(gameObject);
         rigid = GetComponent<Rigidbody>();
+        initUnitImage();
         layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
         layerMask_slope = 1 << LayerMask.NameToLayer("SlopeBlock");
         layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
@@ -69,6 +69,16 @@ public class Player : Element
             }
             
         }
+
+        ani.SetBool("isMoving", rigid.velocity == Vector3.zero ? false : true);
+        if (moveDir.z == 1)
+            ani.SetInteger("direction", 1);
+        else if (moveDir.x == 1)
+            ani.SetInteger("direction", 2);
+        else if (moveDir.z == -1)
+            ani.SetInteger("direction", 3);
+        else if (moveDir.x == -1)
+            ani.SetInteger("direction", 4);
     }
 
     public void move(Vector3 direction)
@@ -115,44 +125,13 @@ public class Player : Element
     public void TryMove(Vector3 dir)
     {
         SetDirection(dir);
-
-        //player 이동 방향으로 회전 +수정
-        setUnitImage();
-
         //player 가속
         rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);
     }
 
-    public void setUnitImage()
-    {
-        int ImageNum = 0;
-
-        if(moveDir.z == 1)
-            ImageNum = 1;
-        else if(moveDir.x == 1)
-            ImageNum = 2;
-        else if (moveDir.z == -1)
-            ImageNum = 3;
-        else if (moveDir.x == -1)
-            ImageNum = 4;
-        
-        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("unit/" + "MoolBung" + "Play" + ImageNum, typeof(Sprite));
-        setImagePosition(ImageNum);
-    }
-
     public void initUnitImage()
     {
-        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("unit/" + "MoolBung" + "Play" + ((this.property + 2) % 4), typeof(Sprite));
-        setImagePosition((this.property + 2) % 4);
-    }
-
-    private void setImagePosition(int dir)
-    {
-        if(dir < 3)
-            transform.GetChild(0).localPosition = new Vector3(-0.16f, 0, -0.16f);
-        else
-            transform.GetChild(0).localPosition = new Vector3(-0.23f, 0, -0.23f);
-
+        ani.SetInteger("direction", (property + 2) % 4);
     }
 
     // target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)

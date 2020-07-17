@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private int clickNum = 0;
     private float clicktime = 0;
     private const float clickdelay = 0.5f;
+    private IEnumerator coroutine;
 
     private float pressedPoint_x;
     private float pressedPoint_y;
@@ -144,7 +145,8 @@ public class GameManager : MonoBehaviour
         Database.Stage.GetComponent<Stage>().CalcScore();   //점수 계산
         SaveLoadManager.Save_ClearData();                   //StageClear 저장
 
-        StartCoroutine(popUp());
+        coroutine = popUp();
+        StartCoroutine(coroutine);
 
         txt_MoveScore.text = playerMoves.ToString();
         Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
@@ -245,6 +247,12 @@ public class GameManager : MonoBehaviour
         Database.Player.GetComponent<Player>().MoveToInitPos();
         Database.Player.GetComponent<Player>().initUnitImage();
 
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+
+        img_Score[0].transform.localScale = Vector3.one;
+        img_Score[1].transform.localScale = Vector3.one;
+        img_Score[2].transform.localScale = Vector3.one;
         img_Score[0].gameObject.SetActive(false);
         img_Score[1].gameObject.SetActive(false);
         img_Score[2].gameObject.SetActive(false);
@@ -368,7 +376,8 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
 
-            StartCoroutine(popUp(iterateTime + 1));
+            coroutine = popUp(iterateTime + 1);
+            StartCoroutine(coroutine);
         }
     }
 }

@@ -929,7 +929,7 @@ MonoBehaviour:
   txt_chapterScore: {fileID: 4415199680732649495, guid: 771c4b98d131f18498302c5b7cdd5a68,
     type: 3}
   wall: {fileID: 3075371000275032958, guid: d6819b5cc08d1054ca4bc07015612d3b, type: 3}
-  unit: {fileID: 948994167313077464, guid: 7748b213d5135c846b2b032af434d4f9, type: 3}
+  unit: {fileID: 5595788041213812775, guid: 59a9a7a08380c8345abe76a16d630352, type: 3}
   exit: {fileID: 3160314096586365843, guid: 95696829e840ea44fbd89fecba00ca09, type: 3}
   stage: {fileID: 5990435951688460144, guid: f29fc759b45c30c4c958c14015e3f5c9, type: 3}
   orgBlock: {fileID: 758157207833590683, guid: afdc6ae37d37e114e88e0585501e079d, type: 3}

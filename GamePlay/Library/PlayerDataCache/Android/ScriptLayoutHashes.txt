@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/LG/Desktop/test.apk
+C:/Users/LG/Desktop/정재/Frozen/frozen.apk
 SceneListBegin?
 Assets/Scenes/0_Loading.unity
 Assets/Scenes/1-1_Character.unity
@@ -12,7 +12,7 @@ SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BlockPortal
 3c08375166df118bd1801438fc36b92f Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 77c21079ace8d76ce6e941d3dabbfe6e Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
-8e3f06a3ea6eb1978d0ae7666805f83f Assembly-CSharp.dll:.GameManager
+9b04048872c517f3ef2902f7b26f57c2 Assembly-CSharp.dll:.GameManager
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -26,6 +26,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.G
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 6fc5ef55d2f79e026d78f32a32a9c935 Assembly-CSharp.dll:.GameManagerChapters
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.MinimapHandler
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
