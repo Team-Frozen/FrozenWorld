@@ -65,7 +65,7 @@ public class GameManagerChapters : MonoBehaviour
             {
                 float diff = Input.mousePosition.x - mousePos;
 
-                if (Mathf.Abs(diff) > 200)
+                if (Mathf.Abs(diff) > 120)
                 {
                     if (diff < 0 && page < Database.Btn_Chapters.Count - 1)
                     {

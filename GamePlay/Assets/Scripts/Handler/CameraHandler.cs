@@ -39,17 +39,8 @@ public class CameraHandler : MonoBehaviour
 
     public void setCameraAngle()
     {
-        if (SettingData.CameraAngle_Rectangle)
-        {
-            offset = new Vector3(0, 9, -7);
-            desiredPosition = new Vector3(0, 10, -7);
-            transform.rotation = Quaternion.Euler(55, 0, 0);
-        }
-        else
-        {
-            offset = new Vector3(-9, 14, -9);
-            desiredPosition = new Vector3(-9, 15, -9);
-            transform.rotation = Quaternion.Euler(50, 45, 0);
-        }
+        offset = new Vector3(-9, 14, -9);
+        desiredPosition = new Vector3(-9, 15, -9);
+        transform.rotation = Quaternion.Euler(50, 45, 0);
     }
 }

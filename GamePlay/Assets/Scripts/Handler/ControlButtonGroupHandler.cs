@@ -8,7 +8,5 @@ public class ControlButtonGroupHandler : MonoBehaviour
     {
         if (!SettingData.ControlMode_Button)
             gameObject.SetActive(false);
-        if (SettingData.CameraAngle_Rectangle)
-            transform.rotation = Quaternion.Euler(0, 0, -45);
     }
 }

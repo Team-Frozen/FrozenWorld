@@ -67,18 +67,12 @@ public class Player : Element
                     }
                 }
             }
-            
-        }
 
+        }
+    }
+    void Update() {
         ani.SetBool("isMoving", rigid.velocity == Vector3.zero ? false : true);
-        if (moveDir.z == 1)
-            ani.SetInteger("direction", 1);
-        else if (moveDir.x == 1)
-            ani.SetInteger("direction", 2);
-        else if (moveDir.z == -1)
-            ani.SetInteger("direction", 3);
-        else if (moveDir.x == -1)
-            ani.SetInteger("direction", 4);
+        
     }
 
     public void move(Vector3 direction)
@@ -131,7 +125,25 @@ public class Player : Element
 
     public void initUnitImage()
     {
-        ani.SetInteger("direction", (property + 2) % 4);
+        int dir = (property + 1) % 4 + 1;
+
+        switch (dir)
+        {
+            case 1:
+                moveDir = new Vector3(0, 0, 1);
+                break;
+            case 2:
+                moveDir = new Vector3(1, 0, 0);
+                break;
+            case 3:
+                moveDir = new Vector3(0, 0, -1);
+                break;
+            case 4:
+                moveDir = new Vector3(-1, 0, 0);
+                break;
+        }
+
+        setDirImg();
     }
 
     // target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)
@@ -168,6 +180,17 @@ public class Player : Element
     {
         return Mathf.Floor(point - (Database.Stage.GetComponent<Stage>().GetStageSize() + 1) % 2 * 0.5f + 0.5f) + (Database.Stage.GetComponent<Stage>().GetStageSize() + 1) % 2 * 0.5f;
     }
+    private void setDirImg()
+    {
+        if (moveDir.z == 1)
+            ani.SetInteger("direction", 1);
+        else if (moveDir.x == 1)
+            ani.SetInteger("direction", 2);
+        else if (moveDir.z == -1)
+            ani.SetInteger("direction", 3);
+        else if (moveDir.x == -1)
+            ani.SetInteger("direction", 4);
+    }
 
     //player의 속도를 0으로 변환
     public void SetVelocityZero()
@@ -179,6 +202,7 @@ public class Player : Element
     public void SetDirection(Vector3 dir)
     {
         moveDir = dir;
+        setDirImg();
     }
 
     public Vector3 GetDirection()

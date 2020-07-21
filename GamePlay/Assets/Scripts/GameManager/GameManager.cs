@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private Exit exit;
     private int clickNum = 0;
     private float clicktime = 0;
-    private const float clickdelay = 0.5f;
+    private const float clickdelay = 0.3f;
     private IEnumerator coroutine;
 
     private float pressedPoint_x;
@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         AudioManager.Instance.playBGM(AudioType.GAMEPLAY_BGM);
-        
-        InitStage();
+
         Database.Stage.SetActive(true);
         Database.Player.SetActive(true);
+        InitStage();
+
         exit = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Exit>();
     }
 
@@ -52,33 +53,35 @@ public class GameManager : MonoBehaviour
 
     void OnGUI()
     {
-        //Button Control Mode가 아닐 때 터치로 Control
+        Event m_Event = Event.current;
+
+        if (m_Event.type == EventType.MouseDown)
+        {
+            clickNum++;
+            if (clickNum == 1)
+                clicktime = Time.time;
+            if (clickNum > 1)
+            {
+                if (Time.time - clicktime < clickdelay)
+                {
+                    SettingData.Camera_Zoom = !SettingData.Camera_Zoom;
+                    Minimap.SetActive(SettingData.Camera_Zoom);
+                    clickNum = 0;
+                    clicktime = 0;
+                }
+                else
+                {
+                    clickNum = 1;
+                    clicktime = Time.time;
+                }
+            }
+        }
+            //Button Control Mode가 아닐 때 터치로 Control
         if (!SettingData.ControlMode_Button)
         {
-            Event m_Event = Event.current;
-
             //Mouse Pressed
             if (m_Event.type == EventType.MouseDown)
             {
-                clickNum++;
-                if (clickNum == 1)
-                    clicktime = Time.time;
-                if (clickNum > 1)
-                {
-                    if (Time.time - clicktime < clickdelay)
-                    {
-                        SettingData.Camera_Zoom = !SettingData.Camera_Zoom;
-                        Minimap.SetActive(SettingData.Camera_Zoom);
-                        clickNum = 0;
-                        clicktime = 0;
-                    }
-                    else
-                    {
-                        clickNum = 1;
-                        clicktime = Time.time;
-                    }
-                }
-
                 pressedPoint_x = Input.mousePosition.x;
                 pressedPoint_y = Input.mousePosition.y;
             }
@@ -88,42 +91,21 @@ public class GameManager : MonoBehaviour
             {
                 Vector3 direction = Vector3.zero;
                 
-                //Rhombus일 때
-                if (!SettingData.CameraAngle_Rectangle)
+                if (pressedPoint_x < Input.mousePosition.x - 50)    // 오른쪽 위 or 오른쪽 아래일 때
                 {
-                    if (pressedPoint_x < Input.mousePosition.x - 50)    // 오른쪽 위 or 오른쪽 아래일 때
-                    {
-                        if (pressedPoint_y < Input.mousePosition.y - 50)
-                            direction = new Vector3(1, 0, 0);
-                        else
-                            direction = new Vector3(0, 0, -1);
-                    }
-                    else if(Input.mousePosition.x < pressedPoint_x - 50) // 왼쪽 위 or 왼쪽 아래일 때
-                    {
-                        if (pressedPoint_y < Input.mousePosition.y - 50) // 왼쪽 위
-                            direction = new Vector3(0, 0, 1);
-                        else                                             // 왼쪽 아래
-                            direction = new Vector3(-1, 0, 0);
-                    }
+                    if (pressedPoint_y < Input.mousePosition.y - 50)
+                        direction = new Vector3(1, 0, 0);
+                    else
+                        direction = new Vector3(0, 0, -1);
                 }
-                //Rectangle일 때
-                else
+                else if(Input.mousePosition.x < pressedPoint_x - 50) // 왼쪽 위 or 왼쪽 아래일 때
                 {
-                    if (Mathf.Abs(pressedPoint_x - Input.mousePosition.x) > Mathf.Abs(pressedPoint_y - Input.mousePosition.y)) // x축의 변화가 더 클 때 - 좌우일 때
-                    {
-                        if (pressedPoint_x < Input.mousePosition.x - 50)  // 왼쪽
-                            direction = new Vector3(1, 0, 0);
-                        else                                         // 오른쪽
-                            direction = new Vector3(-1, 0, 0);
-                    }
-                    else if (Mathf.Abs(pressedPoint_x - Input.mousePosition.x) < Mathf.Abs(pressedPoint_y - Input.mousePosition.y))
-                    {
-                        if (pressedPoint_y < Input.mousePosition.y - 50)
-                            direction = new Vector3(0, 0, 1);
-                        else
-                            direction = new Vector3(0, 0, -1);
-                    }
+                    if (pressedPoint_y < Input.mousePosition.y - 50) // 왼쪽 위
+                        direction = new Vector3(0, 0, 1);
+                    else                                             // 왼쪽 아래
+                        direction = new Vector3(-1, 0, 0);
                 }
+
                 if (Player.canMove && direction != Vector3.zero)
                 {
                     Database.Player.GetComponent<Player>().SetDirection(direction);

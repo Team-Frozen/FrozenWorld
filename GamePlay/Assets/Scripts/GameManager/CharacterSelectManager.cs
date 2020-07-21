@@ -60,7 +60,6 @@ public class CharacterSelectManager : MonoBehaviour
 
         Destroy(Database.Player.gameObject);
         Database.Player = Instantiate(pre_characters[selectedCharacter], Vector3.zero, Quaternion.identity);
-        Database.Player.GetComponent<MeshRenderer>().material.color = characters[selectedCharacter].GetComponent<MeshRenderer>().material.color;
         Database.Player.SetActive(false);
     }
 

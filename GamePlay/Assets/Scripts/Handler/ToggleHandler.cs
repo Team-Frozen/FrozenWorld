@@ -7,8 +7,6 @@ public class ToggleHandler : MonoBehaviour
 {
     public enum ToggleType
     {
-        DISPLAY,
-        CAMERA_ANGLE,
         CONTROL
     }
 
@@ -96,10 +94,6 @@ public class ToggleHandler : MonoBehaviour
         {
             switch (toggleType)
             {
-                case ToggleType.DISPLAY:
-                    return SettingData.Display_Vertical;
-                case ToggleType.CAMERA_ANGLE:
-                    return SettingData.CameraAngle_Rectangle;
                 case ToggleType.CONTROL:
                     return SettingData.ControlMode_Button;
                 default:
@@ -111,13 +105,7 @@ public class ToggleHandler : MonoBehaviour
         {
             switch (toggleType)
             {
-                case ToggleType.DISPLAY:
-                    SettingData.Display_Vertical = value;
-                    break;
-                case ToggleType.CAMERA_ANGLE:
-                    SettingData.CameraAngle_Rectangle = value;
-                    break;
-                case ToggleType.CONTROL:
+               case ToggleType.CONTROL:
                     SettingData.ControlMode_Button = value;
                     break;
             }
@@ -128,14 +116,6 @@ public class ToggleHandler : MonoBehaviour
     {
         switch (toggleType)
         {
-            case ToggleType.DISPLAY:
-                if (!isOn)
-                    return "Horizontal";
-                return "Vertical";
-            case ToggleType.CAMERA_ANGLE:
-                if (!isOn)
-                    return "Rhombus";
-                return "Rectangle";
             case ToggleType.CONTROL:
                 if (!isOn)
                     return "Swipe";
