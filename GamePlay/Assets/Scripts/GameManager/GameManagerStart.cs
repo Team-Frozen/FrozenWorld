@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManagerStart : MonoBehaviour
 {
     public GameObject settingPanel;
     public CanvasGroup fadeGroup;
+    public GameObject btn_character;
 
     void Awake()
     {
         FadeIn();
         AudioManager.Instance.playBGM(AudioType.MAIN_BGM);
+
+        string characterName = "MulBeong";
+        if (CharacterSelectManager.selectedCharacter == 0)
+            characterName = "MulBeong";
+        else if (CharacterSelectManager.selectedCharacter == 1)
+            characterName = "PengSik";
+        else if (CharacterSelectManager.selectedCharacter == 2)
+            characterName = "Ddori";
+        btn_character.GetComponent<Image>().sprite = Resources.Load<Sprite>("unit/" + characterName + "/" + characterName + "_Play4") as Sprite;
     }
 
     public void ShowSettingPanel()

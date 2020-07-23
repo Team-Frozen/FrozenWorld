@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         Player.canMove = false;
         btn_Back.interactable = false;
         MenuUI.SetActive(true);
-        MenuUI.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
+        MenuUI.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/button/soundButton" + SettingData.SoundOn, typeof(Sprite));
     }
 
     public void ResumeGame()
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
     {
         SettingData.SoundOn = !SettingData.SoundOn;
         SaveLoadManager.Save_SettingData();
-        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
+        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/button/soundButton" + SettingData.SoundOn, typeof(Sprite));
     }
 
     public void BackToHome()
