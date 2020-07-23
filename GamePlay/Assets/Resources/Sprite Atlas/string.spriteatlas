@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: string
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: e792d7dfb5e98e242a6b14c1b8c5f162, type: 3}
+    - {fileID: 2800000, guid: 6814154689aa1784e87080432fd19b00, type: 3}
+    - {fileID: 2800000, guid: f8434d70421b96947a5950c2f1bd3e39, type: 3}
+    - {fileID: 2800000, guid: 4537a1d679da3cb489acc29067452b2b, type: 3}
+    - {fileID: 2800000, guid: 28cf7eb841d31f045afb553f6014a309, type: 3}
+    - {fileID: 2800000, guid: eb82b086c6eb5a74591dab638bd50511, type: 3}
+    - {fileID: 2800000, guid: 37da77ca739c1ef4cb269de88a0d8e82, type: 3}
+    - {fileID: 2800000, guid: 9d1dae8f4856e6d40a69b3f2bf89cd2e, type: 3}
+    - {fileID: 2800000, guid: 239c30b713815624ca7d3d3553d2529b, type: 3}
+    - {fileID: 2800000, guid: fc6046ca56d275f459575a688587d99e, type: 3}
+    - {fileID: 2800000, guid: c9fe3258ce4045342a42e5b221cdd9b0, type: 3}
+    - {fileID: 2800000, guid: f497ca86304f07248a280b4ed336c589, type: 3}
+    - {fileID: 2800000, guid: 5a78432f4be5028498d381b07cc49f71, type: 3}
+    - {fileID: 2800000, guid: 8f02825ead1587d418427a7518539943, type: 3}
+    totalSpriteSurfaceArea: 444656
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: f8434d70421b96947a5950c2f1bd3e39, type: 3}
+  - {fileID: 21300000, guid: 6814154689aa1784e87080432fd19b00, type: 3}
+  - {fileID: 21300000, guid: eb82b086c6eb5a74591dab638bd50511, type: 3}
+  - {fileID: 21300000, guid: f497ca86304f07248a280b4ed336c589, type: 3}
+  - {fileID: 21300000, guid: 4537a1d679da3cb489acc29067452b2b, type: 3}
+  - {fileID: 21300000, guid: 239c30b713815624ca7d3d3553d2529b, type: 3}
+  - {fileID: 21300000, guid: c9fe3258ce4045342a42e5b221cdd9b0, type: 3}
+  - {fileID: 21300000, guid: 28cf7eb841d31f045afb553f6014a309, type: 3}
+  - {fileID: 21300000, guid: fc6046ca56d275f459575a688587d99e, type: 3}
+  - {fileID: 21300000, guid: 37da77ca739c1ef4cb269de88a0d8e82, type: 3}
+  - {fileID: 21300000, guid: 8f02825ead1587d418427a7518539943, type: 3}
+  - {fileID: 21300000, guid: 5a78432f4be5028498d381b07cc49f71, type: 3}
+  - {fileID: 21300000, guid: 9d1dae8f4856e6d40a69b3f2bf89cd2e, type: 3}
+  - {fileID: 21300000, guid: e792d7dfb5e98e242a6b14c1b8c5f162, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - cave2
+  - cave1
+  - CONTROL
+  - PLAY
+  - cave3
+  - MUSIC
+  - OptionsTitle
+  - CHAPTERS
+  - MUSIC2
+  - DISPLAY
+  - SOUNDS2
+  - SOUNDS
+  - MOVE
+  - CAMERA_ANGLE
+  m_Tag: string
+  m_IsVariant: 0

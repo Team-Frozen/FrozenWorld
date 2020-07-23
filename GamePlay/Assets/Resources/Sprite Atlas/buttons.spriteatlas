@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: buttons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 41cd2431b67a6f240bffc0c0af71e06e, type: 3}
+    - {fileID: 2800000, guid: 1674ccacd96a11f46922d38fa842a31c, type: 3}
+    - {fileID: 2800000, guid: b326fc868fd2b3c408930daacc263e8a, type: 3}
+    - {fileID: 2800000, guid: 811d3ad5984a2a943826e2aa754caf54, type: 3}
+    - {fileID: 2800000, guid: 39c293ec7d07ee14b970ec0610fe9441, type: 3}
+    - {fileID: 2800000, guid: 5a907db9287647246b95ba179e93c65b, type: 3}
+    - {fileID: 2800000, guid: 24c9d530c7194d941adc2258268090d3, type: 3}
+    - {fileID: 2800000, guid: 8d02d75fe71541148b6f8d8f3d910f46, type: 3}
+    - {fileID: 2800000, guid: e9cd14b5d953de549a11e2ce3defb1fa, type: 3}
+    - {fileID: 2800000, guid: 2827f7ab9ba737e4db5b770ef464a102, type: 3}
+    - {fileID: 2800000, guid: ad157427c7a6b3846881da2acafa6a0e, type: 3}
+    - {fileID: 2800000, guid: 8579525c9372eb4428466a6c02fe3e53, type: 3}
+    - {fileID: 2800000, guid: a5c1c03cd940685409b8954656cdfdba, type: 3}
+    - {fileID: 2800000, guid: 31c319e74ccee9c46994e23accfca090, type: 3}
+    - {fileID: 2800000, guid: 09abc9b9c9f9d4740802564b93b5f3a2, type: 3}
+    - {fileID: 2800000, guid: 96be5a58b912ff747a94fca4ce1e34e9, type: 3}
+    - {fileID: 2800000, guid: 0a1c02fc251a39749a5f199080d4bf6f, type: 3}
+    - {fileID: 2800000, guid: ab31ab22fdc0d9a4d831f1459162744b, type: 3}
+    - {fileID: 2800000, guid: b2bdcc1c1558788439c8422e1ec02673, type: 3}
+    - {fileID: 2800000, guid: f3d6214c2aca48d459997ae9911f3b64, type: 3}
+    totalSpriteSurfaceArea: 1092687
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 24c9d530c7194d941adc2258268090d3, type: 3}
+  - {fileID: 21300000, guid: 41cd2431b67a6f240bffc0c0af71e06e, type: 3}
+  - {fileID: 21300000, guid: ab31ab22fdc0d9a4d831f1459162744b, type: 3}
+  - {fileID: 21300000, guid: e9cd14b5d953de549a11e2ce3defb1fa, type: 3}
+  - {fileID: 21300000, guid: 811d3ad5984a2a943826e2aa754caf54, type: 3}
+  - {fileID: 21300000, guid: b326fc868fd2b3c408930daacc263e8a, type: 3}
+  - {fileID: 21300000, guid: ad157427c7a6b3846881da2acafa6a0e, type: 3}
+  - {fileID: 21300000, guid: 31c319e74ccee9c46994e23accfca090, type: 3}
+  - {fileID: 21300000, guid: 96be5a58b912ff747a94fca4ce1e34e9, type: 3}
+  - {fileID: 21300000, guid: 09abc9b9c9f9d4740802564b93b5f3a2, type: 3}
+  - {fileID: 21300000, guid: 5a907db9287647246b95ba179e93c65b, type: 3}
+  - {fileID: 21300000, guid: 2827f7ab9ba737e4db5b770ef464a102, type: 3}
+  - {fileID: 21300000, guid: b2bdcc1c1558788439c8422e1ec02673, type: 3}
+  - {fileID: 21300000, guid: a5c1c03cd940685409b8954656cdfdba, type: 3}
+  - {fileID: 21300000, guid: f3d6214c2aca48d459997ae9911f3b64, type: 3}
+  - {fileID: 21300000, guid: 8579525c9372eb4428466a6c02fe3e53, type: 3}
+  - {fileID: 21300000, guid: 1674ccacd96a11f46922d38fa842a31c, type: 3}
+  - {fileID: 21300000, guid: 39c293ec7d07ee14b970ec0610fe9441, type: 3}
+  - {fileID: 21300000, guid: 0a1c02fc251a39749a5f199080d4bf6f, type: 3}
+  - {fileID: 21300000, guid: 8d02d75fe71541148b6f8d8f3d910f46, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - backButton
+  - Btn_Control
+  - ToggleBackground
+  - menuButton
+  - Btn_Control4
+  - Btn_Control3
+  - playButton-01
+  - soundButtonFalse
+  - buttonSlider
+  - soundButtonTrue
+  - closeButton
+  - nextButton
+  - Slider
+  - settingButton
+  - SliderFill 1
+  - resetButton
+  - Btn_Control2
+  - button2
+  - menuIcon
+  - homeButton
+  m_Tag: buttons
+  m_IsVariant: 0
