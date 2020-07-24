@@ -192,6 +192,8 @@ public class GameManagerStages : MonoBehaviour
         Test.FocusStage = index;
         focusButton.GetComponent<Image>().color = Color.white;
         ChangeScene_MapEdit();
+
+        Debug.Log("minmove: " +  Test.Stage.GetComponent<Stage>().getMinMove());
     }
 
     public void newStage() //Btn_Create 눌렀을 때 실행하는 함수 Button GameObject만들고 Scene넘김 - GameArea는 넘어간 Scene에서 생성

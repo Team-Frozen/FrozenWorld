@@ -16,7 +16,6 @@ public class DataManager
     {
         if (File.Exists(Application.persistentDataPath + fileName))
         {
-            Debug.Log(Application.persistentDataPath + fileName);
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(Application.persistentDataPath + fileName, FileMode.Open);
             T t = (T)formatter.Deserialize(stream);

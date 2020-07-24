@@ -148,9 +148,7 @@ public class GameManager : MonoBehaviour
             {
                focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), 0.5f + (focusBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z));
 
-                if (focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
-                    focusBlock.GetComponent<Element>().setVisible();
-                else
+                if (!focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
                     focusBlock.GetComponent<Element>().setInvisible();
             }
         }
@@ -227,7 +225,7 @@ public class GameManager : MonoBehaviour
     public bool onBlock(RaycastHit hitInfo)
     {
         if (!Test.Stage.GetComponent<Stage>().getElements().Any() ||
-            !hitInfo.transform.GetComponent<Element>())
+           !hitInfo.transform.GetComponent<Element>())
             return false;
 
         foreach (GameObject element in Test.Stage.GetComponent<Stage>().getElements())

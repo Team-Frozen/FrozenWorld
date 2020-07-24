@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public enum BlockType
@@ -105,6 +106,7 @@ public class SaveLoadManager : MonoBehaviour
                 //add chapter button
                 GameObject newChptrBtn;
                 newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Test.Btn_Chapters.Count), 0, 0), Quaternion.identity);
+                newChptrBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("buttons/num" + (Test.FocusChapter + 1), typeof(Sprite));
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
                 Test.Btn_Chapters.Add(newChptrBtn);
 
@@ -128,6 +130,7 @@ public class SaveLoadManager : MonoBehaviour
                     //add stage button
                     GameObject newStageBtn;
                     newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % 9), -150 - 100 * (Test.Btn_Stages.Count / 9), 0), Quaternion.identity);
+                    newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("buttons/num" + (Test.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     Test.Btn_Stages.Add(newStageBtn);
 
