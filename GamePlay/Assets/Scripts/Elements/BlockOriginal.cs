@@ -26,6 +26,12 @@ public class BlockOriginal : Element
         player.MoveToCenter();
         Player.canMove = true;
     }
+    public override void setProperty(int property)
+    {
+        this.property = property;
+        if(property == 1)
+            this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("Block/OrgBlock2", typeof(Sprite));
+    }
 
     public override BlockType ReturnType()
     {

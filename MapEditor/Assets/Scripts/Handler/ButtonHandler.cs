@@ -12,4 +12,9 @@ public class ButtonHandler : MonoBehaviour
     {
        return Int32.Parse(num.text);
     }
+
+    public void setText(int input)
+    {
+        num.text = input.ToString();
+    }
 }

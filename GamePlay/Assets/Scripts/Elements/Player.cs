@@ -25,7 +25,7 @@ public class Player : Element
         moveSpeed = 50;
         DontDestroyOnLoad(gameObject);
         rigid = GetComponent<Rigidbody>();
-        initUnitImage();
+        //initUnitImage();
         layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
         layerMask_slope = 1 << LayerMask.NameToLayer("SlopeBlock");
         layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
@@ -125,7 +125,7 @@ public class Player : Element
 
     public void initUnitImage()
     {
-        int dir = (property + 1) % 4 + 1;
+        int dir = (Database.Stage.GetComponent<Stage>().GetPlayerProperty() + 1) % 4 + 1;
 
         switch (dir)
         {

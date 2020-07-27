@@ -239,7 +239,7 @@ public class SaveLoadManager : MonoBehaviour
                 {
                     //add stage
                     GameObject newStage;
-                    newStage = Instantiate(stage, new Vector3(0, 0, 0), Quaternion.identity);
+                    newStage = Instantiate(stage, new Vector3(0, -3f, 0), Quaternion.identity);
                     newStage.GetComponent<Stage>().SetStageSize(data.stages[index].gameAreaSize);
                     newStage.GetComponent<Stage>().SetMinMove(data.stages[index].minMove);
                     Database.Stages.Add(newStage);
@@ -276,7 +276,7 @@ public class SaveLoadManager : MonoBehaviour
                         switch (data.stages[index].elements[k].blockType)
                         {
                             case BlockType.UNIT:
-                                position.y = 0.5f + unit.transform.localScale.y * 0.5f;
+                                position.y = -2f;
                                 Database.Stage.GetComponent<Stage>().SetPlayerPos(position);
                                 Database.Stage.GetComponent<Stage>().SetPlayerProperty(data.stages[index].elements[k].property);
                                 break;
@@ -294,6 +294,7 @@ public class SaveLoadManager : MonoBehaviour
                                         GameObject newWall;
                                         newWall = Instantiate(wall, wallPosition, Quaternion.identity);
                                         newWall.transform.SetParent(Database.Stage.GetComponent<Stage>().getGameArea().transform);
+                                        newWall.transform.localPosition = wallPosition;
                                     }
                                 }
                                 position.y = 0.5f + exit.transform.localScale.y * 0.5f;
@@ -327,13 +328,16 @@ public class SaveLoadManager : MonoBehaviour
                                 break;
                         }
 
+                        
                         if (data.stages[index].elements[k].blockType != BlockType.UNIT)
                         {
                             newBlock.GetComponent<Element>().setProperty(data.stages[index].elements[k].property);
                             Database.Stage.GetComponent<Stage>().GetElements().Add(newBlock);
                             Database.Stage.GetComponent<Stage>().SetParent(newBlock);
+                            newBlock.transform.localPosition = position;
                         }
                     }
+                    //Database.Stage.transform.position.y = -3f;
                     Database.Stage.SetActive(false);
                     index++;
                 }

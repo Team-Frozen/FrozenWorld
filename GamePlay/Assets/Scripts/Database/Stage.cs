@@ -43,6 +43,7 @@ public class Stage : MonoBehaviour
     {
         gameArea = Instantiate(pre_gameArea, new Vector3(0, 0, 0), Quaternion.identity);
         gameArea.transform.SetParent(this.transform);
+        gameArea.transform.localPosition = new Vector3(0, 0, 0);
         SetArea();
     }
 
@@ -51,17 +52,17 @@ public class Stage : MonoBehaviour
         gameArea.transform.GetChild(0).localScale = new Vector3(stageSize, 0.1f, stageSize);
         gameArea.transform.GetChild(0).GetComponent<Renderer>().material.mainTextureScale = new Vector2((float)stageSize * 0.5f, (float)stageSize * 0.5f);
 
-        gameArea.transform.GetChild(1).position = new Vector3(-(float)stageSize * 0.5f - 0.001f, 0, 0);
-        gameArea.transform.GetChild(1).localScale = new Vector3((float)stageSize * 0.1f, 1, 0.1f);
+        gameArea.transform.GetChild(1).localPosition = new Vector3(-(float)stageSize * 0.5f - 0.001f, 0.1f, 0);
+        gameArea.transform.GetChild(1).localScale = new Vector3((float)stageSize * 0.1f, 1, 0.08f);
         gameArea.transform.GetChild(1).GetComponent<Renderer>().material.mainTextureScale = new Vector2((float)stageSize, 1);
 
-        gameArea.transform.GetChild(2).position = new Vector3(0, 0, -(float)stageSize * 0.5f - 0.001f);
-        gameArea.transform.GetChild(2).localScale = new Vector3((float)stageSize * 0.1f, 1, 0.1f);
+        gameArea.transform.GetChild(2).localPosition = new Vector3(0, 0.1f, -(float)stageSize * 0.5f - 0.001f);
+        gameArea.transform.GetChild(2).localScale = new Vector3((float)stageSize * 0.1f, 1, 0.08f);
         gameArea.transform.GetChild(2).GetComponent<Renderer>().material.mainTextureScale = new Vector2((float)stageSize, 1);
 
-        gameArea.transform.GetChild(3).position = new Vector3(0, 2, -(float)stageSize * 0.5f - 0.5f);
-        gameArea.transform.GetChild(4).position = new Vector3(-(float)stageSize * 0.5f - 0.5f, 2, 0);
-        gameArea.transform.GetChild(5).position = new Vector3(0, 2, (float)stageSize * 0.5f + 0.5f);
+        gameArea.transform.GetChild(3).localPosition = new Vector3(0, 2, -(float)stageSize * 0.5f - 0.5f);
+        gameArea.transform.GetChild(4).localPosition = new Vector3(-(float)stageSize * 0.5f - 0.5f, 2, 0);
+        gameArea.transform.GetChild(5).localPosition = new Vector3(0, 2, (float)stageSize * 0.5f + 0.5f);
     }
 
     public void SetActiveStageScore()

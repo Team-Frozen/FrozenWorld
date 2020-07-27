@@ -58,6 +58,8 @@ public class GameManager : MonoBehaviour
             setUnit();
             setExit();
         }
+
+        Debug.Log(Test.Stage.GetComponent<Stage>().getMinMove());
     }
 
     void Start()

@@ -11,16 +11,17 @@ public class GameManager : MonoBehaviour
     public GameObject MenuUI;
     public GameObject Minimap;
 
+    public List<Image> playerMove;
     public List<Image> img_Score;       //점수
     public Button btn_Back;             //뒤로가기 버튼
-    public Text txt_PlayerMoves;        //Player 이동 횟수 txt
     public Text txt_MoveScore;          //Stage 클리어 시 Player 이동 횟수 txt
     public List<CanvasGroup> fadeGroup;
     public static int playerMoves;
 
     private Exit exit;
-    private int clickNum = 0;
-    private float clicktime = 0;
+    private bool menuPopedUp;
+    private int clickNum;
+    private float clicktime;
     private const float clickdelay = 0.3f;
     private IEnumerator coroutine;
 
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        menuPopedUp = false;
+        clickNum = 0;
+        clicktime = 0;
+
         AudioManager.Instance.playBGM(AudioType.GAMEPLAY_BGM);
 
         Database.Stage.SetActive(true);
@@ -47,15 +52,14 @@ public class GameManager : MonoBehaviour
             exit.isCollide = false;
             ShowStageClearUI();
         }
-
-        txt_PlayerMoves.text = playerMoves.ToString();
+        updateMoves();
     }
 
     void OnGUI()
     {
         Event m_Event = Event.current;
 
-        if (m_Event.type == EventType.MouseDown)
+        if (m_Event.type == EventType.MouseDown && !menuPopedUp)
         {
             clickNum++;
             if (clickNum == 1)
@@ -77,7 +81,7 @@ public class GameManager : MonoBehaviour
             }
         }
             //Button Control Mode가 아닐 때 터치로 Control
-        if (!SettingData.ControlMode_Button)
+        if (!SettingData.ControlMode_Button && !menuPopedUp)
         {
             //Mouse Pressed
             if (m_Event.type == EventType.MouseDown)
@@ -120,7 +124,7 @@ public class GameManager : MonoBehaviour
     //Stage Clear 했을 때 나타나는 UI(Panel)
     private void ShowStageClearUI()
     {
-        Player.canMove = false;
+        menuPopedUp = true;
         btn_Back.interactable = false;
         StageClearUI.SetActive(true);
 
@@ -139,7 +143,7 @@ public class GameManager : MonoBehaviour
     public void ShowMenuUI()
     {
         Time.timeScale = 0;
-        Player.canMove = false;
+        menuPopedUp = true;
         btn_Back.interactable = false;
         MenuUI.SetActive(true);
         MenuUI.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
@@ -148,7 +152,7 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1;
-        Player.canMove = true;
+        menuPopedUp = false;
         btn_Back.interactable = true;
         MenuUI.SetActive(false);
     }
@@ -170,6 +174,7 @@ public class GameManager : MonoBehaviour
     public void Btn_NextStage()
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
+        menuPopedUp = false;
 
         //다음 Stage가 같은 Chapter인 경우
         if (Database.FocusStage + 1 < Database.Stages.Count)
@@ -241,6 +246,29 @@ public class GameManager : MonoBehaviour
         StageClearUI.SetActive(false);
     }
 
+    private void updateMoves()
+    {
+        int interval = -30;
+        int digits[3];
+
+        int ones_digit = 0, tens_digit = 0, hundreds_digit = 0;
+        digits[0] = 1;
+
+
+        hundreds_digit = playerMoves / 100;
+        tens_digit = (playerMoves % 100) / 10;
+        ones_digit = (playerMoves % 100) % 10;
+
+        for
+
+
+        if (hundreds_digit != 0)
+        {
+            ;
+            interval =+ 30;
+        }
+    }
+
     public void ChangeScene_Stages()
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
@@ -263,6 +291,7 @@ public class GameManager : MonoBehaviour
     public void Btn_RestartStage()
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
+        menuPopedUp = false;
         InitStage();
     }
 

@@ -17,7 +17,7 @@ public class Chapter
     public void SetActiveChapterScore()
     {
         CalcScore(Database.FocusChapter);
-        GameObject Score = Database.Btn_Chapters[Database.FocusChapter].transform.parent.GetChild(4).gameObject;
+        GameObject Score = Database.Btn_Chapters[Database.FocusChapter].transform.parent.GetChild(3).transform.GetChild(1).gameObject;
         Score.GetComponent<Text>().text = Database.Chapter_List[Database.FocusChapter].GetScore() + "/" + Database.Chapters[Database.FocusChapter].Count * 3;
         Score.SetActive(true);
     }
@@ -25,7 +25,7 @@ public class Chapter
     public void SetActiveChapterScore(int chapterNum)
     {
         CalcScore(chapterNum);
-        GameObject Score = Database.Btn_Chapters[chapterNum].transform.parent.GetChild(4).gameObject;
+        GameObject Score = Database.Btn_Chapters[chapterNum].transform.parent.GetChild(3).transform.GetChild(1).gameObject;
         Score.GetComponent<Text>().text = Database.Chapter_List[chapterNum].GetScore() + "/" + Database.Chapters[chapterNum].Count * 3;
         Score.SetActive(true);
     }
