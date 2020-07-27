@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
                         label:
                         break;
                 }
+                focusBlock.GetComponent<Element>().setProperty(0);
                 Test.Stage.GetComponent<Stage>().getElements().Add(focusBlock);
                 Test.Stage.GetComponent<Stage>().setParent(focusBlock);
 
