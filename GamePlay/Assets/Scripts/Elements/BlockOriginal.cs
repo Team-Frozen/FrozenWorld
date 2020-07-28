@@ -30,7 +30,7 @@ public class BlockOriginal : Element
     {
         this.property = property;
         if(property == 1)
-            this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("Block/OrgBlock2", typeof(Sprite));
+            this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("platform/block/OrgBlock2", typeof(Sprite));
     }
 
     public override BlockType ReturnType()

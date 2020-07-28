@@ -218,9 +218,9 @@ public class SaveLoadManager : MonoBehaviour
                 GameObject newChptrBtn;
 
                 newChptrBtn = Instantiate(btn_Chapters, new Vector3(800 * (Database.Btn_Chapters.Count), 20, 0), Quaternion.identity);
-                newChptrBtn.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("number/cave" + (Database.FocusChapter + 1), typeof(Sprite));
+                newChptrBtn.transform.GetChild(0).GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/chapter/cave" + (Database.FocusChapter + 1), typeof(Sprite));
                 newChptrBtn.transform.GetChild(0).GetComponent<Button>().interactable = false;
-                newChptrBtn.transform.GetChild(2).GetComponent<Image>().sprite = (Sprite)Resources.Load("string/cave" + (Database.FocusChapter + 1), typeof(Sprite));
+                newChptrBtn.transform.GetChild(2).GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/string/cave" + (Database.FocusChapter + 1), typeof(Sprite));
                 newChptrBtn.transform.GetChild(2).GetComponent<Image>().SetNativeSize();
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
 
@@ -247,7 +247,7 @@ public class SaveLoadManager : MonoBehaviour
                     //add stage button
                     GameObject newStageBtn;
                     newStageBtn = Instantiate(btn_Stages, new Vector3(-400 + 200 * (Database.Btn_Stages.Count % 5), 450 - 200 * (Database.Btn_Stages.Count / 5), 0), Quaternion.identity);
-                    newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("number/num" + (Database.FocusStage + 1), typeof(Sprite));
+                    newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/stage/num" + (Database.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     newStageBtn.GetComponent<Button>().interactable = false;
                     Database.Btn_Stages.Add(newStageBtn);

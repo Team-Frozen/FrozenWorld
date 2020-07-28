@@ -301,7 +301,7 @@ public class GameManagerChapter : MonoBehaviour
                 if (focusButton != null)
                     focusButton.GetComponent<Image>().color = Color.white;
                 focusButton = EventSystem.current.currentSelectedGameObject;
-                focusButton.GetComponent<Image>().color = Color.red;
+                focusButton.GetComponent<Image>().color = Color.cyan;
             }
             else
                 loadChapter();

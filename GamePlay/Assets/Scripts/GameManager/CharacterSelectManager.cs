@@ -16,7 +16,7 @@ public class CharacterSelectManager : MonoBehaviour
     public List<Button> Btns_Option;
     public Image img_selected;
     private static int focusCharacter = 0;
-    private static int selectedCharacter = 0;
+    public static int selectedCharacter = 0;
 
     private void Awake()
     {

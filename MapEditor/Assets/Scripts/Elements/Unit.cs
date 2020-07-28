@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Unit : Element
 {
     private float return_x, return_z;
@@ -10,7 +11,8 @@ public class Unit : Element
     {
         property++;
         property = property % 4;
-        this.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+        this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("unit/unit " + property) as Sprite;
+        //this.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
     }
 
     public override void setProperty(int property)

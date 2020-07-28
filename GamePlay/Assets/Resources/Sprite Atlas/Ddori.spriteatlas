@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ddori
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: b342f383878dbdd499465d6b446b99f2, type: 3}
+    - {fileID: 2800000, guid: 5d2951107460ce647a914881def3c783, type: 3}
+    - {fileID: 2800000, guid: 6846ca75de71b1842ae518664574e072, type: 3}
+    - {fileID: 2800000, guid: ff88400d168e74949929e64b5408c4f7, type: 3}
+    - {fileID: 2800000, guid: bcd2454bd074cab4eb4ce198bb6b7cd1, type: 3}
+    - {fileID: 2800000, guid: 16fc0c4af1d93fd47a6b0c1514fd8928, type: 3}
+    - {fileID: 2800000, guid: a30de3c9d2eee6d4781f4d0a323ec14c, type: 3}
+    - {fileID: 2800000, guid: 00d9b8dde996e9d428f3e50af238c8fc, type: 3}
+    - {fileID: 2800000, guid: 018c4493c7cb78845b9d9bb3e4e27576, type: 3}
+    - {fileID: 2800000, guid: 64d351a2380e5cb4fa6f6c6572591927, type: 3}
+    - {fileID: 2800000, guid: b114ae7b618e2d54687052b849cca3ac, type: 3}
+    - {fileID: 2800000, guid: 4bca5e7d9161a1e468c94a7ec1168b89, type: 3}
+    - {fileID: 2800000, guid: d2ef31626246c5f409f2c96f063df96a, type: 3}
+    - {fileID: 2800000, guid: b222f7dae9f77934c972bfe7006f3764, type: 3}
+    - {fileID: 2800000, guid: 7186e895d166b534baba9360d6ac8a22, type: 3}
+    - {fileID: 2800000, guid: ba639e552e4d4514b81a6a103b13ef5a, type: 3}
+    totalSpriteSurfaceArea: 200704
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5d2951107460ce647a914881def3c783, type: 3}
+  - {fileID: 21300000, guid: d2ef31626246c5f409f2c96f063df96a, type: 3}
+  - {fileID: 21300000, guid: 64d351a2380e5cb4fa6f6c6572591927, type: 3}
+  - {fileID: 21300000, guid: b342f383878dbdd499465d6b446b99f2, type: 3}
+  - {fileID: 21300000, guid: 018c4493c7cb78845b9d9bb3e4e27576, type: 3}
+  - {fileID: 21300000, guid: ba639e552e4d4514b81a6a103b13ef5a, type: 3}
+  - {fileID: 21300000, guid: 6846ca75de71b1842ae518664574e072, type: 3}
+  - {fileID: 21300000, guid: 7186e895d166b534baba9360d6ac8a22, type: 3}
+  - {fileID: 21300000, guid: a30de3c9d2eee6d4781f4d0a323ec14c, type: 3}
+  - {fileID: 21300000, guid: 16fc0c4af1d93fd47a6b0c1514fd8928, type: 3}
+  - {fileID: 21300000, guid: b222f7dae9f77934c972bfe7006f3764, type: 3}
+  - {fileID: 21300000, guid: bcd2454bd074cab4eb4ce198bb6b7cd1, type: 3}
+  - {fileID: 21300000, guid: b114ae7b618e2d54687052b849cca3ac, type: 3}
+  - {fileID: 21300000, guid: ff88400d168e74949929e64b5408c4f7, type: 3}
+  - {fileID: 21300000, guid: 4bca5e7d9161a1e468c94a7ec1168b89, type: 3}
+  - {fileID: 21300000, guid: 00d9b8dde996e9d428f3e50af238c8fc, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Ddori_Play1_Move1
+  - Ddori_Play4
+  - Ddori_Play3_Move1
+  - Ddori_Play1
+  - Ddori_Play3
+  - Ddori_Play4_Move3
+  - Ddori_Play1_Move2
+  - Ddori_Play4_Move2
+  - Ddori_Play2_Move2
+  - Ddori_Play2_Move1
+  - Ddori_Play4_Move1
+  - Ddori_Play2
+  - Ddori_Play3_Move2
+  - Ddori_Play1_Move3
+  - Ddori_Play3_Move3
+  - Ddori_Play2_Move3
+  m_Tag: Ddori
+  m_IsVariant: 0

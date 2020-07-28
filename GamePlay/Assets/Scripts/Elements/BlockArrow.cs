@@ -27,6 +27,6 @@ public class BlockArrow : Element
     public override void setProperty(int property)
     {
         this.property = property;
-        this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
+        this.transform.GetChild(0).Rotate(0.0f, 0.0f, 90.0f * (property - 1), Space.Self);
     }
 }

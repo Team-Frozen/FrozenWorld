@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
             exit.isCollide = false;
             ShowStageClearUI();
         }
-        updateMoves();
     }
 
     void OnGUI()
@@ -114,6 +113,7 @@ public class GameManager : MonoBehaviour
                 {
                     Database.Player.GetComponent<Player>().SetDirection(direction);
                     Database.Player.GetComponent<Player>().move(direction);
+                    updateMoves();
                     clickNum = 0;
                     clicktime = 0;
                 }
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
         menuPopedUp = true;
         btn_Back.interactable = false;
         MenuUI.SetActive(true);
-        MenuUI.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
+        MenuUI.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/button/soundButton" + SettingData.SoundOn, typeof(Sprite));
     }
 
     public void ResumeGame()
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
     {
         SettingData.SoundOn = !SettingData.SoundOn;
         SaveLoadManager.Save_SettingData();
-        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = (Sprite)Resources.Load("button/soundButton" + SettingData.SoundOn, typeof(Sprite));
+        EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = (Sprite)Resources.Load("UI/button/soundButton" + SettingData.SoundOn, typeof(Sprite));
     }
 
     public void BackToHome()
@@ -227,6 +227,8 @@ public class GameManager : MonoBehaviour
     private void InitStage()
     {
         playerMoves = 0;
+        updateMoves();
+
         Player.canMove = true;
         Player.isCollide = false;
         btn_Back.interactable = true;
@@ -248,24 +250,29 @@ public class GameManager : MonoBehaviour
 
     private void updateMoves()
     {
-        int interval = -30;
-        int digits[3];
+        int interval = -70;
+        int[] digits = new int[3];
 
-        int ones_digit = 0, tens_digit = 0, hundreds_digit = 0;
-        digits[0] = 1;
-
-
-        hundreds_digit = playerMoves / 100;
-        tens_digit = (playerMoves % 100) / 10;
-        ones_digit = (playerMoves % 100) % 10;
-
-        for
-
-
-        if (hundreds_digit != 0)
+        digits[0] = playerMoves / 100;
+        digits[1] = (playerMoves % 100) / 10;
+        digits[2] = (playerMoves % 100) % 10;
+        
+        for (int i = 0; i < 3; i++)
         {
-            ;
-            interval =+ 30;
+            Sprite sprite;
+
+            if (digits[i] != 0 || (digits[i] == 0 && i == 2) || (digits[i] == 0 && digits[0] != 0)) {
+                sprite = (Sprite)Resources.Load("UI/number/" + digits[i], typeof(Sprite));  //playerMove[i] sprite 바꾸기 source + digit[i]
+                playerMove[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(interval, 20); //위치 x = interval y = const z = 0
+                interval += 70;
+            }
+            else
+            {
+                sprite = (Sprite)Resources.Load("UI/number/null", typeof(Sprite));
+                interval += 35;
+            }
+            playerMove[i].sprite = sprite;
+            playerMove[i].SetNativeSize();
         }
     }
 
