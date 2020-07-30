@@ -18,7 +18,8 @@ public class Unit : Element
     public override void setProperty(int property)
     {
         this.property = property;
-        this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
+        this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("unit/unit " + property) as Sprite;
+        //this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
     }
 
     public override BlockType returnType()

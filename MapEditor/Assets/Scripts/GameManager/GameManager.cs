@@ -149,9 +149,11 @@ public class GameManager : MonoBehaviour
         {
             if (focusBlock != null)
             {
-               focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), 0.5f + (focusBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z));
+                focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), 0.5f + (focusBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z));
 
-                if (!focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
+                if (focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
+                    focusBlock.GetComponent<Element>().setVisible();
+                else
                     focusBlock.GetComponent<Element>().setInvisible();
             }
         }
@@ -159,16 +161,19 @@ public class GameManager : MonoBehaviour
         //--------------마우스 놓음----------------//
         if (m_Event.type == EventType.MouseUp)
         {
+            // element 클릭 시
             if (focusBlock && mouseDownPoint == Input.mousePosition)
             {
                 focusBlock.GetComponent<Element>().changeProperty();
             }
+
+            // invalid area로 element 이동 시
             if (focusBlock && !focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
             {
                 if (focusBlock.GetComponent<Element>().returnType() == global::BlockType.PRT)   //PRT일 경우 linked PRT 제거
                     focusBlock.GetComponent<PrtBlock>().getLinkedPrt().deleteElement();
 
-                focusBlock.GetComponent<Element>().deleteElement();
+                focusBlock.GetComponent<Element>().deleteElement(); // Block 삭제 (UNIT, EXIT는 기존 위치로 이동)
             }
             
             focusBlock = null;
@@ -277,6 +282,7 @@ public class GameManager : MonoBehaviour
         GameObject newUnit;
 
         newUnit = Instantiate(unit, new Vector3(-(Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), 0.5f + (unit.transform.localScale.y * 0.5f), Test.Stage.GetComponent<Stage>().getStageSize() * 0.5f - 0.5f), Quaternion.identity);
+        newUnit.GetComponent<Unit>().setProperty(0);
         Test.Stage.GetComponent<Stage>().getElements().Add(newUnit);
         Test.Stage.GetComponent<Stage>().setParent(newUnit);
     }

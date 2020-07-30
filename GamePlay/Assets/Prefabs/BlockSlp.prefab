@@ -99,8 +99,8 @@ GameObject:
   - component: {fileID: 4139540007670199403}
   - component: {fileID: 4139540007667332171}
   - component: {fileID: 4139540007668299403}
-  - component: {fileID: 5100064730160690421}
   - component: {fileID: 6242311221051735365}
+  - component: {fileID: 5100064730160690421}
   m_Layer: 14
   m_Name: BlockSlp
   m_TagString: SlopeBlock
@@ -169,18 +169,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5100064730160690421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139540007670294603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86e8ce3669bc93341b9fea3007576c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6242311221051735365
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -194,3 +182,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.98, y: 1, z: 0.98}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5100064730160690421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139540007670294603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e8ce3669bc93341b9fea3007576c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -8,13 +8,13 @@ public class ArwBlock : Block
     {
         property++;
         property = property % 4;
-        this.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+        this.transform.GetChild(0).Rotate(0.0f, 0.0f, -90.0f, Space.Self);
     }
 
     public override void setProperty(int property)
     {
         this.property = property;
-        this.transform.GetChild(0).Rotate(0.0f, 0.0f, 90.0f * (property - 1), Space.Self);
+        this.transform.GetChild(0).Rotate(0.0f, 0.0f, -90.0f * (property + 1), Space.Self);
     }
 
     public override BlockType returnType()
