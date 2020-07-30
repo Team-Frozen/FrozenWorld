@@ -14,9 +14,16 @@ public class BlockArrow : Element
 
     public override void Action(Player player)
     {
+        Vector3 dir = new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2));
         player.MoveToCenter();
         player.SetVelocityZero();
-        player.TryMove(new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2)));
+        
+        player.SetDirection(dir);
+        
+        if (player.CheckMove())
+            player.TryMove(dir);
+        else
+            Player.canMove = true;
     }
 
     public override BlockType ReturnType()

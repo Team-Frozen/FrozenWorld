@@ -12,11 +12,11 @@ public class Exit : Element
         layerMask_player = 1 << LayerMask.NameToLayer("Player");
     }
 
-    void OnTriggerStay(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && other.GetComponent<Player>().GetDirection() == Vector3.right)
+        if (other.gameObject.CompareTag("Player"))
         {
-            Action(other.GetComponent<Player>());
+            Action(other.gameObject.GetComponent<Player>());
         }
     }
 

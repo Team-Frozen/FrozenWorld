@@ -2744,7 +2744,7 @@ MonoBehaviour:
   StageClearUI: {fileID: 471410894}
   MenuUI: {fileID: 500397362}
   Minimap: {fileID: 219138904}
-  playerMove:
+  playerMoveImg:
   - {fileID: 2115937190}
   - {fileID: 2005255057}
   - {fileID: 877578609}

@@ -28,13 +28,11 @@ public class CharacterSelectManager : MonoBehaviour
     private void SetVisible(int charcNum)
     {
         characters[charcNum].SetActive(true);
-        characterContents[charcNum].SetActive(true);
     }
 
     private void SetInvisible(int charcNum)
     {
         characters[charcNum].SetActive(false);
-        characterContents[charcNum].SetActive(false);
     }
 
     public void Btn_Left()

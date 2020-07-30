@@ -46,8 +46,6 @@ public class Player : Element
 
         if (isCollide)
         {
-            Debug.Log("Player.Update()...");
-
             if (GetDirection() != Vector3.zero) //WALL에 부딪힌 경우 제외
             {
                 if (isReachedToTarget(underBlock.GetComponent<Element>().GetPosition() + GetDirection()))  //다음 칸으로 왔다면 내려감 (ARW, STP, PRT, NULL인 경우만)
@@ -87,10 +85,11 @@ public class Player : Element
             SetNextBlock(this.transform.position + GetDirection());
 
             TryMove(direction);
+            GameManager.updateMoves();
         }
     }
 
-    private bool CheckMove()
+    public bool CheckMove() //다음 칸으로 움직일 수 있는지 체크
     {
         //SLP
         if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_slope))

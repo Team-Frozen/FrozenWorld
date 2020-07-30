@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject MenuUI;
     public GameObject Minimap;
 
-    public List<Image> playerMove;
+    public List<Image> playerMoveImg;
+    public static List<Image> static_playerMoveImg;
     public List<Image> img_Score;       //점수
     public Button btn_Back;             //뒤로가기 버튼
     public Text txt_MoveScore;          //Stage 클리어 시 Player 이동 횟수 txt
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        static_playerMoveImg = playerMoveImg;
         menuPopedUp = false;
         clickNum = 0;
         clicktime = 0;
@@ -113,7 +115,6 @@ public class GameManager : MonoBehaviour
                 {
                     Database.Player.GetComponent<Player>().SetDirection(direction);
                     Database.Player.GetComponent<Player>().move(direction);
-                    updateMoves();
                     clickNum = 0;
                     clicktime = 0;
                 }
@@ -248,7 +249,7 @@ public class GameManager : MonoBehaviour
         StageClearUI.SetActive(false);
     }
 
-    private void updateMoves()
+    public static void updateMoves()
     {
         int interval = -70;
         int[] digits = new int[3];
@@ -263,7 +264,7 @@ public class GameManager : MonoBehaviour
 
             if (digits[i] != 0 || (digits[i] == 0 && i == 2) || (digits[i] == 0 && digits[0] != 0)) {
                 sprite = (Sprite)Resources.Load("UI/number/" + digits[i], typeof(Sprite));  //playerMove[i] sprite 바꾸기 source + digit[i]
-                playerMove[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(interval, 20); //위치 x = interval y = const z = 0
+                static_playerMoveImg[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(interval, 20); //위치 x = interval y = const z = 0
                 interval += 70;
             }
             else
@@ -271,8 +272,8 @@ public class GameManager : MonoBehaviour
                 sprite = (Sprite)Resources.Load("UI/number/null", typeof(Sprite));
                 interval += 35;
             }
-            playerMove[i].sprite = sprite;
-            playerMove[i].SetNativeSize();
+            static_playerMoveImg[i].sprite = sprite;
+            static_playerMoveImg[i].SetNativeSize();
         }
     }
 
