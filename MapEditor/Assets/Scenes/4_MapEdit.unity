@@ -3515,15 +3515,12 @@ MonoBehaviour:
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-<<<<<<< HEAD
     m_MinSize: 5
     m_MaxSize: 50
     m_Alignment: 4
-=======
     m_MinSize: 1
     m_MaxSize: 100
     m_Alignment: 0
->>>>>>> b26d2fd9a371eee9bd70168b74d955587b67e953
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
