@@ -40,6 +40,6 @@ public class BlockSlope : Element
     public override void setProperty(int property)
     {
         this.property = property;
-        this.transform.Rotate(-90.0f, 90.0f * property, 0.0f, Space.Self);
+        this.transform.Rotate(0.0f, 90.0f * property, 0.0f, Space.Self);
     }
 }

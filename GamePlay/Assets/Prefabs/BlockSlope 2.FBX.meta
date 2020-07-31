@@ -1,14 +1,22 @@
 fileFormatVersion: 2
-guid: d5d5dbc6554a8554396c1afa4cc31486
+guid: b2118685d71f5814b884d809a78a7bd4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Box001
+    100004: Outline
     400000: //RootNode
+    400002: Box001
+    400004: Outline
     2100000: 'Material #25'
-    2300000: //RootNode
-    3300000: //RootNode
+    2100002: 01 - Default
+    2300000: Box001
+    2300002: Outline
+    3300000: Box001
+    3300002: Outline
     4300000: Box001
+    4300002: Outline
   externalObjects: {}
   materials:
     importMaterials: 1
