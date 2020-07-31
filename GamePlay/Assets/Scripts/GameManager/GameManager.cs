@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
     //Stage Clear 했을 때 나타나는 UI(Panel)
     private void ShowStageClearUI()
     {
+        AudioManager.Instance.playSound(AudioType.GAMECLEAR_SOUND);
         menuPopedUp = true;
         btn_Back.interactable = false;
         StageClearUI.SetActive(true);
@@ -395,6 +396,7 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
 
+            AudioManager.Instance.playSound(AudioType.POP_SOUND);
             coroutine = popUp(iterateTime + 1);
             StartCoroutine(coroutine);
         }

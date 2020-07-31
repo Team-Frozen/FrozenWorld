@@ -7,7 +7,9 @@ public enum AudioType
     MAIN_BGM,
     GAMEPLAY_BGM,
     BUTTON_SOUND,
-    TOGGLE_SOUND
+    TOGGLE_SOUND,
+    GAMECLEAR_SOUND,
+    POP_SOUND
 }
 
 public class AudioManager : MonoBehaviour
