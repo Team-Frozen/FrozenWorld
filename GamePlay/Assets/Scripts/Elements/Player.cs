@@ -55,17 +55,19 @@ public class Player : Element
 
                     if (isOnFloor())    //바닥에 닿았을 때
                     {
+                        Debug.Log("1");
                         rigid.velocity = Vector3.zero;
                         isCollide = false;
-
                         if (nextBlock == null)
+                        {
+                            MoveToCenter(-2);
                             TryMove(GetDirection());
+                        }
                         else
                             nextBlock = null;
                     }
                 }
             }
-
         }
     }
     void Update() {
@@ -158,7 +160,8 @@ public class Player : Element
     public bool isOnFloor()
     {
         var ray = new Ray(this.transform.position, Vector3.down);
-        var maxDistance = 0.6f;
+        var maxDistance = 0.51f;
+        Debug.Log(this.transform.position);
         return Physics.Raycast(ray, maxDistance, -1);
     }
 
@@ -169,9 +172,9 @@ public class Player : Element
     }
 
     //한 칸의 중앙으로 위치 변환
-    public void MoveToCenter()
+    public void MoveToCenter(float yPos)
     {
-        transform.position = new Vector3(CalcCenterPos(transform.position.x), transform.position.y, CalcCenterPos(transform.position.z));
+        transform.position = new Vector3(CalcCenterPos(transform.position.x), yPos, CalcCenterPos(transform.position.z));
     }
        
     //한 칸의 중앙 위치값 계산
