@@ -17,11 +17,7 @@ public class BlockSlope : Element
         //정방향으로 충돌했을 경우
         if (Physics.Raycast(transform.position, new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2)), out hit, 1f, layerMask_player))
         {
-            player.SetUnderBlock(position_vec);
-            player.SetNextBlock(position_vec + player.GetDirection());  //player.update()에서 nextblock에 따른 움직임 구현
-            
             player.GetComponent<Rigidbody>().AddForce(player.GetDirection() * 25, ForceMode.Impulse);
-            Player.isCollide = true;
         }
         //옆면에 충돌했을 경우
         else if (Physics.Raycast(transform.position, -player.GetDirection(), out hit, 1f, layerMask_player))

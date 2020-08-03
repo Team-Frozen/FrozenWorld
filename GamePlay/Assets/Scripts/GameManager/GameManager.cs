@@ -232,7 +232,6 @@ public class GameManager : MonoBehaviour
         updateMoves();
 
         Player.canMove = true;
-        Player.isCollide = false;
         btn_Back.interactable = true;
         Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToInitPos();

@@ -7,17 +7,13 @@ using UnityEngine.UI;
 public class Player : Element
 {
     public static bool canMove = true;
-    public static bool isCollide = false;
-
+    
     [SerializeField]
     private float moveSpeed;
     private Vector3 moveDir;    //이동 방향
     private Rigidbody rigid;
 
-    private GameObject underBlock;      //player 아래에 있는 블록
-    private GameObject nextBlock;       //player 이동 방향에 있는 블록
-
-    private Animator ani;
+   private Animator ani;
 
     private void Awake()
     {
@@ -44,31 +40,59 @@ public class Player : Element
                 move(GetDirection());
         }
 
-        if (isCollide)
-        {
-            if (GetDirection() != Vector3.zero) //WALL에 부딪힌 경우 제외
-            {
-                if (isReachedToTarget(underBlock.GetComponent<Element>().GetPosition() + GetDirection()))  //다음 칸으로 왔다면 내려감 (ARW, STP, PRT, NULL인 경우만)
-                {
-                    rigid.velocity = Vector3.zero;
-                    rigid.velocity = Vector3.down * 1.5f;
+        if (transform.GetComponent<Rigidbody>().velocity.y < -0.7 && isOnLayer() != "SlopeBlock") //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
+        {                                                                                         //슬로프 블록에서 내려가는 중이라면 if문으로 들어가지 않음
+            string underBlock = isOnLayer();
 
-                    if (isOnFloor())    //바닥에 닿았을 때
-                    {
-                        Debug.Log("1");
-                        rigid.velocity = Vector3.zero;
-                        isCollide = false;
-                        if (nextBlock == null)
-                        {
-                            MoveToCenter(-2);
-                            TryMove(GetDirection());
-                        }
-                        else
-                            nextBlock = null;
-                    }
+            if (transform.position.x * GetDirection().x > CalcCenterPos(transform.position.x) * GetDirection().x || //떨어져야 되는 칸의 중앙보다 더 갔을 때
+                transform.position.z * GetDirection().z > CalcCenterPos(transform.position.z) * GetDirection().z) {
+                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+                MoveToCenter(transform.position.y); // x, z Freeze + MoveToCenter
+            }
+
+            if (underBlock != "null") //떨어지는 중에 밑에 어떤 블록이 있다면 == 바닥이라면
+            {
+                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; //회전만 Freeze
+
+                if (underBlock == "GameArea") //아무 블록도 없다면 TryMove
+                {
+                    MoveToCenter(-2);
+                    if (CheckMove())
+                        TryMove(GetDirection());
+                    else
+                        Player.canMove = true;
                 }
+                //블록이 있다면 그냥 계속 떨어지면서 Action 메서드 실행
             }
         }
+        //if (isCollide)
+        //{
+        //    if (GetDirection() != Vector3.zero) //WALL에 부딪힌 경우 제외
+        //    {
+       //        if (isReachedToTarget(underBlock.GetComponent<Element>().GetPosition() + GetDirection()))  //다음 칸으로 왔다면 내려감 (ARW, STP, PRT, NULL인 경우만)
+        //        {
+        //            MoveToCenter(transform.position.y);
+        //            rigid.velocity = Vector3.zero;
+        //            //rigid.velocity = Vector3.down * 1.5f;
+
+        //            if (isOnFloor())    //바닥에 닿았을 때
+        //            {
+        //                rigid.velocity = Vector3.zero;
+        //                isCollide = false;
+        //                if (nextBlock == null)
+        //                {
+        //                    MoveToCenter(-2);
+        //                    if (CheckMove())
+        //                        TryMove(GetDirection());
+        //                    else
+        //                        Player.canMove = true;
+        //                }
+        //                else
+        //                    nextBlock = null;
+        //            }
+        //        }
+        //    }
+        //}
     }
     void Update() {
         ani.SetBool("isMoving", rigid.velocity == Vector3.zero ? false : true);
@@ -81,11 +105,6 @@ public class Player : Element
         {
             canMove = false;
             GameManager.playerMoves++;
-
-            //ORG위에서 벽에 부딪혔을 경우 다시 움직일 때를 위한 Setting
-            SetUnderBlock(this.transform.position);
-            SetNextBlock(this.transform.position + GetDirection());
-
             TryMove(direction);
             GameManager.updateMoves();
         }
@@ -156,13 +175,15 @@ public class Player : Element
             return false;
     }
 
-    //바닥에 있는지 확인
-    public bool isOnFloor()
+   //바닥에 있는지 확인
+    public string isOnLayer()
     {
         var ray = new Ray(this.transform.position, Vector3.down);
-        var maxDistance = 0.51f;
-        Debug.Log(this.transform.position);
-        return Physics.Raycast(ray, maxDistance, -1);
+        var maxDistance = 0.6f;
+        
+        if (!Physics.Raycast(ray, out hit, maxDistance))
+            return "null";
+        return hit.transform.tag;
     }
 
     //초기 위치로 변환
@@ -210,16 +231,6 @@ public class Player : Element
     public Vector3 GetDirection()
     {
         return moveDir;
-    }
-
-    public void SetNextBlock(Vector3 blockPos)
-    {
-        nextBlock = Database.Stage.GetComponent<Stage>().GetElementOn(blockPos);
-    }
-
-    public void SetUnderBlock(Vector3 blockPos)
-    {
-        underBlock = Database.Stage.GetComponent<Stage>().GetElementOn(blockPos);
     }
 
     public override void Action(Player player) 
