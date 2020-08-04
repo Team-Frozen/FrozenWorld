@@ -18,10 +18,8 @@ public class Player : Element
     private void Awake()
     {
         ani = transform.GetChild(0).GetComponent<Animator>();
-        moveSpeed = 50;
         DontDestroyOnLoad(gameObject);
         rigid = GetComponent<Rigidbody>();
-        //initUnitImage();
         layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
         layerMask_slope = 1 << LayerMask.NameToLayer("SlopeBlock");
         layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
@@ -40,8 +38,8 @@ public class Player : Element
                 move(GetDirection());
         }
 
-        if (transform.GetComponent<Rigidbody>().velocity.y < -0.7 && isOnLayer() != "SlopeBlock") //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
-        {                                                                                         //슬로프 블록에서 내려가는 중이라면 if문으로 들어가지 않음
+        else if (rigid.velocity.y > -1 && rigid.velocity.y < -0.7 && isOnLayer() != "SlopeBlock") //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
+        {
             string underBlock = isOnLayer();
 
             if (transform.position.x * GetDirection().x > CalcCenterPos(transform.position.x) * GetDirection().x || //떨어져야 되는 칸의 중앙보다 더 갔을 때
@@ -65,38 +63,10 @@ public class Player : Element
                 //블록이 있다면 그냥 계속 떨어지면서 Action 메서드 실행
             }
         }
-        //if (isCollide)
-        //{
-        //    if (GetDirection() != Vector3.zero) //WALL에 부딪힌 경우 제외
-        //    {
-       //        if (isReachedToTarget(underBlock.GetComponent<Element>().GetPosition() + GetDirection()))  //다음 칸으로 왔다면 내려감 (ARW, STP, PRT, NULL인 경우만)
-        //        {
-        //            MoveToCenter(transform.position.y);
-        //            rigid.velocity = Vector3.zero;
-        //            //rigid.velocity = Vector3.down * 1.5f;
-
-        //            if (isOnFloor())    //바닥에 닿았을 때
-        //            {
-        //                rigid.velocity = Vector3.zero;
-        //                isCollide = false;
-        //                if (nextBlock == null)
-        //                {
-        //                    MoveToCenter(-2);
-        //                    if (CheckMove())
-        //                        TryMove(GetDirection());
-        //                    else
-        //                        Player.canMove = true;
-        //                }
-        //                else
-        //                    nextBlock = null;
-        //            }
-        //        }
-        //    }
-        //}
     }
-    void Update() {
+    void Update()
+    {
         ani.SetBool("isMoving", rigid.velocity == Vector3.zero ? false : true);
-        
     }
 
     public void move(Vector3 direction)
@@ -113,24 +83,20 @@ public class Player : Element
     public bool CheckMove() //다음 칸으로 움직일 수 있는지 체크
     {
         //SLP
-        if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_slope))
+        if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 0.6f, layerMask_slope))
         {
             int propertySlope = Database.Stage.GetComponent<Stage>().GetElementOn(this.transform.position + this.GetDirection()).GetComponent<Element>().getProperty();
 
             if (this.GetDirection() == new Vector3((propertySlope - 1) * (1 - (propertySlope % 2)), 0, (2 - propertySlope) * (propertySlope % 2)))
-            {
                 return true;
-            }
             else
-            {
-                return false;
-            }
+                return false;            
         }
         //ORG, WALL
-        else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_obstacle))
+        else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 0.6f, layerMask_obstacle))
             return false;
         //EXIT
-        else if(Physics.Raycast(transform.position, this.GetDirection(), out hit, 1f, layerMask_exit))
+        else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 0.6f, layerMask_exit))
             return true;
         else
             return true;
@@ -195,6 +161,7 @@ public class Player : Element
     //한 칸의 중앙으로 위치 변환
     public void MoveToCenter(float yPos)
     {
+        Debug.Log("move to center");
         transform.position = new Vector3(CalcCenterPos(transform.position.x), yPos, CalcCenterPos(transform.position.z));
     }
        
