@@ -160,11 +160,11 @@ public class SaveLoadManager : MonoBehaviour
                 {
                     //Btn 활성화
                     Database.Btn_Chapters[Database.FocusChapter].GetComponent<Button>().interactable = true;
-
-                    //ChapterScene에서 Score SetActive
-                    Database.Chapter.SetActiveChapterScore();
                 }
-                
+
+                //ChapterScene에서 clear한 Chapter의 Score txt 설정
+                Database.Chapter.UpdateChapterScoreTxt();
+
                 //Chapter: Clear했는지 저장
                 Database.Chapter.SetIsClear(data_clear.chapters[Database.FocusChapter].isClear);
             }
@@ -346,7 +346,7 @@ public class SaveLoadManager : MonoBehaviour
             Database.Player = Instantiate(unit, Vector3.zero, Quaternion.identity);
             Database.Player.SetActive(false);
 
-            Database.Chapter_List[0].SetActiveChapterScore(0);     //Chapter1_Score active
+            Database.Chapter_List[0].UpdateChapterScoreTxt(0);     //Chapter1_Score active
             Database.Btn_Chapters[0].GetComponent<Button>().interactable = true;        //Chapter1_Btn interactable
             Database.Btn_AllStages[0][0].GetComponent<Button>().interactable = true;    //Chapter1_Stage1_Btn interactable
         }

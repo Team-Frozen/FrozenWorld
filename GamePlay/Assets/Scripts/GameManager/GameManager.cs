@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
 
         txt_MoveScore.text = playerMoves.ToString();
         Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
-        Database.Chapter.SetActiveChapterScore();                       //ChapterScene에서 점수 표시
+        Database.Chapter.UpdateChapterScoreTxt();                       //ChapterScene에서 점수 표시
     }
 
     //Menu Button 눌렀을 때 나타나는 UI(Panel)
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
             Database.Btn_Chapters[Database.FocusChapter + 1].GetComponent<Button>().interactable = true;
             Database.Btn_AllStages[Database.FocusChapter + 1][0].GetComponent<Button>().interactable = true;
 
-            Database.Chapter.SetActiveChapterScore(Database.FocusChapter + 1);
+            Database.Chapter.UpdateChapterScoreTxt(Database.FocusChapter + 1);
         }
         //모든 stage를 깼을 경우
         else

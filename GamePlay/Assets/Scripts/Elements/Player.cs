@@ -38,7 +38,7 @@ public class Player : Element
                 move(GetDirection());
         }
 
-        else if (rigid.velocity.y > -1 && rigid.velocity.y < -0.7 && isOnLayer() != "SlopeBlock") //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
+        else if (rigid.velocity.y > -2 && rigid.velocity.y < -0.7 && isOnLayer() != "SlopeBlock") //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
         {
             string underBlock = isOnLayer();
 
