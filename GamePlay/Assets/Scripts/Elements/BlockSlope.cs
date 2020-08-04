@@ -43,7 +43,8 @@ public class BlockSlope : Element
             Debug.Log("SLP exit");
 
             Player player = other.gameObject.GetComponent<Player>();
-            player.GetComponent<Rigidbody>().velocity = blockDir;
+            player.GetComponent<Player>().setOnSlope(false);
+            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             //player.TryMove(player.GetDirection());
 
             // 내려갈 때만 중심으로
@@ -65,6 +66,7 @@ public class BlockSlope : Element
         if (player.GetDirection() == blockDir)
         {
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Player>().setOnSlope(true);
             Debug.Log("SLP");
         }
     }

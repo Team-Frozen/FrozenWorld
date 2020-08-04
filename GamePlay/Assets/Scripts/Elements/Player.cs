@@ -12,8 +12,8 @@ public class Player : Element
     private float moveSpeed;
     private Vector3 moveDir;    //이동 방향
     private Rigidbody rigid;
-
-   private Animator ani;
+    private bool onSlope;
+    private Animator ani;
 
     private void Awake()
     {
@@ -37,11 +37,13 @@ public class Player : Element
             if ((h * v == 0) && !(h == 0 && v == 0))
                 move(GetDirection());
         }
+        
+        Debug.Log(isOnLayer());
 
-        else if (rigid.velocity.y > -1 && rigid.velocity.y < -0.7 && isOnLayer() != "SlopeBlock") //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
+        if (rigid.velocity.y < -0.7 && !onSlope) //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
         {
             string underBlock = isOnLayer();
-
+            
             if (transform.position.x * GetDirection().x > CalcCenterPos(transform.position.x) * GetDirection().x || //떨어져야 되는 칸의 중앙보다 더 갔을 때
                 transform.position.z * GetDirection().z > CalcCenterPos(transform.position.z) * GetDirection().z) {
                 transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
@@ -67,6 +69,11 @@ public class Player : Element
     void Update()
     {
         ani.SetBool("isMoving", rigid.velocity == Vector3.zero ? false : true);
+    }
+
+    public void setOnSlope(bool onSlope)
+    {
+        this.onSlope = onSlope;
     }
 
     public void move(Vector3 direction)
@@ -111,6 +118,7 @@ public class Player : Element
 
     public void initUnitImage()
     {
+        Debug.Log("init");
         int dir = (Database.Stage.GetComponent<Stage>().GetPlayerProperty() + 1) % 4 + 1;
 
         switch (dir)
@@ -156,6 +164,7 @@ public class Player : Element
     public void MoveToInitPos()
     {
         transform.position = Database.Stage.GetComponent<Stage>().GetPlayerPos();
+        transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     //한 칸의 중앙으로 위치 변환

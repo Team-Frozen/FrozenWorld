@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
 
         Database.Stage.SetActive(true);
         Database.Player.SetActive(true);
+        Debug.Log("B4");
         InitStage();
+        Debug.Log("Aft");
 
         exit = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Exit>();
     }
@@ -233,8 +235,8 @@ public class GameManager : MonoBehaviour
 
         Player.canMove = true;
         btn_Back.interactable = true;
-        Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().MoveToInitPos();
+        Database.Player.GetComponent<Player>().SetVelocityZero();
         Database.Player.GetComponent<Player>().initUnitImage();
 
         if(coroutine != null)
