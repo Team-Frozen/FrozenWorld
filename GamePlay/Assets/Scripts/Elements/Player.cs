@@ -37,8 +37,6 @@ public class Player : Element
             if ((h * v == 0) && !(h == 0 && v == 0))
                 move(GetDirection());
         }
-        
-        Debug.Log(isOnLayer());
 
         if (rigid.velocity.y < -0.7 && !onSlope) //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
         {

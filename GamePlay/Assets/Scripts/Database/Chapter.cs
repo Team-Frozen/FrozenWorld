@@ -14,19 +14,19 @@ public class Chapter
         CalcScore(Database.FocusChapter);
     }
 
-    public void SetActiveChapterScore()
+    public void UpdateChapterScoreTxt()
     {
         CalcScore(Database.FocusChapter);
-        GameObject Score = Database.Btn_Chapters[Database.FocusChapter].transform.parent.GetChild(3).transform.GetChild(1).gameObject;
-        Score.GetComponent<Text>().text = Database.Chapter_List[Database.FocusChapter].GetScore() + "/" + Database.Chapters[Database.FocusChapter].Count * 3;
+        GameObject Score = Database.Btn_Chapters[Database.FocusChapter].transform.parent.GetChild(3).gameObject;    // Score = star_img + score_txt
+        Score.transform.GetChild(1).gameObject.GetComponent<Text>().text = Database.Chapter_List[Database.FocusChapter].GetScore() + "/" + Database.Chapters[Database.FocusChapter].Count * 3;
         Score.SetActive(true);
     }
 
-    public void SetActiveChapterScore(int chapterNum)
+    public void UpdateChapterScoreTxt(int chapterNum)
     {
         CalcScore(chapterNum);
-        GameObject Score = Database.Btn_Chapters[chapterNum].transform.parent.GetChild(3).transform.GetChild(1).gameObject;
-        Score.GetComponent<Text>().text = Database.Chapter_List[chapterNum].GetScore() + "/" + Database.Chapters[chapterNum].Count * 3;
+        GameObject Score = Database.Btn_Chapters[chapterNum].transform.parent.GetChild(3).gameObject;
+        Score.transform.GetChild(1).gameObject.GetComponent<Text>().text = Database.Chapter_List[chapterNum].GetScore() + "/" + Database.Chapters[chapterNum].Count * 3;
         Score.SetActive(true);
     }
 
