@@ -25,14 +25,6 @@ public class BlockSlope : Element
             {
                 player.GetComponent<Rigidbody>().velocity = -blockDir * 3.0f;
             }
-            // 내려갈 때
-            else if(player.GetDirection() == blockDir)
-            {
-                
-            }
-            // 에러
-            else
-                Debug.Log("SLP error");
         }
     }
 
@@ -40,8 +32,6 @@ public class BlockSlope : Element
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("SLP exit");
-
             Player player = other.gameObject.GetComponent<Player>();
             player.GetComponent<Player>().setOnSlope(false);
             player.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -65,9 +55,8 @@ public class BlockSlope : Element
 
         if (player.GetDirection() == blockDir)
         {
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            player.GetComponent<Rigidbody>().velocity = blockDir * 3.0f;
             player.GetComponent<Player>().setOnSlope(true);
-            Debug.Log("SLP");
         }
     }
 

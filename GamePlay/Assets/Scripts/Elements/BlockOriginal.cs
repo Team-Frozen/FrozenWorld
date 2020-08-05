@@ -15,7 +15,6 @@ public class BlockOriginal : Element
 
     public override void Action(Player player)
     {
-        Debug.Log("ORG");
         player.SetVelocityZero();
         player.MoveToCenter(player.transform.position.y);
         Player.canMove = true;

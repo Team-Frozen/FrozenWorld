@@ -41,10 +41,8 @@ public class GameManager : MonoBehaviour
 
         Database.Stage.SetActive(true);
         Database.Player.SetActive(true);
-        Debug.Log("B4");
         InitStage();
-        Debug.Log("Aft");
-
+        
         exit = Database.Stage.GetComponent<Stage>().GetElements()[0].GetComponent<Exit>();
     }
 

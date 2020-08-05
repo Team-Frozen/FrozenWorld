@@ -15,7 +15,6 @@ public class Wall : Element
     public override void Action(Player player)
     {
         GameObject elementOnPos = Database.Stage.GetComponent<Stage>().GetElementOn(player.transform.position);
-        Debug.Log("wall");
         if (elementOnPos == null || elementOnPos.GetComponent<Element>().ReturnType() != BlockType.SLP)
         {
             player.SetVelocityZero();

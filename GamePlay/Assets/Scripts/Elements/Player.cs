@@ -116,7 +116,6 @@ public class Player : Element
 
     public void initUnitImage()
     {
-        Debug.Log("init");
         int dir = (Database.Stage.GetComponent<Stage>().GetPlayerProperty() + 1) % 4 + 1;
 
         switch (dir)
@@ -168,7 +167,6 @@ public class Player : Element
     //한 칸의 중앙으로 위치 변환
     public void MoveToCenter(float yPos)
     {
-        Debug.Log("move to center");
         transform.position = new Vector3(CalcCenterPos(transform.position.x), yPos, CalcCenterPos(transform.position.z));
     }
        
