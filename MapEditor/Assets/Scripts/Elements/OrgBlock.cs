@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OrgBlock : Block
 {
@@ -12,10 +13,7 @@ public class OrgBlock : Block
     public override void setProperty(int property)
     {
         this.property = property;
-        if (property == 1)
-            this.transform.GetComponent<MeshRenderer>().material.color = Color.red;
-        else
-            this.transform.GetComponent<MeshRenderer>().material.color = Color.white;
+        this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("blocks/OrgBlock" + (property), typeof(Sprite));
     }
 
     public override BlockType returnType()

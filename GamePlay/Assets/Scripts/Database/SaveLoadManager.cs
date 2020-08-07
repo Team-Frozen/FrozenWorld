@@ -282,11 +282,12 @@ public class SaveLoadManager : MonoBehaviour
 
                         position.x = data.stages[index].elements[k].position.x;
                         position.z = data.stages[index].elements[k].position.z;
+                        position.y = data.stages[index].elements[k].position.y;
 
                         switch (data.stages[index].elements[k].blockType)
                         {
                             case BlockType.UNIT:
-                                position.y = -2f;
+                                position.y = position.y - 3f;
                                 Database.Stage.GetComponent<Stage>().SetPlayerPos(position);
                                 Database.Stage.GetComponent<Stage>().SetPlayerProperty(data.stages[index].elements[k].property);
                                 break;
@@ -307,27 +308,27 @@ public class SaveLoadManager : MonoBehaviour
                                         newWall.transform.localPosition = wallPosition;
                                     }
                                 }
-                                position.y = 0.5f + exit.transform.localScale.y * 0.5f;
+                                //position.y = 0.5f + exit.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(exit, position, Quaternion.identity);
                                 break;
                             case BlockType.ORG:
-                                position.y = 0.5f + orgBlock.transform.localScale.y * 0.5f;
+                                position.y = position.y - 0.05f;
                                 newBlock = Instantiate(orgBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.ARW:
-                                position.y = 0.5f + arwBlock.transform.localScale.y * 0.5f;
+                               // position.y = 0.5f + arwBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(arwBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.SLP:
-                                position.y = 0.5f + slpBlock.transform.localScale.y * 0.5f;
+                                //position.y = 0.5f + slpBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(slpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.STP:
-                                position.y = 0.5f + stpBlock.transform.localScale.y * 0.5f;
+                                //position.y = 0.5f + stpBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.PRT:
-                                position.y = 0.5f + prtBlock.transform.localScale.y * 0.5f;
+                                //position.y = 0.5f + prtBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(prtBlock, position, Quaternion.identity);
                                 if (prtBlockNum % 2 == 1)
                                 {

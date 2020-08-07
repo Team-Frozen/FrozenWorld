@@ -17,6 +17,7 @@ public abstract class Element : MonoBehaviour
         {
             if (transform.position.x == element.transform.position.x &&
                 transform.position.z == element.transform.position.z &&
+                transform.position.y == element.transform.position.y &&
                 element != this.gameObject)
                 return true;
         }

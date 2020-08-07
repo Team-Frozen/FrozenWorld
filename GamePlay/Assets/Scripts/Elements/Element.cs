@@ -15,7 +15,7 @@ public abstract class Element : MonoBehaviour
         layerMask_player = 1 << LayerMask.NameToLayer("Player");
         layerMask_wall = 1 << LayerMask.NameToLayer("Wall");
 
-        position_vec = new Vector3(transform.position.x, -2, transform.position.z);
+        position_vec = new Vector3(transform.position.x, Mathf.Floor(transform.position.y + 1), transform.position.z);
     }
 
     public abstract BlockType ReturnType();

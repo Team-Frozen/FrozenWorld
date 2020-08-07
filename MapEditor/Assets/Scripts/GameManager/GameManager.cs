@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
         {
             if (focusBlock != null)
             {
-                focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), 0.5f + (focusBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z));
+                focusBlock.transform.position = new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, focusBlock.transform.localScale.y), calcCrd(hitInfo.point.z));
 
                 if (focusBlock.GetComponent<Element>().inValidArea(Test.Stage.GetComponent<Stage>()))
                     focusBlock.GetComponent<Element>().setVisible();
@@ -187,24 +187,24 @@ public class GameManager : MonoBehaviour
                 switch (blockType)
                 {
                     case BlockType.ORG:
-                        ghostBlock = Instantiate(orgGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (orgGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(orgGhost, new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, orgGhost.transform.localScale.y), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                     case BlockType.ARW:
-                        ghostBlock = Instantiate(arwGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (arwGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(arwGhost, new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, arwGhost.transform.localScale.y), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                     case BlockType.SLP:
-                        ghostBlock = Instantiate(slpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (slpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(slpGhost, new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, slpGhost.transform.localScale.y), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                     case BlockType.STP:
-                        ghostBlock = Instantiate(stpGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (stpGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(stpGhost, new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, stpGhost.transform.localScale.y), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                     case BlockType.PRT:
-                        ghostBlock = Instantiate(prtGhost, new Vector3(calcCrd(hitInfo.point.x), 0.5f + (prtGhost.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)), Quaternion.identity);
+                        ghostBlock = Instantiate(prtGhost, new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, prtGhost.transform.localScale.y), calcCrd(hitInfo.point.z)), Quaternion.identity);
                         break;
                 }
             }
             else
-                ghostBlock.GetComponent<GhostBlock>().move(new Vector3(calcCrd(hitInfo.point.x), 0.5f + (ghostBlock.transform.localScale.y * 0.5f), calcCrd(hitInfo.point.z)));
+                ghostBlock.GetComponent<GhostBlock>().move(new Vector3(calcCrd(hitInfo.point.x), calcYCrd(hitInfo.point.y, ghostBlock.transform.localScale.y), calcCrd(hitInfo.point.z)));
         }
         else
             Destroy(ghostBlock);       
@@ -212,6 +212,13 @@ public class GameManager : MonoBehaviour
 
     public float calcCrd(float point){
         return Mathf.Floor(point - (Test.Stage.GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f + 0.5f) + (Test.Stage.GetComponent<Stage>().getStageSize() + 1) % 2 * 0.5f;
+    }
+    public float calcYCrd(float point, float blockHeight)
+    {
+        if (point < 1)
+            return 0.5f + (blockHeight * 0.5f);
+        else
+            return 1.5f + (blockHeight * 0.5f);
     }
 
     public void getSelectedBlockType()
@@ -233,7 +240,8 @@ public class GameManager : MonoBehaviour
     public bool onBlock(RaycastHit hitInfo)
     {
         if (!Test.Stage.GetComponent<Stage>().getElements().Any() ||
-           !hitInfo.transform.GetComponent<Element>())
+           !hitInfo.transform.GetComponent<Element>() ||
+           hitInfo.transform.tag == "floor")
             return false;
 
         foreach (GameObject element in Test.Stage.GetComponent<Stage>().getElements())
