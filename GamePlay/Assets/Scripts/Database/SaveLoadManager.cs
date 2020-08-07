@@ -16,12 +16,12 @@ public enum BlockType
     WALL
 }
 
-// data
+//data_load/save
 [System.Serializable]
 public class Data
 {
-    public int chapterCount;
-    public List<int> stageCount;
+    public int chapterCount;        // chpater 수
+    public List<int> stageCount;    // stage 수
     public List<StageData> stages;
 }
 
@@ -53,6 +53,7 @@ public class Vec3
 [System.Serializable]
 public class Data_clear
 {
+    public int character;           // 선택된 캐릭터
     public List<ChapterData_clear> chapters;
 }
 
@@ -86,9 +87,10 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject btn_Chapters;
     public GameObject btn_Stages;
     public GameObject img_stageScore;
-    public GameObject txt_chapterScore;
     public GameObject wall;
-    public GameObject unit;
+    public GameObject unit1;
+    public GameObject unit2;
+    public GameObject unit3;
     public GameObject exit;
     public GameObject stage;
     public GameObject orgBlock;
@@ -98,7 +100,7 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject prtBlock;
     public GameObject canvas;
     //-----------------------------------//
-        
+
     private Data data;
     private Data_clear data_clear;
     private Data_Setting data_setting;
@@ -122,6 +124,13 @@ public class SaveLoadManager : MonoBehaviour
     private void Load_ClearData()
     {
         data_clear = DataManager.BinaryDeserialize<Data_clear>("Data_clear.sav");
+
+        CharacterSelectManager.selectedCharacter = data_clear.character;
+        if (data_clear.character == 0) Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
+        else if (data_clear.character == 1) Database.Player = Instantiate(unit2, Vector3.zero, Quaternion.identity);
+        else if (data_clear.character == 2) Database.Player = Instantiate(unit3, Vector3.zero, Quaternion.identity);
+        else Debug.Log("character prefab error");
+        Database.Player.SetActive(false);
 
         if (data_clear != null)
         {
@@ -178,6 +187,7 @@ public class SaveLoadManager : MonoBehaviour
     public static void Save_ClearData()
     {
         Data_clear data_clear = new Data_clear();
+        data_clear.character = CharacterSelectManager.selectedCharacter;       //선택된 캐릭터 정보 저장
         data_clear.chapters = new List<ChapterData_clear>();
 
         //save chapter data
@@ -343,8 +353,6 @@ public class SaveLoadManager : MonoBehaviour
                 }
                 newCanvas.SetActive(false);
             }
-            Database.Player = Instantiate(unit, Vector3.zero, Quaternion.identity);
-            Database.Player.SetActive(false);
 
             Database.Chapter_List[0].UpdateChapterScoreTxt(0);     //Chapter1_Score active
             Database.Btn_Chapters[0].GetComponent<Button>().interactable = true;        //Chapter1_Btn interactable

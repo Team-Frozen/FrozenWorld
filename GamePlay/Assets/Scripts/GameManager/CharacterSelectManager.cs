@@ -6,20 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelectManager : MonoBehaviour
 {
-    //prefab
-    public List<GameObject> pre_characters;
-
-    public List<GameObject> characterContents;
+    public List<GameObject> pre_characters;     //prefab
     public List<GameObject> characters;
     public Canvas UI_Option;
     public List<Button> Btns_Canvas;
     public List<Button> Btns_Option;
     public Image img_selected;
-    private static int focusCharacter = 0;
+
     public static int selectedCharacter = 0;
+    private int focusCharacter;
 
     private void Awake()
     {
+        focusCharacter = selectedCharacter;
         SetVisible(focusCharacter);
         Check_BtnInteractable();
         Check_isSelected();
@@ -59,6 +58,7 @@ public class CharacterSelectManager : MonoBehaviour
         Destroy(Database.Player.gameObject);
         Database.Player = Instantiate(pre_characters[selectedCharacter], Vector3.zero, Quaternion.identity);
         Database.Player.SetActive(false);
+        SaveLoadManager.Save_ClearData();
     }
 
     private void Check_BtnInteractable()
@@ -82,7 +82,7 @@ public class CharacterSelectManager : MonoBehaviour
             img_selected.gameObject.SetActive(false);
     }
 
-    public void Change_CharacterFeature(int selectNum)
+    public void Change_CharacterFeature(int selectNum)  //캐릭터 특징 변경 (수정)
     {
         switch (selectNum)
         {
