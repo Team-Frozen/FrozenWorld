@@ -125,15 +125,15 @@ public class SaveLoadManager : MonoBehaviour
     {
         data_clear = DataManager.BinaryDeserialize<Data_clear>("Data_clear.sav");
 
-        CharacterSelectManager.selectedCharacter = data_clear.character;
-        if (data_clear.character == 0) Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
-        else if (data_clear.character == 1) Database.Player = Instantiate(unit2, Vector3.zero, Quaternion.identity);
-        else if (data_clear.character == 2) Database.Player = Instantiate(unit3, Vector3.zero, Quaternion.identity);
-        else Debug.Log("character prefab error");
-        Database.Player.SetActive(false);
-
         if (data_clear != null)
         {
+            CharacterSelectManager.selectedCharacter = data_clear.character;
+            if (data_clear.character == 0) Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
+            else if (data_clear.character == 1) Database.Player = Instantiate(unit2, Vector3.zero, Quaternion.identity);
+            else if (data_clear.character == 2) Database.Player = Instantiate(unit3, Vector3.zero, Quaternion.identity);
+            else Debug.Log("character prefab error");
+            Database.Player.SetActive(false);
+
             for (Database.FocusChapter = 0; Database.FocusChapter < data_clear.chapters.Count; Database.FocusChapter++)
             {
                 for (Database.FocusStage = 0; Database.FocusStage < data_clear.chapters[Database.FocusChapter].stages.Count; Database.FocusStage++)
@@ -181,6 +181,12 @@ public class SaveLoadManager : MonoBehaviour
         else
         {
             data_clear = new Data_clear();
+
+            CharacterSelectManager.selectedCharacter = 0;
+            Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
+            Database.Player.SetActive(false);
+
+            DataManager.BinarySerialize<Data_clear>(data_clear, "Data_clear.sav");
         }
     }
 
