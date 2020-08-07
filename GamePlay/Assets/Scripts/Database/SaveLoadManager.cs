@@ -378,6 +378,9 @@ public class SaveLoadManager : MonoBehaviour
         else
         {
             data_setting = new Data_Setting();
+            SettingData.BGMVolume = 0.5f;
+            SettingData.SoundVolume = 0.5f;
+            SettingData.SoundOn = true;
         }            
     }
 
