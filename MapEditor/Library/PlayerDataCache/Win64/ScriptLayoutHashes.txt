@@ -1,6 +1,10 @@
 Win64
 PlayerPath?
+<<<<<<< HEAD
 C:/Users/LG/Desktop/정재/Frozen/FrozenWorld/MapEditor/FrozenWorld.exe
+=======
+C:/Users/kio10/Desktop/FrozenWorld.exe
+>>>>>>> 2feeda3a2d1c900caa29fc953a2a233334b00f21
 SceneListBegin?
 Assets/Scenes/1_Loading.unity
 Assets/Scenes/2_Chapters.unity
