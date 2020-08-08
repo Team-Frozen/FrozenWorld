@@ -279,10 +279,12 @@ public class GameManager : MonoBehaviour
 
     private void resizeMap()
     {
-        if(btn_size.GetComponent<ButtonHandler>().getText() != Test.Stage.GetComponent<Stage>().getStageSize())
+        if (btn_size.GetComponent<ButtonHandler>().getText() != Test.Stage.GetComponent<Stage>().getStageSize())
+        {
             Test.Stage.GetComponent<Stage>().setStageSize(btn_size.GetComponent<ButtonHandler>().getText());
-        setUnit();
-        setExit();
+            setUnit();
+            setExit();
+        }
     }
 
     private void setUnit()
