@@ -51,6 +51,7 @@ public class Vec3
 public class SaveLoadManager : MonoBehaviour
 {
     private Data data;
+    private const int STAGES_IN_A_ROW = 7;
 //-------------Prefabs--------------//
     public GameObject btn_Chapters; //
     public GameObject btn_Stages;   //
@@ -105,7 +106,7 @@ public class SaveLoadManager : MonoBehaviour
             {
                 //add chapter button
                 GameObject newChptrBtn;
-                newChptrBtn = Instantiate(btn_Chapters, new Vector3(87 + 300 * (Test.Btn_Chapters.Count), 0, 0), Quaternion.identity);
+                newChptrBtn = Instantiate(btn_Chapters, new Vector3(50 + 250 * (Test.Btn_Chapters.Count), 0, 0), Quaternion.identity);
                 newChptrBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("buttons/num" + (Test.FocusChapter + 1), typeof(Sprite));
                 newChptrBtn.transform.SetParent(canvasLoadChptr.transform, false);
                 Test.Btn_Chapters.Add(newChptrBtn);
@@ -126,10 +127,10 @@ public class SaveLoadManager : MonoBehaviour
                     newStage.GetComponent<Stage>().setMinMove(data.stages[index].minMove);
                     newStage.GetComponent<Stage>().setStageSize(data.stages[index].gameAreaSize);
                     Test.Stages.Add(newStage);
-                    
+
                     //add stage button
                     GameObject newStageBtn;
-                    newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % 9), -150 - 100 * (Test.Btn_Stages.Count / 9), 0), Quaternion.identity);
+                    newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % STAGES_IN_A_ROW), -150 - 100 * (Test.Btn_Stages.Count / STAGES_IN_A_ROW), 0), Quaternion.identity);
                     newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("buttons/num" + (Test.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     Test.Btn_Stages.Add(newStageBtn);

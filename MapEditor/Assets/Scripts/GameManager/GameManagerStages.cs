@@ -15,6 +15,9 @@ public class GameManagerStages : MonoBehaviour
 //----------------------------------//
     public  GameObject mainCanvas;
 
+    private const int  STAGES_IN_A_ROW = 7;
+    private Vector3 INIT_POSITION { get { return new Vector3(50, -100); } }
+    private const int  INTERVAL = 100;
     private int        clickedBtnIndex;
     private GameObject focusButton;
     private GameObject ghostBtn;
@@ -97,9 +100,9 @@ public class GameManagerStages : MonoBehaviour
                 }
 
                 if (indicator != null)
-                    indicator.GetComponent<RectTransform>().anchoredPosition = new Vector3(calcBtnMovePos() % 9 * 100 + 45, -(calcBtnMovePos() / 9) * 100 - 155, 0);
+                    indicator.GetComponent<RectTransform>().anchoredPosition = new Vector3(calcBtnMovePos() % STAGES_IN_A_ROW * 100 + 45, -(calcBtnMovePos() / STAGES_IN_A_ROW) * 100 - 155, 0);
                 else {
-                    indicator = Instantiate(indicateBar, new Vector3(calcBtnMovePos() % 9 * 100 + 45, - (calcBtnMovePos() / 9) * 100 - 155, 0), Quaternion.identity);
+                    indicator = Instantiate(indicateBar, new Vector3(calcBtnMovePos() % STAGES_IN_A_ROW * 100 + 45, - (calcBtnMovePos() / STAGES_IN_A_ROW) * 100 - 155, 0), Quaternion.identity);
                     indicator.transform.SetParent(mainCanvas.transform, false);
                 }
             }
@@ -151,16 +154,16 @@ public class GameManagerStages : MonoBehaviour
         int index_X, index_Y;
 
         if (Input.mousePosition.x >= 895)
-            index_X = 9;
+            index_X = STAGES_IN_A_ROW;
         else
             index_X = (int)((Input.mousePosition.x + 5) / 100);
 
         if (Input.mousePosition.y > 523)
             index_Y = 0;
         else if (Input.mousePosition.y <= Test.Btn_Stages[Test.Btn_Stages.Count - 1].transform.position.y - 95)
-            index_Y = (int)((Screen.height - Test.Btn_Stages[Test.Btn_Stages.Count - 1].transform.position.y - 50)/ 100 - 1) * 9;
+            index_Y = (int)((Screen.height - Test.Btn_Stages[Test.Btn_Stages.Count - 1].transform.position.y - 50)/ 100 - 1) * STAGES_IN_A_ROW;
         else
-            index_Y = ((Screen.height - (int)Input.mousePosition.y - 45) / 100 - 1) * 9;
+            index_Y = ((Screen.height - (int)Input.mousePosition.y - 45) / 100 - 1) * STAGES_IN_A_ROW;
 
         if (index_X + index_Y > Test.Btn_Stages.Count)
             return Test.Btn_Stages.Count;
@@ -208,12 +211,17 @@ public class GameManagerStages : MonoBehaviour
             Test.FocusStage = index + 1;
             focusButton.GetComponent<Image>().color = Color.white;
         }
-        Button = Instantiate(button, new Vector3(50 + 100 * (Test.Btn_Stages.Count % 9), -150 - 100 * (Test.Btn_Stages.Count / 9), 0), Quaternion.identity);
+        Button = Instantiate(button, calcStagePosition(Test.Btn_Stages.Count), Quaternion.identity);
         Button.transform.SetParent(Test.Canvas.transform, false);
 
         Test.Btn_Stages.Add(Button);
 
         ChangeScene_MapEdit();
+    }
+
+    private Vector3 calcStagePosition(int stageNum)
+    {
+        return INIT_POSITION + new Vector3(INTERVAL * (stageNum % STAGES_IN_A_ROW), -INTERVAL * (stageNum / STAGES_IN_A_ROW));
     }
 
     private void ChangeScene_MapEdit()

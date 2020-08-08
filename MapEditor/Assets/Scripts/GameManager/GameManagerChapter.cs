@@ -202,7 +202,7 @@ public class GameManagerChapter : MonoBehaviour
         int i = 0;
         foreach (GameObject Btn_Chapter in Test.Btn_Chapters)
         {
-            Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(87 + (300 * i) + diff - (900 * page), 0, 0);
+            Btn_Chapter.GetComponent<RectTransform>().anchoredPosition = new Vector3(50 + (250 * i) + diff - (900 * page), 0, 0);
             i++;
         }
     }
