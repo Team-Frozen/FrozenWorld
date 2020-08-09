@@ -7,7 +7,8 @@ public class BlockOriginal : Element
     void OnCollisionEnter(Collision other)
     {
         //옆면에 충돌한 경우
-        if (other.gameObject.CompareTag("Player") && Physics.Raycast(transform.position + Vector3.down * 0.4f, -other.transform.GetComponent<Player>().GetDirection(), out hit, 1.5f, layerMask_player))
+        if (other.gameObject.CompareTag("Player")
+            && Physics.Raycast(transform.position + Vector3.down * 0.4f, -other.transform.GetComponent<Player>().GetDirection(), out hit, 1.5f, layerMask_player))
         {
             Action(other.gameObject.GetComponent<Player>());
         }
@@ -17,7 +18,7 @@ public class BlockOriginal : Element
     {
         player.SetVelocityZero();
         player.MoveToCenter(player.transform.position.y);
-        Player.canMove = true;
+        player.SetCanMove(true);
     }
     public override void setProperty(int property)
     {

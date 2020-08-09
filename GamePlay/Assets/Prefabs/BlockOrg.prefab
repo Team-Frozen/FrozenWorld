@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 720035736779281172}
   m_Layer: 11
   m_Name: New Sprite
-  m_TagString: Untagged
+  m_TagString: OriginalBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,9 +197,9 @@ GameObject:
   - component: {fileID: 3025861302914026672}
   - component: {fileID: 21026458192615686}
   - component: {fileID: 1330193765134855644}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Plate
-  m_TagString: GameArea
+  m_TagString: OriginalBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

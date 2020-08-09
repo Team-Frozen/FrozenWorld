@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlockArrow : Element
 {
+    private Vector3 blockDir;
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -14,16 +16,15 @@ public class BlockArrow : Element
 
     public override void Action(Player player)
     {
-        Vector3 dir = new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2));
         player.MoveToCenter(player.transform.position.y);
         player.SetVelocityZero();
-        
-        player.SetDirection(dir);
+
+        player.SetDirection(blockDir);
         
         if (player.CheckMove())
-            player.TryMove(dir);
+            player.TryMove(blockDir);
         else
-            Player.canMove = true;
+            player.SetCanMove(true);
     }
 
     public override BlockType ReturnType()
@@ -35,5 +36,6 @@ public class BlockArrow : Element
     {
         this.property = property;
         this.transform.GetChild(0).Rotate(0.0f, 0.0f, -90.0f * (property + 1), Space.Self);
+        blockDir = new Vector3((1 - property) * (1 - (property % 2)), 0, (property - 2) * (property % 2));
     }
 }

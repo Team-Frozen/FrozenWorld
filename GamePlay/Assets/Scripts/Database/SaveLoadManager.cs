@@ -303,7 +303,7 @@ public class SaveLoadManager : MonoBehaviour
                                     Vector3 wallPosition = new Vector3();
 
                                     wallPosition.x = (data.stages[index].gameAreaSize + 1) * 0.5f;
-                                    wallPosition.y = 1.5f;
+                                    wallPosition.y = 2.0f;
                                     wallPosition.z = (data.stages[index].gameAreaSize + 1) * 0.5f - (i + 1);
 
                                     if (position.x != wallPosition.x || position.z != wallPosition.z)

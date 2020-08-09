@@ -111,10 +111,12 @@ public class GameManager : MonoBehaviour
                         direction = new Vector3(-1, 0, 0);
                 }
 
-                if (Player.canMove && direction != Vector3.zero)
+                Player player = Database.Player.GetComponent<Player>();
+
+                if (player.GetCanMove() && direction != Vector3.zero)
                 {
-                    Database.Player.GetComponent<Player>().SetDirection(direction);
-                    Database.Player.GetComponent<Player>().move(direction);
+                    player.SetDirection(direction);
+                    player.move(direction);
                     clickNum = 0;
                     clicktime = 0;
                 }
@@ -231,11 +233,12 @@ public class GameManager : MonoBehaviour
         playerMoves = 0;
         updateMoves();
 
-        Player.canMove = true;
+        Player player = Database.Player.GetComponent<Player>();
+        player.SetCanMove(true);
         btn_Back.interactable = true;
-        Database.Player.GetComponent<Player>().MoveToInitPos();
-        Database.Player.GetComponent<Player>().SetVelocityZero();
-        Database.Player.GetComponent<Player>().initUnitImage();
+        player.MoveToInitPos();
+        player.SetVelocityZero();
+        player.initUnitImage();
 
         if(coroutine != null)
             StopCoroutine(coroutine);

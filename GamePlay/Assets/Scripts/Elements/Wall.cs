@@ -6,9 +6,10 @@ public class Wall : Element
 {
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && Physics.Raycast(other.transform.position, other.transform.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_wall) && hit.transform.gameObject == this.gameObject)
+        if (other.gameObject.CompareTag("Player") 
+            && Physics.Raycast(other.transform.position, other.transform.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_wall)
+            && hit.transform.gameObject == this.gameObject)
         {
-            Debug.Log(other.transform.position + " " + other.transform.GetComponent<Player>().GetDirection());
             Action(other.transform.GetComponent<Player>());
         }
     }
@@ -16,19 +17,12 @@ public class Wall : Element
     public override void Action(Player player)
     {
         GameObject elementOnPos = Database.Stage.GetComponent<Stage>().GetElementOn(player.transform.position);
-        if (elementOnPos == null || elementOnPos.GetComponent<Element>().ReturnType() != BlockType.SLP)
+        if ((player.isOnLayer() == "GameArea")          // 1층에서 충돌
+            || player.isOnLayer() == "OriginalBlock")   // 2층 ORG 위에서 충돌
         {
             player.SetVelocityZero();
             player.MoveToCenter(player.transform.position.y);
-            Player.canMove = true;
-        }
-        //SLP 위에서 벽 충돌
-        else
-        {
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            player.SetDirection(-player.GetDirection());
-            //Quaternion q = Quaternion.LookRotation(new Vector3(-player.GetDirection().z, player.GetDirection().y, player.GetDirection().x));
-            //player.transform.rotation = q;
+            player.SetCanMove(true);
         }
     }
 

@@ -20,10 +20,10 @@ public class BlockSlope : Element
         {
             Player player = other.gameObject.GetComponent<Player>();
 
-            // 올라갈 때
+            // Stay 시, 올라가는 경우
             if (player.GetDirection() == -blockDir)
             {
-                player.GetComponent<Rigidbody>().velocity = -blockDir * 3.0f;
+                player.GetRigidbody().velocity = -blockDir * 3.0f;
             }
         }
     }
@@ -33,11 +33,10 @@ public class BlockSlope : Element
         if (other.gameObject.CompareTag("Player"))
         {
             Player player = other.gameObject.GetComponent<Player>();
-            player.GetComponent<Player>().setOnSlope(false);
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            //player.TryMove(player.GetDirection());
+            player.SetOnSlope(false);
+            player.GetRigidbody().velocity = Vector3.zero;
 
-            // 내려갈 때만 중심으로
+            // Exit 시, 내려가는 경우 (올라가는 경우 제외)
             if (player.GetDirection() == blockDir)
             {
                 player.MoveToCenter(-2);
@@ -46,17 +45,17 @@ public class BlockSlope : Element
             if (player.CheckMove())
                 player.TryMove(player.GetDirection());
             else
-                Player.canMove = true;
+                player.SetCanMove(true);
         }
     }
 
     public override void Action(Player player)
     {
-
+        // 충돌(Enter) 시, 내려가는 경우
         if (player.GetDirection() == blockDir)
         {
-            player.GetComponent<Rigidbody>().velocity = blockDir * 3.0f;
-            player.GetComponent<Player>().setOnSlope(true);
+            player.GetRigidbody().velocity = blockDir * 3.0f;
+            player.GetComponent<Player>().SetOnSlope(true);
         }
     }
 

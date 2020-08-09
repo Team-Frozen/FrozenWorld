@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class Player : Element
 {
-    public static bool canMove = true;
-    
+    private bool canMove = true;
+    private bool onSlope = false;
+
     [SerializeField]
     private float moveSpeed;
     private Vector3 moveDir;    //이동 방향
     private Rigidbody rigid;
-    private bool onSlope;
     private Animator ani;
 
     private void Awake()
@@ -35,30 +35,30 @@ public class Player : Element
 
             //이동 (수평/수직 동시에 이동 불가)
             if ((h * v == 0) && !(h == 0 && v == 0))
-                move(GetDirection());
+                move(moveDir);
         }
 
         if (rigid.velocity.y < -0.7 && !onSlope) //떨어질 때 y가속도가 붙는 걸 이용해서 떨어지는 중인 걸 체크 
         {
             string underBlock = isOnLayer();
             
-            if (transform.position.x * GetDirection().x > CalcCenterPos(transform.position.x) * GetDirection().x || //떨어져야 되는 칸의 중앙보다 더 갔을 때
-                transform.position.z * GetDirection().z > CalcCenterPos(transform.position.z) * GetDirection().z) {
-                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
+            if (transform.position.x * moveDir.x > CalcCenterPos(transform.position.x) * moveDir.x || //떨어져야 되는 칸의 중앙보다 더 갔을 때
+                transform.position.z * moveDir.z > CalcCenterPos(transform.position.z) * moveDir.z) {
+                rigid.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotation;
                 MoveToCenter(transform.position.y); // x, z Freeze + MoveToCenter
             }
 
             if (underBlock != "null") //떨어지는 중에 밑에 어떤 블록이 있다면 == 바닥이라면
             {
-                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; //회전만 Freeze
+                rigid.constraints = RigidbodyConstraints.FreezeRotation; //회전만 Freeze
                 
                 if (underBlock == "GameArea") //아무 블록도 없다면 TryMove
                 {
                     MoveToCenter(-2);
                     if (CheckMove())
-                        TryMove(GetDirection());
+                        TryMove(moveDir);
                     else
-                        Player.canMove = true;
+                        canMove = true;
                 }
                 //블록이 있다면 그냥 계속 떨어지면서 Action 메서드 실행
             }
@@ -67,11 +67,6 @@ public class Player : Element
     void Update()
     {
         ani.SetBool("isMoving", rigid.velocity == Vector3.zero ? false : true);
-    }
-
-    public void setOnSlope(bool onSlope)
-    {
-        this.onSlope = onSlope;
     }
 
     public void move(Vector3 direction)
@@ -87,22 +82,13 @@ public class Player : Element
 
     public bool CheckMove() //다음 칸으로 움직일 수 있는지 체크
     {
-        //SLP
-        if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 0.6f, layerMask_slope))
-        {
-            int propertySlope = Database.Stage.GetComponent<Stage>().GetElementOn(this.transform.position + this.GetDirection()).GetComponent<Element>().getProperty();
-
-            if (this.GetDirection() == new Vector3((propertySlope - 1) * (1 - (propertySlope % 2)), 0, (2 - propertySlope) * (propertySlope % 2)))
-                return true;
-            else
-                return false;            
-        }
-        //ORG, WALL
-        else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 0.6f, layerMask_obstacle))
+        //ORG(SLP 포함), WALL
+        if (Physics.Raycast(transform.position, this.moveDir, out hit, 0.6f, layerMask_obstacle))
             return false;
         //EXIT
-        else if (Physics.Raycast(transform.position, this.GetDirection(), out hit, 0.6f, layerMask_exit))
-            return true;
+        //else if (Physics.Raycast(transform.position, this.moveDir, out hit, 0.6f, layerMask_exit))
+        //    return true;
+        //ARW, PRT, STP, EXIT
         else
             return true;
     }
@@ -110,8 +96,7 @@ public class Player : Element
     public void TryMove(Vector3 dir)
     {
         SetDirection(dir);
-        //player 가속
-        rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);
+        rigid.AddForce(dir * moveSpeed, ForceMode.Impulse);     // 가속
     }
 
     public void initUnitImage()
@@ -137,15 +122,6 @@ public class Player : Element
         setDirImg();
     }
 
-    // target 위치에 도달했는지 검사 (한 칸의 중앙에 위치했는지 검사)
-    public bool isReachedToTarget(Vector3 target)
-    {
-        if (Mathf.Abs(transform.position.x - target.x) < 0.05f && Mathf.Abs(transform.position.z - target.z) < 0.05f)
-            return true;
-        else
-            return false;
-    }
-
    //바닥에 있는지 확인
     public string isOnLayer()
     {
@@ -161,7 +137,7 @@ public class Player : Element
     public void MoveToInitPos()
     {
         transform.position = Database.Stage.GetComponent<Stage>().GetPlayerPos();
-        transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        rigid.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     //한 칸의 중앙으로 위치 변환
@@ -175,6 +151,7 @@ public class Player : Element
     {
         return Mathf.Floor(point - (Database.Stage.GetComponent<Stage>().GetStageSize() + 1) % 2 * 0.5f + 0.5f) + (Database.Stage.GetComponent<Stage>().GetStageSize() + 1) % 2 * 0.5f;
     }
+
     private void setDirImg()
     {
         if (moveDir.z == 1)
@@ -194,22 +171,21 @@ public class Player : Element
         SetDirection(Vector3.zero);
     }
 
+    public override void Action(Player player) { }
+
+    // getter, setter
     public void SetDirection(Vector3 dir)
     {
         moveDir = dir;
         setDirImg();
     }
 
-    public Vector3 GetDirection()
-    {
-        return moveDir;
-    }
-
-    public override void Action(Player player) 
-    {
-
-    }
-
+    public Vector3 GetDirection()   {   return moveDir; }
+    public bool GetCanMove()        {   return canMove; }
+    public void SetCanMove(bool canMove)    {   this.canMove = canMove; }
+    public Rigidbody GetRigidbody()         {   return rigid;   }
+    public void SetOnSlope(bool onSlope)    {   this.onSlope = onSlope; }
+    
     public override BlockType ReturnType()
     {
         return BlockType.UNIT;

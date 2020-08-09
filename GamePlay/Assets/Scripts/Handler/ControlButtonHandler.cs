@@ -8,10 +8,12 @@ public class ControlButtonHandler : MonoBehaviour
 
     public void move()
     {
-        if (Player.canMove)
+        Player player = Database.Player.GetComponent<Player>();
+
+        if (player.GetCanMove())
         {
-            Database.Player.GetComponent<Player>().SetDirection(direction);
-            Database.Player.GetComponent<Player>().move(direction);
+            player.SetDirection(direction);
+            player.move(direction);
         }
     }
 }
