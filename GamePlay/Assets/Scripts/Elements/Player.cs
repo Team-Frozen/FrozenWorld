@@ -51,7 +51,7 @@ public class Player : Element
             if (underBlock != "null") //떨어지는 중에 밑에 어떤 블록이 있다면 == 바닥이라면
             {
                 transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation; //회전만 Freeze
-
+                
                 if (underBlock == "GameArea") //아무 블록도 없다면 TryMove
                 {
                     MoveToCenter(-2);

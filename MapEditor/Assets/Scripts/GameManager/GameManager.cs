@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     public ToggleGroup ToggleGroup;
     public Button btn_size;
     public Button btn_minMove;
+    public Text txt_MinMoves;
+    public Text txt_Stage;
 
     // Start is called before the first frame update
     void Awake()
@@ -59,7 +61,8 @@ public class GameManager : MonoBehaviour
             setExit();
         }
 
-        Debug.Log(Test.Stage.GetComponent<Stage>().getMinMove());
+        txt_MinMoves.text = Test.Stage.GetComponent<Stage>().getMinMove().ToString();
+        txt_Stage.text = (Test.FocusStage + 1).ToString();
     }
 
     void Start()
@@ -274,7 +277,7 @@ public class GameManager : MonoBehaviour
     {
         if (btn_minMove.GetComponent<ButtonHandler>().getText() != Test.Stage.GetComponent<Stage>().getMinMove())
             Test.Stage.GetComponent<Stage>().setMinMove(btn_minMove.GetComponent<ButtonHandler>().getText());
-        Debug.Log("setMinMove" + Test.Stage.GetComponent<Stage>().getMinMove());
+        txt_MinMoves.text = Test.Stage.GetComponent<Stage>().getMinMove().ToString();
     }
 
     private void resizeMap()

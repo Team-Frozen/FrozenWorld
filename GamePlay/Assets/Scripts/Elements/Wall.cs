@@ -8,6 +8,7 @@ public class Wall : Element
     {
         if (other.gameObject.CompareTag("Player") && Physics.Raycast(other.transform.position, other.transform.GetComponent<Player>().GetDirection(), out hit, 1f, layerMask_wall) && hit.transform.gameObject == this.gameObject)
         {
+            Debug.Log(other.transform.position + " " + other.transform.GetComponent<Player>().GetDirection());
             Action(other.transform.GetComponent<Player>());
         }
     }

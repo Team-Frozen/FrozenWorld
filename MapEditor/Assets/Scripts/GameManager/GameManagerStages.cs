@@ -89,7 +89,7 @@ public class GameManagerStages : MonoBehaviour
 
         if(m_Event.type == EventType.MouseDrag)
         {
-            if(clickedBtnIndex != -1)
+           if(clickedBtnIndex != -1)
             {
                 if (ghostBtn != null)
                     ghostBtn.transform.position = Input.mousePosition;
@@ -100,9 +100,9 @@ public class GameManagerStages : MonoBehaviour
                 }
 
                 if (indicator != null)
-                    indicator.GetComponent<RectTransform>().anchoredPosition = new Vector3(calcBtnMovePos() % STAGES_IN_A_ROW * 100 + 45, -(calcBtnMovePos() / STAGES_IN_A_ROW) * 100 - 155, 0);
+                    indicator.GetComponent<RectTransform>().anchoredPosition = new Vector3(calcBtnMovePos() % STAGES_IN_A_ROW * 100 + 45, -(calcBtnMovePos() / STAGES_IN_A_ROW) * 100 - 95, 0);
                 else {
-                    indicator = Instantiate(indicateBar, new Vector3(calcBtnMovePos() % STAGES_IN_A_ROW * 100 + 45, - (calcBtnMovePos() / STAGES_IN_A_ROW) * 100 - 155, 0), Quaternion.identity);
+                    indicator = Instantiate(indicateBar, new Vector3(calcBtnMovePos() % STAGES_IN_A_ROW * 100 + 45, - (calcBtnMovePos() / STAGES_IN_A_ROW) * 100 - 95, 0), Quaternion.identity);
                     indicator.transform.SetParent(mainCanvas.transform, false);
                 }
             }
@@ -158,12 +158,12 @@ public class GameManagerStages : MonoBehaviour
         else
             index_X = (int)((Input.mousePosition.x + 5) / 100);
 
-        if (Input.mousePosition.y > 523)
+        if (Input.mousePosition.y > Screen.height - INIT_POSITION.y)
             index_Y = 0;
         else if (Input.mousePosition.y <= Test.Btn_Stages[Test.Btn_Stages.Count - 1].transform.position.y - 95)
             index_Y = (int)((Screen.height - Test.Btn_Stages[Test.Btn_Stages.Count - 1].transform.position.y - 50)/ 100 - 1) * STAGES_IN_A_ROW;
         else
-            index_Y = ((Screen.height - (int)Input.mousePosition.y - 45) / 100 - 1) * STAGES_IN_A_ROW;
+            index_Y = ((Screen.height - (int)Input.mousePosition.y - 5) / 100 - 1) * STAGES_IN_A_ROW;
 
         if (index_X + index_Y > Test.Btn_Stages.Count)
             return Test.Btn_Stages.Count;

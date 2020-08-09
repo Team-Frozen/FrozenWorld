@@ -1,10 +1,6 @@
 Win64
 PlayerPath?
-<<<<<<< HEAD
-C:/Users/LG/Desktop/정재/Frozen/FrozenWorld/MapEditor/FrozenWorld.exe
-=======
-C:/Users/kio10/Desktop/FrozenWorld.exe
->>>>>>> 2feeda3a2d1c900caa29fc953a2a233334b00f21
+C:/Users/LG/Desktop/비둘기/FrozenWorld.exe
 SceneListBegin?
 Assets/Scenes/1_Loading.unity
 Assets/Scenes/2_Chapters.unity
@@ -130,7 +126,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.StpBlock
 3972e7bb18283cb01e1879b537266ffa Assembly-CSharp.dll:.GameManagerStages
-759d5ae770e106c66690a8430ef22316 Assembly-CSharp.dll:.GameManager
+d273d31e1d701881b8db3101f7b07b4a Assembly-CSharp.dll:.GameManager
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 d84a56d1b144a2d4e87badd66e9bdf5f Assembly-CSharp.dll:.ButtonHandler
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor

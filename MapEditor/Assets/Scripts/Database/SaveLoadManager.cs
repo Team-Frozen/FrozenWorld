@@ -130,7 +130,7 @@ public class SaveLoadManager : MonoBehaviour
 
                     //add stage button
                     GameObject newStageBtn;
-                    newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % STAGES_IN_A_ROW), -150 - 100 * (Test.Btn_Stages.Count / STAGES_IN_A_ROW), 0), Quaternion.identity);
+                    newStageBtn = Instantiate(btn_Stages, new Vector3(50 + 100 * (Test.Btn_Stages.Count % STAGES_IN_A_ROW), -100 - 100 * (Test.Btn_Stages.Count / STAGES_IN_A_ROW), 0), Quaternion.identity);
                     newStageBtn.GetComponent<Image>().sprite = (Sprite)Resources.Load("buttons/num" + (Test.FocusStage + 1), typeof(Sprite));
                     newStageBtn.transform.SetParent(newCanvas.transform, false);
                     Test.Btn_Stages.Add(newStageBtn);
