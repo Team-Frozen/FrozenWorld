@@ -48,4 +48,22 @@ public class BlockPortal : Element
     {
         linkedPortal = linked;
     }
+
+    public void SetColor(int var)
+    {
+        switch (var)
+        {
+            case 0:
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
+                break;
+            case 1:
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(255, 255, 0);
+                break;
+            case 2:
+                this.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(0, 255, 100);
+                break;
+            default:
+                break;
+        }
+    }
 }

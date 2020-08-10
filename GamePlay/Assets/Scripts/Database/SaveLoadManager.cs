@@ -336,6 +336,7 @@ public class SaveLoadManager : MonoBehaviour
                             case BlockType.PRT:
                                 //position.y = 0.5f + prtBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(prtBlock, position, Quaternion.identity);
+                                newBlock.GetComponent<BlockPortal>().SetColor(prtBlockNum / 2);
                                 if (prtBlockNum % 2 == 1)
                                 {
                                     newBlock.GetComponent<BlockPortal>().SetLinkedPortal(Database.Stage.GetComponent<Stage>().GetElements()[k - 2].GetComponent<BlockPortal>());

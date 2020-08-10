@@ -22,7 +22,7 @@ public class Player : Element
         rigid = GetComponent<Rigidbody>();
         layerMask_exit = 1 << LayerMask.NameToLayer("Exit");
         layerMask_slope = 1 << LayerMask.NameToLayer("SlopeBlock");
-        layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock") | 1 << LayerMask.NameToLayer("SlopeBlock"));
+        layerMask_obstacle = (1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("OriginalBlock"));
     }
 
     private void FixedUpdate()
