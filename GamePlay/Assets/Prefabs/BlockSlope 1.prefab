@@ -271,9 +271,9 @@ GameObject:
   - component: {fileID: 9094856663656836822}
   - component: {fileID: 1890348946640423186}
   - component: {fileID: 6280984955014324190}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collider_Side
-  m_TagString: Untagged
+  m_TagString: OriginalBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

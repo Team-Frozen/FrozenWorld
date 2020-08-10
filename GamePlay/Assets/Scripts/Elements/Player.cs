@@ -84,10 +84,9 @@ public class Player : Element
     {
         //ORG(SLP 포함), WALL
         if (Physics.Raycast(transform.position, this.moveDir, out hit, 0.6f, layerMask_obstacle))
+        {
             return false;
-        //EXIT
-        //else if (Physics.Raycast(transform.position, this.moveDir, out hit, 0.6f, layerMask_exit))
-        //    return true;
+        }
         //ARW, PRT, STP, EXIT
         else
             return true;
