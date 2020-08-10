@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
                         focusBlock = Instantiate(prtBlock, ghostBlock.transform.position, Quaternion.identity);
 
                         GameObject linkedBlock;
-                        Vector3 vaildPos = new Vector3(0, 0.5f, 0);
+                        Vector3 vaildPos = new Vector3(0, 0.505f, 0);
                         int stageSize = Test.Stage.GetComponent<Stage>().getStageSize();
 
                         for (int i = 0; i < stageSize; i++)

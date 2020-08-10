@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/kio10/Desktop/exe/FrozenWorld.exe
+C:/Users/LG/Desktop/비둘기/edit/FrozenWorld.exe
 SceneListBegin?
 Assets/Scenes/1_Loading.unity
 Assets/Scenes/2_Chapters.unity

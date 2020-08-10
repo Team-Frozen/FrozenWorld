@@ -98,16 +98,16 @@ public class GameManager : MonoBehaviour
                 
                 if (pressedPoint_x < Input.mousePosition.x - 50)    // 오른쪽 위 or 오른쪽 아래일 때
                 {
-                    if (pressedPoint_y < Input.mousePosition.y - 50)
+                    if (pressedPoint_y < Input.mousePosition.y - 50)     // 위
                         direction = new Vector3(1, 0, 0);
-                    else
+                    else if(pressedPoint_y > Input.mousePosition.y + 50) // 아래
                         direction = new Vector3(0, 0, -1);
                 }
                 else if(Input.mousePosition.x < pressedPoint_x - 50) // 왼쪽 위 or 왼쪽 아래일 때
                 {
                     if (pressedPoint_y < Input.mousePosition.y - 50) // 왼쪽 위
                         direction = new Vector3(0, 0, 1);
-                    else                                             // 왼쪽 아래
+                    else if(pressedPoint_y > Input .mousePosition.y + 50) //왼쪽 아래
                         direction = new Vector3(-1, 0, 0);
                 }
 
