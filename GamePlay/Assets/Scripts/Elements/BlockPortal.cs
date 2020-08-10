@@ -8,9 +8,12 @@ public class BlockPortal : Element
     private BlockPortal linkedPortal;
     private bool isActive = false;
 
-    void Start()
+    void Awake()
     {
-        position_vec = new Vector3(transform.position.x, Mathf.Floor(transform.position.y + 1), transform.position.z);
+        position_vec = new Vector3(transform.position.x, Mathf.Floor(transform.position.y - 2), transform.position.z);
+        
+        if (this.transform.position.y > 1)
+            this.transform.localScale = new Vector3(0.8f, 0, 0.8f);
     }
 
     void OnTriggerEnter(Collider other)

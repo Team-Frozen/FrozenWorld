@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BlockStop : Element
 {
+    private void Awake()
+    {
+        if (this.transform.position.y > 1)
+            this.transform.localScale = new Vector3(0.6f, 0, 0.6f);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

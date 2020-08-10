@@ -314,7 +314,6 @@ public class SaveLoadManager : MonoBehaviour
                                         newWall.transform.localPosition = wallPosition;
                                     }
                                 }
-                                //position.y = 0.5f + exit.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(exit, position, Quaternion.identity);
                                 break;
                             case BlockType.ORG:
@@ -322,19 +321,15 @@ public class SaveLoadManager : MonoBehaviour
                                 newBlock = Instantiate(orgBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.ARW:
-                               // position.y = 0.5f + arwBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(arwBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.SLP:
-                                //position.y = 0.5f + slpBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(slpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.STP:
-                                //position.y = 0.5f + stpBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(stpBlock, position, Quaternion.identity);
                                 break;
                             case BlockType.PRT:
-                                //position.y = 0.5f + prtBlock.transform.localScale.y * 0.5f;
                                 newBlock = Instantiate(prtBlock, position, Quaternion.identity);
                                 newBlock.GetComponent<BlockPortal>().SetColor(prtBlockNum / 2);
                                 if (prtBlockNum % 2 == 1)
@@ -355,7 +350,6 @@ public class SaveLoadManager : MonoBehaviour
                             newBlock.transform.localPosition = position;
                         }
                     }
-                    //Database.Stage.transform.position.y = -3f;
                     Database.Stage.SetActive(false);
                     index++;
                 }

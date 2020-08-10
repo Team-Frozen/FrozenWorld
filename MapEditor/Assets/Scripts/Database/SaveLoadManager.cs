@@ -165,6 +165,7 @@ public class SaveLoadManager : MonoBehaviour
                                 break;
                             case BlockType.PRT:
                                 newBlock = Instantiate(prtBlock, position, Quaternion.identity);
+                                newBlock.GetComponent<PrtBlock>().SetColor(prtBlockNum / 2);
                                 if (prtBlockNum % 2 == 1)
                                 {
                                     newBlock.GetComponent<PrtBlock>().setLinkedPortal(Test.Stage.GetComponent<Stage>().getElements()[k - 1].GetComponent<PrtBlock>());

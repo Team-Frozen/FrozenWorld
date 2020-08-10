@@ -5,7 +5,13 @@ using UnityEngine;
 public class BlockArrow : Element
 {
     private Vector3 blockDir;
-    
+
+    private void Awake()
+    {
+        if (this.transform.position.y > 1)
+            this.transform.localScale = new Vector3(0.7f, 0, 0.7f);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

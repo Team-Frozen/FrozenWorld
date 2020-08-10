@@ -30,18 +30,6 @@ public static class Database
         }
     }
 
-    //public static GameObject Player
-    //{
-    //    get
-    //    {
-    //        return Stage.GetComponent<Stage>().GetElements()[0];
-    //    }
-    //    set
-    //    {
-    //        Stage.GetComponent<Stage>().GetElements()[0] = value;
-    //    }
-    //}
-
     public static List<List<GameObject>> Btn_AllStages
     {
         get
