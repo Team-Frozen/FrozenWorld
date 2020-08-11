@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -22,7 +21,7 @@ public class GameManagerStart : MonoBehaviour
             characterName = "PengSik";
         else if (CharacterSelectManager.selectedCharacter == 2)
             characterName = "Ddori";
-        btn_character.GetComponent<Image>().sprite = Resources.Load<Sprite>("unit/" + characterName + "/" + characterName + "_Play4") as Sprite;
+        btn_character.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/unit/" + characterName + "/" + characterName + "_Play4") as Sprite;
     }
 
     public void ShowSettingPanel()
@@ -48,6 +47,12 @@ public class GameManagerStart : MonoBehaviour
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
         FadeOut("2_Chapters");
+    }
+
+    public void ChangeScene_HowToPlay()
+    {
+        AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);
+        FadeOut("1-2_HowToPlay");
     }
 
     private void FadeIn()
