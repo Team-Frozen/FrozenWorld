@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 85413674}
   - component: {fileID: 85413676}
   - component: {fileID: 85413673}
-  m_Layer: 5
+  m_Layer: 17
   m_Name: Btn_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,11 +475,11 @@ RectTransform:
   m_Father: {fileID: 1588046632}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -276, y: -693}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 59, y: 64}
   m_SizeDelta: {x: 450, y: 450}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &219138906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 475282572}
   - component: {fileID: 475282574}
   - component: {fileID: 475282571}
-  m_Layer: 5
+  m_Layer: 17
   m_Name: Btn_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 501650542}
   - component: {fileID: 501650544}
   - component: {fileID: 501650541}
-  m_Layer: 5
+  m_Layer: 17
   m_Name: Btn_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,6 +1123,7 @@ GameObject:
   - component: {fileID: 633858211}
   - component: {fileID: 633858210}
   - component: {fileID: 633858209}
+  - component: {fileID: 633858212}
   m_Layer: 5
   m_Name: Btn_Restart
   m_TagString: Untagged
@@ -1235,6 +1236,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633858207}
   m_CullTransparentMesh: 0
+--- !u!114 &633858212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633858207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1735381532}
+          m_MethodName: mouseEntersControlButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1735381532}
+          m_MethodName: mouseExitsControlButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  delegates: []
 --- !u!1 &659020738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,6 +1725,7 @@ GameObject:
   - component: {fileID: 1003224134}
   - component: {fileID: 1003224133}
   - component: {fileID: 1003224132}
+  - component: {fileID: 1003224135}
   m_Layer: 5
   m_Name: Btn_Menu
   m_TagString: Untagged
@@ -1792,6 +1838,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003224130}
   m_CullTransparentMesh: 0
+--- !u!114 &1003224135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003224130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1735381532}
+          m_MethodName: mouseEntersControlButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1735381532}
+          m_MethodName: mouseExitsControlButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  delegates: []
 --- !u!1 &1041625669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,7 +2154,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1478888430}
   - component: {fileID: 1478888431}
-  m_Layer: 5
+  - component: {fileID: 1478888432}
+  m_Layer: 17
   m_Name: ControlButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2106,6 +2197,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3e49d670fc05846bfc0e0fec721d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1478888432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478888429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1735381532}
+          m_MethodName: mouseExitsControlButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1735381532}
+          m_MethodName: mouseEntersControlButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  delegates: []
 --- !u!1 &1583594602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,7 +2917,7 @@ GameObject:
   - component: {fileID: 1748853963}
   - component: {fileID: 1748853965}
   - component: {fileID: 1748853962}
-  m_Layer: 5
+  m_Layer: 17
   m_Name: Btn_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

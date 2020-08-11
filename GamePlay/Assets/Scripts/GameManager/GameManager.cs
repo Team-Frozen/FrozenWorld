@@ -21,13 +21,14 @@ public class GameManager : MonoBehaviour
 
     private Exit exit;
     private bool menuPopedUp;
-    private int clickNum;
     private float clicktime;
     private const float clickdelay = 0.3f;
     private IEnumerator coroutine;
 
+    private int clickNum;
     private float pressedPoint_x;
     private float pressedPoint_y;
+    private bool mouseOnControlBtn = false;
 
 
     private void Awake()
@@ -60,24 +61,28 @@ public class GameManager : MonoBehaviour
     {
         Event m_Event = Event.current;
 
-        if (m_Event.type == EventType.MouseDown && !menuPopedUp)
+        if (m_Event.type == EventType.MouseDown)
         {
-            clickNum++;
-            if (clickNum == 1)
-                clicktime = Time.time;
-            if (clickNum > 1)
+           if (!menuPopedUp && !mouseOnControlBtn)
             {
-                if (Time.time - clicktime < clickdelay)
-                {
-                    SettingData.Camera_Zoom = !SettingData.Camera_Zoom;
-                    Minimap.SetActive(SettingData.Camera_Zoom);
-                    clickNum = 0;
-                    clicktime = 0;
-                }
-                else
-                {
-                    clickNum = 1;
+                clickNum++;
+                if (clickNum == 1)
                     clicktime = Time.time;
+                if (clickNum > 1)
+                {
+                    if (Time.time - clicktime < clickdelay)
+                    {
+                        SettingData.Camera_Zoom = !SettingData.Camera_Zoom;
+                        Minimap.SetActive(SettingData.Camera_Zoom);
+                        clickNum = 0;
+                        clicktime = 0;
+                    }
+                    else
+                    {
+                        clickNum = 1;
+                        clicktime = Time.time;
+                    }
+
                 }
             }
         }
@@ -141,6 +146,15 @@ public class GameManager : MonoBehaviour
         txt_MoveScore.text = playerMoves.ToString();
         Database.Stage.GetComponent<Stage>().SetActiveStageScore();     //StageScene에서 점수 표시
         Database.Chapter.UpdateChapterScoreTxt();                       //ChapterScene에서 점수 표시
+    }
+
+    public void mouseEntersControlButton()
+    {
+        mouseOnControlBtn = true;
+    }
+    public void mouseExitsControlButton()
+    {
+        mouseOnControlBtn = false;
     }
 
     //Menu Button 눌렀을 때 나타나는 UI(Panel)
