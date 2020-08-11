@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/LG/Desktop/정재/Frozen/frozen.apk
+C:/Users/LG/Desktop/test.apk
 SceneListBegin?
 Assets/Scenes/0_Loading.unity
 Assets/Scenes/1-1_Character.unity
@@ -12,7 +12,7 @@ SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BlockPortal
 3c08375166df118bd1801438fc36b92f Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 77c21079ace8d76ce6e941d3dabbfe6e Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
-9b04048872c517f3ef2902f7b26f57c2 Assembly-CSharp.dll:.GameManager
+6d539136a685140ba6ee0538834fb921 Assembly-CSharp.dll:.GameManager
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -167,7 +167,7 @@ e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
-117e5cfd0274457063b241b63da8ead8 Assembly-CSharp.dll:.SaveLoadManager
+a9c99bd4093ccd8ce8575ef9e185fd3d Assembly-CSharp.dll:.SaveLoadManager
 931f489e44eadf809e9310429c99dde5 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioListenerExtension
 fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
@@ -186,5 +186,5 @@ df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BlockOriginal
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BlockArrow
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
-991e3471b1bf68f87a0221d63ae3651c Assembly-CSharp.dll:.GameManagerStart
-8052da200d2e7c810652fa65fde16ee7 Assembly-CSharp.dll:.CharacterSelectManager
+5d8d2d8a724533ebcddd102954c575aa Assembly-CSharp.dll:.GameManagerStart
+2696ba7afbdf734086541f515ed1ad5d Assembly-CSharp.dll:.CharacterSelectManager
