@@ -2283,16 +2283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa08ce216aeede479a0a1091a599353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btns:
-  - {fileID: 1344395471}
-  - {fileID: 1587909390}
-  canv_instructions:
-  - {fileID: 443596314}
-  - {fileID: 45779062}
-  - {fileID: 954590834}
-  - {fileID: 1980348060}
-  - {fileID: 1832493803}
-  - {fileID: 585717606}
 --- !u!4 &1052917680
 Transform:
   m_ObjectHideFlags: 0
