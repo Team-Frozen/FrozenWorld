@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Chapter
 {
-    //private List<Stage> stages = new List<Stage>();
     private bool isClear = false;
     private int score = 0;  //모든 Stage의 점수 합
 
@@ -51,28 +50,4 @@ public class Chapter
     {
         return score;
     }
-
-    //public List<Stage> Stages
-    //{
-    //    get
-    //    {
-    //        return stages;
-    //    }
-    //    set
-    //    {
-    //        stages = value;
-    //    }
-    //}
-
-    //public Stage Stage
-    //{
-    //    get
-    //    {
-    //        return stages[Database.FocusStage];
-    //    }
-    //    set
-    //    {
-    //        stages[Database.FocusStage] = value;
-    //    }
-    //}
 }
