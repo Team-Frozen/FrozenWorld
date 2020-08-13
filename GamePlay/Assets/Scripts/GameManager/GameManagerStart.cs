@@ -21,7 +21,10 @@ public class GameManagerStart : MonoBehaviour
             characterName = "PengSik";
         else if (CharacterSelectManager.selectedCharacter == 2)
             characterName = "Ddori";
-        btn_character.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/unit/" + characterName + "/" + characterName + "_Play4") as Sprite;
+        btn_character.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/unit/" + characterName) as Sprite;
+        btn_character.GetComponent<Image>().SetNativeSize();
+        RectTransform rt = btn_character.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(btn_character.GetComponent<RectTransform>().sizeDelta.x * 0.6f, btn_character.GetComponent<RectTransform>().sizeDelta.y * 0.6f);
     }
     public void ExitGame()
     {

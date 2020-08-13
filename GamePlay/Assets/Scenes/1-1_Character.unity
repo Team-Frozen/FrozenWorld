@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -343,7 +343,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: 480, y: 480}
+  m_SizeDelta: {x: 229, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200572408
 MonoBehaviour:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd57cabcf3d7900489219fcdcddb9cd0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8c2b5846164f7d45ab81afe41697e3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -810,7 +810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d2ef31626246c5f409f2c96f063df96a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa037de15f18aa04cbeefdb235d44c02, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -844,7 +844,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: 480, y: 480}
+  m_SizeDelta: {x: 265, y: 243}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &603534126
 GameObject:
@@ -1354,7 +1354,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: 480, y: 480}
+  m_SizeDelta: {x: 251, y: 268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &924503787
 MonoBehaviour:
@@ -1374,7 +1374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8bf473805273d148aed04f4bc446d71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 362499301f4e6444f8982acb9974d508, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1765,7 +1765,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 1846fa7a4c1e4e94495ab722800839f9, type: 3}
     m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0

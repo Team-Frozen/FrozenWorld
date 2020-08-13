@@ -3,8 +3,9 @@ PlayerPath?
 C:/Users/LG/Desktop/test.apk
 SceneListBegin?
 Assets/Scenes/0_Loading.unity
-Assets/Scenes/1-1_Character.unity
 Assets/Scenes/1_Start.unity
+Assets/Scenes/1-1_Character.unity
+Assets/Scenes/1-2_HowToPlay.unity
 Assets/Scenes/2_Chapters.unity
 Assets/Scenes/3_Stages.unity
 Assets/Scenes/4_GamePlay.unity
@@ -96,6 +97,7 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Exit
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Sound
 c9bf6a9d96978f8695ab4390d8daab9a Assembly-CSharp.dll:.AudioManager
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.HowToPlayManager
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CameraResolution
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -127,15 +129,12 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 f34a043d4a92c4f42bbf059bae4fbde6 Assembly-CSharp.dll:.SliderHandler
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Canvas_Load_Chapter
-303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
-7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 459b50185a167c1d210a783633c72823 Assembly-CSharp.dll:.Player
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.CameraHandler
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BlockSlope
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.ControlButtonGroupHandler
-71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Canvas_Load_Stages
 309ddb5538e633cb56cc8c533ec34f78 Assembly-CSharp.dll:.GameManagerStages
@@ -155,6 +154,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 87486f3af9f1dead07d18bd829cc5720 Assembly-CSharp.dll:.ControlButtonHandler
+bae2813b85dee5f9ea6bf96b1abbb840 Assembly-CSharp.dll:.ScrollHandler
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.BeforeAfterTestCommandState
