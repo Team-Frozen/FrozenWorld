@@ -23,7 +23,10 @@ public class GameManagerStart : MonoBehaviour
             characterName = "Ddori";
         btn_character.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/unit/" + characterName + "/" + characterName + "_Play4") as Sprite;
     }
-
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
     public void ShowSettingPanel()
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);

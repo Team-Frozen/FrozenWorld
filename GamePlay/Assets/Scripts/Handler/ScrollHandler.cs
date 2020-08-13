@@ -72,6 +72,6 @@ public class ScrollHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     void Update()
     {
         if (!isDrag)    // 드래그 중일때만 자연스럽게 이동
-            scrollbar.value = Mathf.Lerp(scrollbar.value, targetPos, 0.1f);
+            scrollbar.value = Mathf.Lerp(scrollbar.value, targetPos, 0.3f);
     }
 }
