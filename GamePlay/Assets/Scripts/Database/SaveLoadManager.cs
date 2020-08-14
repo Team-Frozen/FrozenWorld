@@ -179,16 +179,6 @@ public class SaveLoadManager : MonoBehaviour
                 Database.Chapter.SetIsClear(data_clear.chapters[Database.FocusChapter].isClear);
             }
         }
-        else
-        {
-            data_clear = new Data_clear();
-
-            CharacterSelectManager.selectedCharacter = 0;
-            Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
-            Database.Player.SetActive(false);
-
-            DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "/Data_clear.sav");
-        }
     }
 
     public static void Save_ClearData()
