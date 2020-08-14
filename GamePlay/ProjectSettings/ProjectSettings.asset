@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: FBNF
-  productName: FrozenWorld
+  productName: Frozen World
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/kio10/Desktop/FrozenWorld/GamePlay/KeyStore/Key.keystore
+  AndroidKeystoreName: "C:/Users/LG/Desktop/\uC815\uC7AC/Frozen/FrozenWorld/GamePlay/KeyStore/Key.keystore"
   AndroidKeyaliasName: key1
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

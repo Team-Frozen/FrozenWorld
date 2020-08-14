@@ -36,6 +36,13 @@ public class GameManagerChapters : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape) && Application.platform == RuntimePlatform.Android)
+        {
+            ChangeScene_Start();
+        }
+    }
     void OnGUI()
     {
         if (chptrBtnMoving == false)

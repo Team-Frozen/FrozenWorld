@@ -24,6 +24,14 @@ public class CharacterSelectManager : MonoBehaviour
         Check_isSelected();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape) && Application.platform == RuntimePlatform.Android)
+        {
+            ChangeScene_Start();
+        }
+    }
+
     private void SetVisible(int charcNum)
     {
         characters[charcNum].SetActive(true);

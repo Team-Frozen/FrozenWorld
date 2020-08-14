@@ -26,6 +26,14 @@ public class GameManagerStart : MonoBehaviour
         RectTransform rt = btn_character.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(btn_character.GetComponent<RectTransform>().sizeDelta.x * 0.6f, btn_character.GetComponent<RectTransform>().sizeDelta.y * 0.6f);
     }
+
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape) && Application.platform == RuntimePlatform.Android)
+        {
+                ExitGame();
+        }
+    }
     public void ExitGame()
     {
         Application.Quit();

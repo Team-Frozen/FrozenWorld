@@ -36,6 +36,14 @@ public class GameManagerStages : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape) && Application.platform == RuntimePlatform.Android)
+        {
+            ChangeScene_Chapters();
+        }
+    }
+
     public void BtnClicked() //Btn_Load_Stage 눌렀을 때 실행하는 함수
     {
         AudioManager.Instance.playSound(AudioType.BUTTON_SOUND);

@@ -50,6 +50,14 @@ public class GameManager : MonoBehaviour
     //Player 이동횟수 업데이트
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape) && Application.platform == RuntimePlatform.Android)
+        {
+            if (menuPopedUp)
+                BackToHome();
+            else
+                ShowMenuUI();
+        }
+
         if (exit.isCollide)
         {
             exit.isCollide = false;

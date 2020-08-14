@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/kio10/Desktop/build/park.apk
+C:/Users/LG/Desktop/test.apk
 SceneListBegin?
 Assets/Scenes/0_Loading.unity
 Assets/Scenes/1_Start.unity
