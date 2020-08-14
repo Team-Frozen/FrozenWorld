@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 5
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: "C:/Users/LG/Desktop/\uC815\uC7AC/Frozen/FrozenWorld/GamePlay/KeyStore/Key.keystore"
+  AndroidKeystoreName: C:/Users/kio10/Desktop/FrozenWorld/GamePlay/KeyStore/Key.keystore
   AndroidKeyaliasName: key1
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

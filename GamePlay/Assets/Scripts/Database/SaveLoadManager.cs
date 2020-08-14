@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public enum BlockType
 {
@@ -220,8 +221,19 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Load()
     {
+        string tempPath = System.IO.Path.Combine(Application.streamingAssetsPath, "MapData.sav");
+
+        // Android only use WWW to read file
+        WWW reader = new WWW(tempPath);
+        while (!reader.isDone) { }
+
+        string filePath = Application.persistentDataPath + "/MapData.sav";
+        System.IO.File.WriteAllBytes(filePath, reader.bytes);
+
+        data = DataManager.BinaryDeserialize<Data>(filePath);
+
         int index = 0;
-        data = DataManager.BinaryDeserialize<Data>(Application.dataPath + "/Resources/Data/MapData.sav");
+
         if (data != null)
         {
             GameObject canvasLoadChptr = GameObject.Find("Canvas_Load_Chapters");
