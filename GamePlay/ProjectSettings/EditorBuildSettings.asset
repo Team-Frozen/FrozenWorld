@@ -13,7 +13,7 @@ EditorBuildSettings:
     guid: 33429c85a56faea47b8e09803eb569a9
   - enabled: 1
     path: Assets/Scenes/1-1_Character.unity
-    guid: 0cbc2c554e7036643907d257951d15be
+    guid: 796574a1c3f5ec74ca120a739451f125
   - enabled: 1
     path: Assets/Scenes/1-2_HowToPlay.unity
     guid: 69368fddc6fe96a449d0e41d67534217
