@@ -124,7 +124,7 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Load_ClearData()
     {
-        data_clear = DataManager.BinaryDeserialize<Data_clear>(Application.persistentDataPath + "Data_clear.sav");
+        data_clear = DataManager.BinaryDeserialize<Data_clear>(Application.persistentDataPath + "/Data_clear.sav");
 
         if (data_clear != null)
         {
@@ -187,7 +187,7 @@ public class SaveLoadManager : MonoBehaviour
             Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
             Database.Player.SetActive(false);
 
-            DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "Data_clear.sav");
+            DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "/Data_clear.sav");
         }
     }
 
@@ -216,7 +216,7 @@ public class SaveLoadManager : MonoBehaviour
             data_clear.chapters.Add(chapterData_clear);
         }
 
-        DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "Data_clear.sav");
+        DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "/Data_clear.sav");
     }
 
     private void Load()
@@ -380,7 +380,7 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Load_SettingData()
     {
-        data_setting = DataManager.BinaryDeserialize<Data_Setting>(Application.persistentDataPath + "DataSetting.sav");
+        data_setting = DataManager.BinaryDeserialize<Data_Setting>(Application.persistentDataPath + "/DataSetting.sav");
         if (data_setting != null)
         {
             SettingData.BGMVolume = data_setting.BGMVolume;
@@ -406,6 +406,6 @@ public class SaveLoadManager : MonoBehaviour
         data_setting.control_Button = SettingData.ControlMode_Button;
         data_setting.soundOn = SettingData.SoundOn;
 
-        DataManager.BinarySerialize<Data_Setting>(data_setting, Application.persistentDataPath + "DataSetting.sav");
+        DataManager.BinarySerialize<Data_Setting>(data_setting, Application.persistentDataPath + "/DataSetting.sav");
     }
 }
