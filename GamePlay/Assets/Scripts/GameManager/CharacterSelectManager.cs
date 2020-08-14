@@ -66,7 +66,7 @@ public class CharacterSelectManager : MonoBehaviour
         Destroy(Database.Player.gameObject);
         Database.Player = Instantiate(pre_characters[selectedCharacter], Vector3.zero, Quaternion.identity);
         Database.Player.SetActive(false);
-        SaveLoadManager.Save_ClearData();
+        SaveLoadManager.Save_SettingData();
     }
 
     private void Check_BtnInteractable()

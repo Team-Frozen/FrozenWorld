@@ -54,7 +54,6 @@ public class Vec3
 [System.Serializable]
 public class Data_clear
 {
-    public int character;           // 선택된 캐릭터
     public List<ChapterData_clear> chapters;
 }
 
@@ -76,6 +75,7 @@ public class StageData_clear
 [System.Serializable]
 public class Data_Setting
 {
+    public int character;
     public bool control_Button;
     public float BGMVolume;
     public float soundVolume;
@@ -124,17 +124,10 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Load_ClearData()
     {
-        data_clear = DataManager.BinaryDeserialize<Data_clear>(Application.persistentDataPath + "/Data_clear.sav");
+        data_clear = DataManager.BinaryDeserialize<Data_clear>(Application.persistentDataPath + "/Data_Clear.sav");
 
         if (data_clear != null)
         {
-            CharacterSelectManager.selectedCharacter = data_clear.character;
-            if (data_clear.character == 0) Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
-            else if (data_clear.character == 1) Database.Player = Instantiate(unit2, Vector3.zero, Quaternion.identity);
-            else if (data_clear.character == 2) Database.Player = Instantiate(unit3, Vector3.zero, Quaternion.identity);
-            else Debug.Log("character prefab error");
-            Database.Player.SetActive(false);
-
             for (Database.FocusChapter = 0; Database.FocusChapter < data_clear.chapters.Count; Database.FocusChapter++)
             {
                 for (Database.FocusStage = 0; Database.FocusStage < data_clear.chapters[Database.FocusChapter].stages.Count; Database.FocusStage++)
@@ -184,7 +177,6 @@ public class SaveLoadManager : MonoBehaviour
     public static void Save_ClearData()
     {
         Data_clear data_clear = new Data_clear();
-        data_clear.character = CharacterSelectManager.selectedCharacter;       //선택된 캐릭터 정보 저장
         data_clear.chapters = new List<ChapterData_clear>();
 
         //save chapter data
@@ -206,18 +198,18 @@ public class SaveLoadManager : MonoBehaviour
             data_clear.chapters.Add(chapterData_clear);
         }
 
-        DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "/Data_clear.sav");
+        DataManager.BinarySerialize<Data_clear>(data_clear, Application.persistentDataPath + "/Data_Clear.sav");
     }
 
     private void Load()
     {
-        string tempPath = System.IO.Path.Combine(Application.streamingAssetsPath, "MapData.sav");
+        string tempPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Data_Map.sav");
 
         // Android only use WWW to read file
         WWW reader = new WWW(tempPath);
         while (!reader.isDone) { }
 
-        string filePath = Application.persistentDataPath + "/MapData.sav";
+        string filePath = Application.persistentDataPath + "/Data_Map.sav";
         System.IO.File.WriteAllBytes(filePath, reader.bytes);
 
         data = DataManager.BinaryDeserialize<Data>(filePath);
@@ -370,9 +362,17 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Load_SettingData()
     {
-        data_setting = DataManager.BinaryDeserialize<Data_Setting>(Application.persistentDataPath + "/DataSetting.sav");
+        data_setting = DataManager.BinaryDeserialize<Data_Setting>(Application.persistentDataPath + "/Data_Setting.sav");
+
         if (data_setting != null)
         {
+            CharacterSelectManager.selectedCharacter = data_setting.character;
+            if (data_setting.character == 0) Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
+            else if (data_setting.character == 1) Database.Player = Instantiate(unit2, Vector3.zero, Quaternion.identity);
+            else if (data_setting.character == 2) Database.Player = Instantiate(unit3, Vector3.zero, Quaternion.identity);
+            else Debug.Log("character prefab error");
+            Database.Player.SetActive(false);
+
             SettingData.BGMVolume = data_setting.BGMVolume;
             SettingData.SoundVolume = data_setting.soundVolume;
             SettingData.ControlMode_Button = data_setting.control_Button;
@@ -381,6 +381,11 @@ public class SaveLoadManager : MonoBehaviour
         else
         {
             data_setting = new Data_Setting();
+
+            data_setting.character = 0;
+            Database.Player = Instantiate(unit1, Vector3.zero, Quaternion.identity);
+            Database.Player.SetActive(false);
+
             SettingData.BGMVolume = 0.5f;
             SettingData.SoundVolume = 0.5f;
             SettingData.SoundOn = true;
@@ -391,11 +396,13 @@ public class SaveLoadManager : MonoBehaviour
     {
         Data_Setting data_setting = new Data_Setting();
 
+        data_setting.character = CharacterSelectManager.selectedCharacter;       //선택된 캐릭터 정보 저장
+
         data_setting.BGMVolume = SettingData.BGMVolume;
         data_setting.soundVolume = SettingData.SoundVolume;
         data_setting.control_Button = SettingData.ControlMode_Button;
         data_setting.soundOn = SettingData.SoundOn;
 
-        DataManager.BinarySerialize<Data_Setting>(data_setting, Application.persistentDataPath + "/DataSetting.sav");
+        DataManager.BinarySerialize<Data_Setting>(data_setting, Application.persistentDataPath + "/Data_Setting.sav");
     }
 }
