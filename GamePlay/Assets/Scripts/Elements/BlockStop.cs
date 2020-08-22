@@ -8,7 +8,7 @@ public class BlockStop : Element
     private void Awake()
     {
         if (this.transform.position.y > 1)
-            this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("platform/block/StopBlock2", typeof(Sprite));
+            this.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load("UI/platform/block/StopBlock2", typeof(Sprite));
     }
 
     void OnTriggerEnter(Collider other)
